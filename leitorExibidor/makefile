@@ -1,4 +1,4 @@
-all: main.c reader.o header.o bytecode.o attributes.o output.o
+all: main.c reader.o header.o bytecode.o attribute.o output.o
 	gcc ./*.o ./main.c -o main.exe
 
 reader.o: reader.c reader.h types.h
@@ -10,8 +10,8 @@ header.o: header.c header.h types.h reader.h
 bytecode.o: bytecode.c bytecode.h types.h reader.h instructions.h
 	gcc -c bytecode.c -o bytecode.o
 
-attributes.o: attributes.c attributes.h types.h reader.h
-	gcc -c attributes.c -o attributes.o
+attribute.o: attribute.c attribute.h types.h reader.h
+	gcc -c attribute.c -o attribute.o
 
 clean:
 	rm -rf *.exe ./**/*.o *.o

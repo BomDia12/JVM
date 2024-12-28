@@ -58,7 +58,7 @@ typedef struct ClassFile {
   Method * methods;
   uint16_t attributes_count;
   Attribute * attributes;
-} ClassFileHeaders;
+} ClassFile;
 
 // Bytecode types
 typedef struct InstructionType {
