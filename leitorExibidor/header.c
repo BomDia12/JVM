@@ -19,3 +19,30 @@ Method * read_methods() {
   // Aqui é só você ler as métodos, o método tem dentro de si 
   return NULL;
 }
+
+void free_class_file(ClassFile * class_file) {
+  free_constant_pool(class_file->constant_pool);
+  free_fields(class_file->fields);
+  free_methods(class_file->methods);
+  free_attributes(class_file->attributes);
+
+  free(class_file);
+  class_file = NULL;
+}
+
+void free_constant_pool(Constant * constant_pool) {
+  free(constant_pool);
+  constant_pool = NULL;
+}
+
+void free_fields(Field * fields) {
+  // TODO free atributes of fields
+  free(fields);
+  fields = NULL;
+}
+
+void free_methods(Method * methods) {
+  // TODO free atributes of methods
+  free(methods);
+  methods = NULL;
+}

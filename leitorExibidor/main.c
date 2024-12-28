@@ -1,4 +1,6 @@
 #include "reader.h"
+#include "header.h"
+#include "output.h"
 
 int main (int argc, char *argv[]) {
   
@@ -10,8 +12,9 @@ int main (int argc, char *argv[]) {
 
   read_file(argv[1]);
 
-  uint16_t magic = read_u16();
-  printf("Magic number: %d\n", magic);
-
+  ClassFile * class_file = read_class_file();
+  print_class_file(class_file);
+  free_class_file(class_file);
+  
   return 0;
 }

@@ -62,3 +62,11 @@ uint64_t read_u64() {
   buffer->position += 8;
   return value;
 }
+
+void free_buffer() {
+  Buffer * buffer = get_buffer();
+  if (buffer->buffer != NULL) {
+    free(buffer->buffer);
+    buffer->buffer = NULL;
+  }
+}
