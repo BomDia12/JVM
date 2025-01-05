@@ -24,7 +24,7 @@ void free_class_file(ClassFile * class_file) {
   free_constant_pool(class_file->constant_pool);
   free_fields(class_file->fields);
   free_methods(class_file->methods);
-  free_attributes(class_file->attributes);
+  free_attribute(class_file->attributes);
 
   free(class_file);
   class_file = NULL;
