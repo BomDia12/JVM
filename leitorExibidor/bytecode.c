@@ -6,9 +6,12 @@ Instruction * read_instruction() {
   Instruction * instruction = malloc(sizeof(Instruction));
   instruction->opcode = instruction_type->opcode;
   instruction->operand_count = instruction_type->operand_count;
+  if (instruction->operand_count == 0) {
+    return instruction;
+  }
   instruction->operands = malloc(instruction->operand_count * sizeof(uint8_t));
   for (int i = 0; i < instruction_type->operand_count; i++) {
-    read_u32(code_buffer);
+    instruction->operands[i] = read_u8(code_buffer);
   }
-  return NULL;
+  return instruction;
 }
