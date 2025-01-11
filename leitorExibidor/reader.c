@@ -5,6 +5,11 @@ Buffer * get_buffer() {
   return &buffer;
 }
 
+Buffer * get_code_buffer() {
+  static Buffer code_buffer;
+  return &code_buffer;
+}
+
 void read_file(char * filename) {
   Buffer * buffer = get_buffer();
 
@@ -26,6 +31,10 @@ void read_file(char * filename) {
 
 uint8_t read_u8() {
   Buffer * buffer = get_buffer(buffer);
+  return read_u8(buffer);
+}
+
+uint8_t read_u8(Buffer * buffer) {
   uint8_t value = buffer->buffer[buffer->position];
   buffer->position++;
   return value;
@@ -33,6 +42,10 @@ uint8_t read_u8() {
 
 uint16_t read_u16() {
   Buffer * buffer = get_buffer(buffer);
+  return read_u16(buffer);
+}
+
+uint16_t read_u16(Buffer * buffer) {
   uint16_t value = buffer->buffer[buffer->position] << 8;
   value |= buffer->buffer[buffer->position + 1];
   buffer->position += 2;
@@ -41,6 +54,10 @@ uint16_t read_u16() {
 
 uint32_t read_u32() {
   Buffer * buffer = get_buffer(buffer);
+  return read_u32(buffer);
+}
+
+uint32_t read_u32(Buffer * buffer) {
   uint32_t value = buffer->buffer[buffer->position] << 24;
   value |= buffer->buffer[buffer->position + 1] << 16;
   value |= buffer->buffer[buffer->position + 2] << 8;
@@ -51,6 +68,10 @@ uint32_t read_u32() {
 
 uint64_t read_u64() {
   Buffer * buffer = get_buffer(buffer);
+  return read_u64(buffer);
+}
+
+uint64_t read_u64(Buffer * buffer) {
   uint64_t value = buffer->buffer[buffer->position] << 56;
   value |= buffer->buffer[buffer->position + 1] << 48;
   value |= buffer->buffer[buffer->position + 2] << 40;
@@ -65,6 +86,14 @@ uint64_t read_u64() {
 
 void free_buffer() {
   Buffer * buffer = get_buffer();
+  if (buffer->buffer != NULL) {
+    free(buffer->buffer);
+    buffer->buffer = NULL;
+  }
+}
+
+void free_code_buffer() {
+  Buffer * buffer = get_code_buffer();
   if (buffer->buffer != NULL) {
     free(buffer->buffer);
     buffer->buffer = NULL;
