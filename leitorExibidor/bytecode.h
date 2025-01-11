@@ -7,6 +7,6 @@
 
 // Miguel
 
-Instruction * read_instruction();
+Instruction read_instruction();
 
 #endif

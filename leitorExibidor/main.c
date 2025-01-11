@@ -14,7 +14,10 @@ int main (int argc, char *argv[]) {
 
   ClassFile * class_file = read_class_file();
   print_class_file(class_file);
+
   free_class_file(class_file);
+  free_buffer();
+  free_code_buffer();
   
   return 0;
 }
