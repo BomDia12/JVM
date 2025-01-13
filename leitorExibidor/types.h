@@ -14,9 +14,65 @@ typedef struct CONSTANT_Class_info {
   uint16_t name_index;
 } CONSTANT_Class_info;
 
+typedef struct CONSTANT_Fieldref_info {
+  uint8_t tag;
+  uint16_t class_index;
+  uint16_t name_and_type_index;
+} CONSTANT_Fieldref_info;
+
+typedef struct CONSTANT_Methodref_info {
+  uint8_t tag;
+  uint16_t class_index;
+  uint16_t name_and_type_index;
+} CONSTANT_Methodref_info;
+
+typedef struct CONSTANT_InterfaceMethodref_info {
+  uint8_t tag;
+  uint16_t class_index;
+  uint16_t name_and_type_index;
+} CONSTANT_InterfaceMethodref_info;
+
+typedef struct CONSTANT_NameAndType_info {
+  uint8_t tag;
+  uint16_t name_index;
+  uint16_t descriptor_index;
+} CONSTANT_NameAndType_info;
+
+typedef struct CONSTANT_Utf8_info {
+  uint8_t tag;
+  uint16_t length;
+  uint8_t bytes[];
+} CONSTANT_Utf8_info;
+
+typedef struct CONSTANT_Integer_info {
+  uint8_t tag;
+  uint32_t bytes;
+} CONSTANT_Integer_info;
+
+typedef struct CONSTANT_String_info {
+  uint8_t tag;
+  uint16_t string_index;
+} CONSTANT_String_info;
+
+typedef struct CONSTANT_Float_info {
+  uint8_t tag;
+  uint32_t bytes;
+} CONSTANT_Float_info;
+
+typedef struct CONSTANT_Long_info {
+  uint8_t tag;
+  uint32_t high_bytes;
+  uint32_t low_bytes;
+} CONSTANT_Long_info;
+
+typedef struct CONSTANT_Double_info {
+  uint8_t tag;
+  uint32_t high_bytes;
+  uint32_t low_bytes;
+} CONSTANT_Double_info;
+
 typedef union Constant {
   CONSTANT_Class_info class_info;
-  // TODO: add other types
 } Constant;
 
 // Fields types
@@ -27,12 +83,20 @@ typedef struct FIELD_Byte {
 
 typedef union Field {
   FIELD_Byte byte;
-  // TODO: add other types
+  uint16_t access_flags;
+  uint16_t name_index;
+  uint16_t descriptor_index;
+  uint16_t attributes_count;
+  Attribute * attribute_info;
 } Field;
 
 // Method types
 typedef union Method {
-  // TODO: add types
+  uint16_t access_flags;
+  uint16_t name_index;
+  uint16_t descriptor_index;
+  uint16_t attributes_count;
+  Attribute * attribute_info;
 } Method;
 
 typedef struct ExceptionTable {
