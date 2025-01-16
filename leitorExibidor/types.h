@@ -73,6 +73,16 @@ typedef struct CONSTANT_Double_info {
 
 typedef union Constant {
   CONSTANT_Class_info class_info;
+  CONSTANT_Fieldref_info fieldref_info;
+  CONSTANT_Methodref_info methodref_info;
+  CONSTANT_InterfaceMethodref_info interface_methodref_info;
+  CONSTANT_NameAndType_info name_and_type_info;
+  CONSTANT_Utf8_info utf8_info;
+  CONSTANT_Integer_info integer_info;
+  CONSTANT_String_info string_info;
+  CONSTANT_Float_info float_info;
+  CONSTANT_Long_info long_info;
+  CONSTANT_Double_info double_info;
 } Constant;
 
 // Fields types
@@ -81,13 +91,16 @@ typedef struct FIELD_Byte {
   uint8_t value;
 } FIELD_Byte;
 
-typedef union Field {
-  FIELD_Byte byte;
+typedef struct FIELD_Info {
   uint16_t access_flags;
   uint16_t name_index;
   uint16_t descriptor_index;
   uint16_t attributes_count;
   Attribute * attribute_info;
+}
+
+typedef union Field {
+  FIELD_Byte byte;
 } Field;
 
 // Method types
