@@ -27,6 +27,7 @@ void print_class_file(ClassFile * class_file) {
 }
 
 void print_constant_pool(Constant * constant_pool) {
+  Constant * cp = constant_pool;
   switch (cp->tag) {
     case 1:
       printf("CONSTANT_Utf8_info\n");
@@ -39,15 +40,15 @@ void print_constant_pool(Constant * constant_pool) {
       break;
     case 4:
       printf("CONSTANT_Float_info\n");
-      printf("Valor: %f\n", cp->float_info.bytes);
+      printf("Valor: %f\n", (float)cp->float_info.bytes);
       break;
     case 5:
       printf("CONSTANT_Long_info\n");
-      printf("Valor: %ld\n", (cp->long_info.high_bytes << 32) | cp->long_info.low_bytes);
+      printf("Valor: %ld\n", (long)cp->long_info.high_bytes | cp->long_info.low_bytes);
       break;
     case 6:
       printf("CONSTANT_Double_info\n");
-      printf("Valor: %lf\n", (cp->double_info.high_bytes << 32) | cp->double_info.low_bytes);
+      printf("Valor: %lf\n", (double)((cp->double_info.high_bytes << 32) | cp->double_info.low_bytes));
       break;
     case 7:
       printf("CONSTANT_Class_info\n");
@@ -75,7 +76,7 @@ void print_constant_pool(Constant * constant_pool) {
     case 12:
       printf("CONSTANT_NameAndType_info\n");
       printf("Index de nome: %d\n", cp->name_and_type_info.name_index);
-      printf("Index de tipo: %d\n", cp->name_and_type_info.signature_index);
+      printf("Index de tipo: %d\n", cp->name_and_type_info.descriptor_index);
       break;
     default:
       break;

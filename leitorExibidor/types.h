@@ -72,6 +72,7 @@ typedef struct CONSTANT_Double_info {
 } CONSTANT_Double_info;
 
 typedef union Constant {
+  uint8_t tag;
   CONSTANT_Class_info class_info;
   CONSTANT_Fieldref_info fieldref_info;
   CONSTANT_Methodref_info methodref_info;
@@ -96,8 +97,8 @@ typedef struct FIELD_Info {
   uint16_t name_index;
   uint16_t descriptor_index;
   uint16_t attributes_count;
-  Attribute * attribute_info;
-}
+  // Attribute * attribute_info;
+} FIELD_Info;
 
 typedef union Field {
   FIELD_Byte byte;
@@ -109,7 +110,7 @@ typedef union Method {
   uint16_t name_index;
   uint16_t descriptor_index;
   uint16_t attributes_count;
-  Attribute * attribute_info;
+  // Attribute * attribute_info;
 } Method;
 
 typedef struct ExceptionTable {
@@ -129,7 +130,7 @@ typedef struct CodeAttribute {
   uint16_t exception_table_lenght;
   ExceptionTable * exception_table;
   uint16_t attributes_count;
-  Attribute * attribute_info;
+  // Attribute * attribute_info;
 } CodeAttribute;
 
 // Attributes types
