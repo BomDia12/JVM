@@ -31,52 +31,52 @@ void print_constant_pool(Constant * constant_pool) {
   switch (cp->tag) {
     case 1:
       printf("CONSTANT_Utf8_info\n");
-      printf("Tamanho: %d\n", cp->utf8_info.length);
-      printf("String: %s\n", cp->utf8_info.bytes);
+      printf("Tamanho: %d\n", cp->ConstantUnion.utf8_info.length);
+      printf("String: %s\n", cp->ConstantUnion.utf8_info.bytes);
       break;
     case 3:
       printf("CONSTANT_Integer_info\n");
-      printf("Valor: %d\n", cp->integer_info.bytes);
+      printf("Valor: %d\n", cp->ConstantUnion.integer_info.bytes);
       break;
     case 4:
       printf("CONSTANT_Float_info\n");
-      printf("Valor: %f\n", (float)cp->float_info.bytes);
+      printf("Valor: %f\n", (float)cp->ConstantUnion.float_info.bytes);
       break;
     case 5:
       printf("CONSTANT_Long_info\n");
-      printf("Valor: %ld\n", (long)cp->long_info.high_bytes | cp->long_info.low_bytes);
+      printf("Valor: %ld\n", (long)cp->ConstantUnion.long_info.high_bytes | cp->ConstantUnion.long_info.low_bytes);
       break;
     case 6:
       printf("CONSTANT_Double_info\n");
-      printf("Valor: %lf\n", (double)((cp->double_info.high_bytes << 32) | cp->double_info.low_bytes));
+      printf("Valor: %lf\n", (double)((cp->ConstantUnion.double_info.high_bytes << 32) | cp->ConstantUnion.double_info.low_bytes));
       break;
     case 7:
       printf("CONSTANT_Class_info\n");
-      printf("Index: %d\n", cp->class_info.name_index);
+      printf("Index: %d\n", cp->ConstantUnion.class_info.name_index);
       break;
     case 8:
       printf("CONSTANT_String_info\n");
-      printf("Index: %d\n", cp->string_info.string_index);
+      printf("Index: %d\n", cp->ConstantUnion.string_info.string_index);
       break;
     case 9:
       printf("CONSTANT_Fieldref_info\n");
-      printf("Index da classe: %d\n", cp->fieldref_info.class_index);
-      printf("Index de nome e tipo: %d\n", cp->fieldref_info.name_and_type_index);
+      printf("Index da classe: %d\n", cp->ConstantUnion.fieldref_info.class_index);
+      printf("Index de nome e tipo: %d\n", cp->ConstantUnion.fieldref_info.name_and_type_index);
       break;
     case 10:
       printf("CONSTANT_Methodref_info\n");
-      printf("Index da classe: %d\n", cp->methodref_info.class_index);
-      printf("Index de nome e tipo: %d\n", cp->methodref_info.name_and_type_index);
+      printf("Index da classe: %d\n", cp->ConstantUnion.methodref_info.class_index);
+      printf("Index de nome e tipo: %d\n", cp->ConstantUnion.methodref_info.name_and_type_index);
       break;
     case 11:
       printf("CONSTANT_InterfaceMethodref_info\n");
-      printf("Index da classe: %d\n", cp->interface_methodref_info.class_index);
-      printf("Index de nome e tipo: %d\n", cp->interface_methodref_info.name_and_type_index);
+      printf("Index da classe: %d\n", cp->ConstantUnion.interface_methodref_info.class_index);
+      printf("Index de nome e tipo: %d\n", cp->ConstantUnion.interface_methodref_info.name_and_type_index);
       break;
     case 12:
       printf("CONSTANT_NameAndType_info\n");
-      printf("Index de nome: %d\n", cp->name_and_type_info.name_index);
-      printf("Index de tipo: %d\n", cp->name_and_type_info.descriptor_index);
+      printf("Index de nome: %d\n", cp->ConstantUnion.name_and_type_info.name_index);
+      printf("Index de tipo: %d\n", cp->ConstantUnion.name_and_type_info.descriptor_index);
       break;
     default:
       break;
