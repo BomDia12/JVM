@@ -19,9 +19,69 @@ void print_class_file(ClassFile * class_file) {
   printf("endereço do array de methods: %p\n", class_file->methods);
   printf("número de attributes: %d\n", class_file->attributes_count);
   printf("endereço do array de attributes: %p\n", class_file->attributes);
+
+  printf("Pool de constantes:\n");
+  for (int i = 1; i < class_file->constant_pool_count; i++) {
+    print_constant_pool(class_file->constant_pool + i);
+  }
 }
 
-void print_constant_pool(Constant * constant_pool) {}
+void print_constant_pool(Constant * constant_pool) {
+  Constant * cp = constant_pool;
+  switch (cp->tag) {
+    case 1:
+      printf("CONSTANT_Utf8_info\n");
+      printf("Tamanho: %d\n", cp->ConstantUnion.utf8_info.length);
+      printf("String: %s\n", cp->ConstantUnion.utf8_info.bytes);
+      break;
+    case 3:
+      printf("CONSTANT_Integer_info\n");
+      printf("Valor: %d\n", cp->ConstantUnion.integer_info.bytes);
+      break;
+    case 4:
+      printf("CONSTANT_Float_info\n");
+      printf("Valor: %f\n", (float)cp->ConstantUnion.float_info.bytes);
+      break;
+    case 5:
+      printf("CONSTANT_Long_info\n");
+      printf("Valor: %ld\n", (long)cp->ConstantUnion.long_info.high_bytes | cp->ConstantUnion.long_info.low_bytes);
+      break;
+    case 6:
+      printf("CONSTANT_Double_info\n");
+      printf("Valor: %lf\n", (double)((cp->ConstantUnion.double_info.high_bytes << 32) | cp->ConstantUnion.double_info.low_bytes));
+      break;
+    case 7:
+      printf("CONSTANT_Class_info\n");
+      printf("Index: %d\n", cp->ConstantUnion.class_info.name_index);
+      break;
+    case 8:
+      printf("CONSTANT_String_info\n");
+      printf("Index: %d\n", cp->ConstantUnion.string_info.string_index);
+      break;
+    case 9:
+      printf("CONSTANT_Fieldref_info\n");
+      printf("Index da classe: %d\n", cp->ConstantUnion.fieldref_info.class_index);
+      printf("Index de nome e tipo: %d\n", cp->ConstantUnion.fieldref_info.name_and_type_index);
+      break;
+    case 10:
+      printf("CONSTANT_Methodref_info\n");
+      printf("Index da classe: %d\n", cp->ConstantUnion.methodref_info.class_index);
+      printf("Index de nome e tipo: %d\n", cp->ConstantUnion.methodref_info.name_and_type_index);
+      break;
+    case 11:
+      printf("CONSTANT_InterfaceMethodref_info\n");
+      printf("Index da classe: %d\n", cp->ConstantUnion.interface_methodref_info.class_index);
+      printf("Index de nome e tipo: %d\n", cp->ConstantUnion.interface_methodref_info.name_and_type_index);
+      break;
+    case 12:
+      printf("CONSTANT_NameAndType_info\n");
+      printf("Index de nome: %d\n", cp->ConstantUnion.name_and_type_info.name_index);
+      printf("Index de tipo: %d\n", cp->ConstantUnion.name_and_type_info.descriptor_index);
+      break;
+    default:
+      break;
+  }
+}
 
 void print_fields(Field * fields) {}
 

@@ -10,29 +10,105 @@ typedef struct Buffer {
 
 // Constant Pool types
 typedef struct CONSTANT_Class_info {
-  uint8_t tag;
   uint16_t name_index;
 } CONSTANT_Class_info;
 
-typedef union Constant {
+typedef struct CONSTANT_Fieldref_info {
+  uint16_t class_index;
+  uint16_t name_and_type_index;
+} CONSTANT_Fieldref_info;
+
+typedef struct CONSTANT_Methodref_info {
+  uint16_t class_index;
+  uint16_t name_and_type_index;
+} CONSTANT_Methodref_info;
+
+typedef struct CONSTANT_InterfaceMethodref_info {
+  uint16_t class_index;
+  uint16_t name_and_type_index;
+} CONSTANT_InterfaceMethodref_info;
+
+typedef struct CONSTANT_NameAndType_info {
+  uint16_t name_index;
+  uint16_t descriptor_index;
+} CONSTANT_NameAndType_info;
+
+typedef struct CONSTANT_Utf8_info {
+  uint16_t length;
+  uint8_t bytes[];
+} CONSTANT_Utf8_info;
+
+typedef struct CONSTANT_Integer_info {
+  uint32_t bytes;
+} CONSTANT_Integer_info;
+
+typedef struct CONSTANT_String_info {
+  uint16_t string_index;
+} CONSTANT_String_info;
+
+typedef struct CONSTANT_Float_info {
+  uint32_t bytes;
+} CONSTANT_Float_info;
+
+typedef struct CONSTANT_Long_info {
+  uint32_t high_bytes;
+  uint32_t low_bytes;
+} CONSTANT_Long_info;
+
+typedef struct CONSTANT_Double_info {
+  uint32_t high_bytes;
+  uint32_t low_bytes;
+} CONSTANT_Double_info;
+
+typedef union ConstantUnion {
   CONSTANT_Class_info class_info;
-  // TODO: add other types
+  CONSTANT_Fieldref_info fieldref_info;
+  CONSTANT_Methodref_info methodref_info;
+  CONSTANT_InterfaceMethodref_info interface_methodref_info;
+  CONSTANT_NameAndType_info name_and_type_info;
+  CONSTANT_Utf8_info utf8_info;
+  CONSTANT_Integer_info integer_info;
+  CONSTANT_String_info string_info;
+  CONSTANT_Float_info float_info;
+  CONSTANT_Long_info long_info;
+  CONSTANT_Double_info double_info;
+} ConstantUnion;
+
+typedef struct Constant {
+  uint8_t tag;
+  ConstantUnion ConstantUnion;
 } Constant;
 
 // Fields types
 typedef struct FIELD_Byte {
-  uint8_t tag;
   uint8_t value;
 } FIELD_Byte;
 
-typedef union Field {
+typedef struct FIELD_Info {
+  uint16_t access_flags;
+  uint16_t name_index;
+  uint16_t descriptor_index;
+  uint16_t attributes_count;
+  // Attribute * attribute_info;
+} FIELD_Info;
+
+typedef union FieldUnion {
   FIELD_Byte byte;
-  // TODO: add other types
+  FIELD_Info info;
+} FieldUnion;
+
+typedef struct Field {
+  uint8_t tag;
+  FieldUnion FieldUnion;
 } Field;
 
 // Method types
 typedef union Method {
-  // TODO: add types
+  uint16_t access_flags;
+  uint16_t name_index;
+  uint16_t descriptor_index;
+  uint16_t attributes_count;
+  // Attribute * attribute_info;
 } Method;
 
 typedef struct ExceptionTable {
@@ -50,7 +126,7 @@ typedef struct CodeAttribute {
   uint16_t exception_table_lenght;
   ExceptionTable * exception_table;
   uint16_t attributes_count;
-  Attribute * attribute_info;
+  // Attribute * attribute_info;
 } CodeAttribute;
 
 typedef struct ConstantValueAttribute {
