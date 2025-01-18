@@ -2,7 +2,9 @@
 
 ClassFile * read_class_file() {
   // Aqui é só você ler os cabeçalhos do arquivo .class, na ordem dos slides
-  return NULL;
+  ClassFile * class_file = get_current_class_file();
+  class_file = malloc(sizeof(ClassFile));
+  return class_file;
 }
 
 Constant * read_constant_pool() {
@@ -45,4 +47,9 @@ void free_methods(Method * methods) {
   // TODO free atributes of methods
   free(methods);
   methods = NULL;
+}
+
+ClassFile * get_current_class_file() {
+  static ClassFile class_file;
+  return &class_file;
 }
