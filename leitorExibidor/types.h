@@ -165,10 +165,8 @@ typedef struct InstructionType {
 } InstructionType;
 
 typedef struct Instruction {
-  uint8_t opcode;
-  uint8_t operand_count;
+  InstructionType * type;
   uint32_t * operands;
-  char * mnemonic;
 } Instruction;
 
 #endif
