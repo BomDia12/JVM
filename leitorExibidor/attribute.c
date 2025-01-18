@@ -1,7 +1,14 @@
 #include "attribute.h"
 
 Attribute * read_attribute() {
-  // Aqui você tem que ler o attribute info e depois lidar com ele dependendo do tipo
+  Attribute * attribute = malloc(sizeof(Attribute));
+  attribute->attribute_name_index = read_u16();
+  attribute->attribute_length = read_u32();
+  ClassFile * class_file = get_current_class_file();
+
+  Constant * constant = &class_file->constant_pool[attribute->attribute_name_index];
+
+  
   return NULL;
 }
 
