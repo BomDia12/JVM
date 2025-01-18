@@ -126,7 +126,7 @@ typedef struct CodeAttribute {
   uint16_t exception_table_lenght;
   ExceptionTable * exception_table;
   uint16_t attributes_count;
-  // Attribute * attribute_info;
+  Attribute * attribute_info;
 } CodeAttribute;
 
 typedef struct ConstantValueAttribute {
@@ -159,9 +159,9 @@ typedef union AttributeUnion {
 } AttributeUnion;
 
 // 1 - ConstantValue
-// 2 - 
-// 3 - 
-// 4 - 
+// 2 - Code
+// 3 - Exceptions
+// 4 - InnerClasses
 // 0 - Não implementado
 typedef struct Attribute {
   uint16_t attribute_name_index;
