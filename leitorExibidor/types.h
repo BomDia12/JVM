@@ -8,108 +8,6 @@ typedef struct Buffer {
   uint64_t position;
 } Buffer;
 
-// Constant Pool types
-typedef struct CONSTANT_Class_info {
-  uint16_t name_index;
-} CONSTANT_Class_info;
-
-typedef struct CONSTANT_Fieldref_info {
-  uint16_t class_index;
-  uint16_t name_and_type_index;
-} CONSTANT_Fieldref_info;
-
-typedef struct CONSTANT_Methodref_info {
-  uint16_t class_index;
-  uint16_t name_and_type_index;
-} CONSTANT_Methodref_info;
-
-typedef struct CONSTANT_InterfaceMethodref_info {
-  uint16_t class_index;
-  uint16_t name_and_type_index;
-} CONSTANT_InterfaceMethodref_info;
-
-typedef struct CONSTANT_NameAndType_info {
-  uint16_t name_index;
-  uint16_t descriptor_index;
-} CONSTANT_NameAndType_info;
-
-typedef struct CONSTANT_Utf8_info {
-  uint16_t length;
-  uint8_t bytes[];
-} CONSTANT_Utf8_info;
-
-typedef struct CONSTANT_Integer_info {
-  uint32_t bytes;
-} CONSTANT_Integer_info;
-
-typedef struct CONSTANT_String_info {
-  uint16_t string_index;
-} CONSTANT_String_info;
-
-typedef struct CONSTANT_Float_info {
-  uint32_t bytes;
-} CONSTANT_Float_info;
-
-typedef struct CONSTANT_Long_info {
-  uint32_t high_bytes;
-  uint32_t low_bytes;
-} CONSTANT_Long_info;
-
-typedef struct CONSTANT_Double_info {
-  uint32_t high_bytes;
-  uint32_t low_bytes;
-} CONSTANT_Double_info;
-
-typedef union ConstantUnion {
-  CONSTANT_Class_info class_info;
-  CONSTANT_Fieldref_info fieldref_info;
-  CONSTANT_Methodref_info methodref_info;
-  CONSTANT_InterfaceMethodref_info interface_methodref_info;
-  CONSTANT_NameAndType_info name_and_type_info;
-  CONSTANT_Utf8_info utf8_info;
-  CONSTANT_Integer_info integer_info;
-  CONSTANT_String_info string_info;
-  CONSTANT_Float_info float_info;
-  CONSTANT_Long_info long_info;
-  CONSTANT_Double_info double_info;
-} ConstantUnion;
-
-typedef struct Constant {
-  uint8_t tag;
-  ConstantUnion ConstantUnion;
-} Constant;
-
-// Fields types
-typedef struct FIELD_Byte {
-  uint8_t value;
-} FIELD_Byte;
-
-typedef struct FIELD_Info {
-  uint16_t access_flags;
-  uint16_t name_index;
-  uint16_t descriptor_index;
-  uint16_t attributes_count;
-  // Attribute * attribute_info;
-} FIELD_Info;
-
-typedef union FieldUnion {
-  FIELD_Byte byte;
-  FIELD_Info info;
-} FieldUnion;
-
-typedef struct Field {
-  uint8_t tag;
-  FieldUnion FieldUnion;
-} Field;
-
-// Method types
-typedef union Method {
-  uint16_t access_flags;
-  uint16_t name_index;
-  uint16_t descriptor_index;
-  uint16_t attributes_count;
-  // Attribute * attribute_info;
-} Method;
 
 typedef struct ExceptionTable {
   uint16_t start_pc;
@@ -171,6 +69,112 @@ typedef struct Attribute {
   AttributeUnion attribute_union;
 } Attribute;
 
+// Constant Pool types
+typedef struct CONSTANT_Class_info {
+  uint16_t name_index;
+} CONSTANT_Class_info;
+
+typedef struct CONSTANT_Fieldref_info {
+  uint16_t class_index;
+  uint16_t name_and_type_index;
+} CONSTANT_Fieldref_info;
+
+typedef struct CONSTANT_Methodref_info {
+  uint16_t class_index;
+  uint16_t name_and_type_index;
+} CONSTANT_Methodref_info;
+
+typedef struct CONSTANT_InterfaceMethodref_info {
+  uint16_t class_index;
+  uint16_t name_and_type_index;
+} CONSTANT_InterfaceMethodref_info;
+
+typedef struct CONSTANT_NameAndType_info {
+  uint16_t name_index;
+  uint16_t descriptor_index;
+} CONSTANT_NameAndType_info;
+
+typedef struct CONSTANT_Utf8_info {
+  uint16_t length;
+  uint8_t * bytes;
+} CONSTANT_Utf8_info;
+
+typedef struct CONSTANT_Integer_info {
+  uint32_t bytes;
+} CONSTANT_Integer_info;
+
+typedef struct CONSTANT_String_info {
+  uint16_t string_index;
+} CONSTANT_String_info;
+
+typedef struct CONSTANT_Float_info {
+  uint32_t bytes;
+} CONSTANT_Float_info;
+
+typedef struct CONSTANT_Long_info {
+  uint32_t high_bytes;
+  uint32_t low_bytes;
+} CONSTANT_Long_info;
+
+typedef struct CONSTANT_Double_info {
+  uint32_t high_bytes;
+  uint32_t low_bytes;
+} CONSTANT_Double_info;
+
+typedef struct CONSTANT_MethodHandle {
+  uint16_t reference_kind;
+  uint16_t reference_index;
+} CONSTANT_MethodHandle;
+
+typedef struct CONSTANT_MethodType {
+  uint16_t descriptor_index;
+} CONSTANT_MethodType;
+
+typedef struct CONSTANT_InvokeDynamic {
+  uint16_t bootstrap_method_attr_index;
+  uint16_t name_and_type_index;
+} CONSTANT_InvokeDynamic;
+
+typedef union ConstantUnion {
+  CONSTANT_Class_info class_info;
+  CONSTANT_Fieldref_info fieldref_info;
+  CONSTANT_Methodref_info methodref_info;
+  CONSTANT_InterfaceMethodref_info interface_methodref_info;
+  CONSTANT_NameAndType_info name_and_type_info;
+  CONSTANT_Utf8_info utf8_info;
+  CONSTANT_Integer_info integer_info;
+  CONSTANT_String_info string_info;
+  CONSTANT_Float_info float_info;
+  CONSTANT_Long_info long_info;
+  CONSTANT_Double_info double_info;
+  CONSTANT_MethodHandle method_handle;
+  CONSTANT_MethodType method_type;
+  CONSTANT_InvokeDynamic invoke_dynamic;
+} ConstantUnion;
+
+typedef struct Constant {
+  uint8_t tag;
+  ConstantUnion ConstantUnion;
+} Constant;
+
+// Fields types
+typedef struct Field {
+  uint16_t access_flags;
+  uint16_t name_index;
+  uint16_t descriptor_index;
+  uint16_t attributes_count;
+  Attribute * * attributes;
+} Field;
+
+// Method types
+typedef union Method {
+  uint16_t access_flags;
+  uint16_t name_index;
+  uint16_t descriptor_index;
+  uint16_t attributes_count;
+  Attribute * * attributes;
+} Method;
+
 // ClassFile types
 typedef struct ClassFile {
   uint32_t magic;
@@ -188,7 +192,7 @@ typedef struct ClassFile {
   uint16_t methods_count;
   Method * methods;
   uint16_t attributes_count;
-  Attribute * attributes;
+  Attribute * * attributes;
 } ClassFile;
 
 // Bytecode types
