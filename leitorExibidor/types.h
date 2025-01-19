@@ -123,7 +123,7 @@ typedef struct CodeAttribute {
   uint16_t max_locals;
   uint32_t code_length;
   uint8_t * code;
-  uint16_t exception_table_lenght;
+  uint16_t exception_table_length;
   ExceptionTable * exception_table;
   uint16_t attributes_count;
   // list of all the attributes;

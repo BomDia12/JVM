@@ -25,9 +25,9 @@ Attribute * read_attribute() {
         attribute->attribute_union.code_attribute.code[i] = read_u8();
       }
 
-      attribute->attribute_union.code_attribute.exception_table_lenght = read_u16();
-      attribute->attribute_union.code_attribute.exception_table = malloc(attribute->attribute_union.code_attribute.exception_table_lenght * sizeof(ExceptionTable));
-      for (int j = 0; j < attribute->attribute_union.code_attribute.exception_table_lenght; j++){
+      attribute->attribute_union.code_attribute.exception_table_length = read_u16();
+      attribute->attribute_union.code_attribute.exception_table = malloc(attribute->attribute_union.code_attribute.exception_table_length * sizeof(ExceptionTable));
+      for (int j = 0; j < attribute->attribute_union.code_attribute.exception_table_length; j++){
         attribute->attribute_union.code_attribute.exception_table[j].start_pc = read_u16();
         attribute->attribute_union.code_attribute.exception_table[j].end_pc = read_u16();
         attribute->attribute_union.code_attribute.exception_table[j].handler_pc = read_u16();
