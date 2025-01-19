@@ -13,5 +13,6 @@ void print_attributes(Attribute * attributes);
 void print_classfile_access_flags_translation(uint16_t access_flags);
 void print_fields_access_flags_translation(uint16_t access_flags);
 void print_methods_access_flags_translation(uint16_t access_flags);
+void print_inner_classes_access_flags_translation(uint16_t access_flags);
 
 #endif

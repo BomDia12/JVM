@@ -30,6 +30,20 @@ void print_class_file(ClassFile * class_file) {
     print_fields(class_file->fields + i);
   }
   print_fields(class_file->fields);
+
+  printf("Métodos:\n");
+  for (int i = 0; i < class_file->methods_count; i++) {
+    printf("Método %d:\n", i);
+    print_methods(class_file->methods + i);
+  }
+  print_methods(class_file->methods);
+
+  printf("Atributos:\n");
+  for (int i = 0; i < class_file->attributes_count; i++) {
+    printf("Atributo %d:\n", i);
+    print_attributes(class_file->attributes + i);
+  }
+  print_attributes(class_file->attributes);
 }
 
 void print_constant_pool(Constant * constant_pool) {
@@ -106,7 +120,43 @@ void print_methods(Method * methods) {
 }
 
 void print_attributes(Attribute * attributes) {
+  printf("Index de nome: %d\n", attributes->attribute_name_index);
+  printf("Tamanho: %d\n", attributes->attribute_length);
   
+  // If it's a code attribute
+  if (attributes->AttributeUnion.code_attribute) {
+    printf("Profundidade máxima da pilha de operandos: %d\n", attributes->AttributeUnion.code_attribute.max_stack);
+    printf("Número de variáveis locais: %d\n", attributes->AttributeUnion.code_attribute.max_locals);
+    printf("Número de bytes no array code: %d\n", attributes->AttributeUnion.code_attribute.code_length);
+    printf("Código: %p\n", attributes->AttributeUnion.code_attribute.code);
+    printf("Número de tabelas de exceções: %d\n", attributes->AttributeUnion.code_attribute.exception_table_lenght);
+    printf("Tabelas de exceções: %p\n", attributes->AttributeUnion.code_attribute.exception_table);
+    printf("Número de atributos: %d\n", attributes->AttributeUnion.code_attribute.attributes_count);
+  }
+
+  // If it's a constant value attribute
+  if (attributes->AttributeUnion.constant_value_attribute) {
+    printf("Index da constante: %d\n", attributes->AttributeUnion.constant_value_attribute.constantvalue_index);
+  }
+
+  // If it's an exception attribute
+  if (attributes->AttributeUnion.exception_attribute) {
+    printf("Numero de exceções: %d\n", attributes->AttributeUnion.exception_attribute.number_of_exceptions);
+    printf("Índice da tabela de exceções: %p\n", attributes->AttributeUnion.exception_attribute.exception_index_table);
+  }
+
+  // If it's an inner classes attribute
+  if (attributes->AttributeUnion.inner_classes_attribute) {
+    printf("Numero de classes: %d\n", attributes->AttributeUnion.inner_classes_attribute.number_of_classes);
+    printf("Classes:\n");
+    for (int i = 0; i < attributes->AttributeUnion.inner_classes_attribute.number_of_classes; i++) {
+      printf("Inner class info index: %d\n", attributes->AttributeUnion.inner_classes_attribute.classes[i].inner_class_info_index);
+      printf("Outer class info index: %d\n", attributes->AttributeUnion.inner_classes_attribute.classes[i].outer_class_info_index);
+      printf("Inner name index: %d\n", attributes->AttributeUnion.inner_classes_attribute.classes[i].inner_name_index);
+      printf("Inner class access flags: %d\n", attributes->AttributeUnion.inner_classes_attribute.classes[i].inner_class_access_flags);
+      print_inner_classes_access_flags_translation(attributes->AttributeUnion.inner_classes_attribute.classes[i].inner_class_access_flags);
+    }
+  }
 }
 
 void print_classfile_access_flags_translation(uint16_t access_flags) {
@@ -251,6 +301,44 @@ void print_methods_access_flags_translation(uint16_t access_flags) {
   switch (access_flags & 0xf000) {
     case 0x1000:
       printf("ACC_SYNTHETIC\n");
+      break;
+    default:
+      break;
+  }
+}
+
+void print_inner_classes_access_flags_translation(uint16_t access_flags) {
+  switch (access_flags & 0x000f) {
+    case 0x0001:
+      printf("ACC_PUBLIC\n");
+      break;
+    case 0x0002:
+      printf("ACC_PRIVATE\n");
+      break;
+    case 0x0004:
+      printf("ACC_PROTECTED\n");
+      break;
+    case 0x0008:
+      printf("ACC_STATIC\n");
+      break;
+    default:
+      break;
+  }
+
+  switch (access_flags & 0x00f0) {
+    case 0x0010:
+      printf("ACC_FINAL\n");
+      break;
+    default:  
+      break;
+  }
+
+  switch (access_flags & 0x0f00) {
+    case 0x0200:
+      printf("ACC_INTERFACE\n");
+      break;
+    case 0x0400:
+      printf("ACC_ABSTRACT\n");
       break;
     default:
       break;
