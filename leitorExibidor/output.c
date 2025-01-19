@@ -120,41 +120,44 @@ void print_methods(Method * methods) {
 }
 
 void print_attributes(Attribute * attributes) {
+  const char * type_names[5] = {"Não implementado","ConstantValue", "Code", "Exceptions", "InnerClasses"};
+
   printf("Index de nome: %d\n", attributes->attribute_name_index);
   printf("Tamanho: %d\n", attributes->attribute_length);
+  printf("Tipo de atributo: %s\n", type_names[attributes->attribute_type]);
   
   // If it's a code attribute
-  if (attributes->AttributeUnion.code_attribute) {
-    printf("Profundidade máxima da pilha de operandos: %d\n", attributes->AttributeUnion.code_attribute.max_stack);
-    printf("Número de variáveis locais: %d\n", attributes->AttributeUnion.code_attribute.max_locals);
-    printf("Número de bytes no array code: %d\n", attributes->AttributeUnion.code_attribute.code_length);
-    printf("Código: %p\n", attributes->AttributeUnion.code_attribute.code);
-    printf("Número de tabelas de exceções: %d\n", attributes->AttributeUnion.code_attribute.exception_table_lenght);
-    printf("Tabelas de exceções: %p\n", attributes->AttributeUnion.code_attribute.exception_table);
-    printf("Número de atributos: %d\n", attributes->AttributeUnion.code_attribute.attributes_count);
+  if (attributes->attribute_type == 2) {
+    printf("Profundidade máxima da pilha de operandos: %d\n", attributes->attribute_union.code_attribute.max_stack);
+    printf("Número de variáveis locais: %d\n", attributes->attribute_union.code_attribute.max_locals);
+    printf("Número de bytes no array code: %d\n", attributes->attribute_union.code_attribute.code_length);
+    printf("Código: %p\n", attributes->attribute_union.code_attribute.code);
+    printf("Número de tabelas de exceções: %d\n", attributes->attribute_union.code_attribute.exception_table_length);
+    printf("Tabelas de exceções: %p\n", attributes->attribute_union.code_attribute.exception_table);
+    printf("Número de atributos: %d\n", attributes->attribute_union.code_attribute.attributes_count);
   }
 
   // If it's a constant value attribute
-  if (attributes->AttributeUnion.constant_value_attribute) {
-    printf("Index da constante: %d\n", attributes->AttributeUnion.constant_value_attribute.constantvalue_index);
+  if (attributes->attribute_type == 1) {
+    printf("Index da constante: %d\n", attributes->attribute_union.constantvalue_attribute.constantvalue_index);
   }
 
   // If it's an exception attribute
-  if (attributes->AttributeUnion.exception_attribute) {
-    printf("Numero de exceções: %d\n", attributes->AttributeUnion.exception_attribute.number_of_exceptions);
-    printf("Índice da tabela de exceções: %p\n", attributes->AttributeUnion.exception_attribute.exception_index_table);
+  if (attributes->attribute_type == 3) {
+    printf("Numero de exceções: %d\n", attributes->attribute_union.exceptions_attribute.number_of_exceptions);
+    printf("Índice da tabela de exceções: %p\n", attributes->attribute_union.exceptions_attribute.exception_index_table);
   }
 
   // If it's an inner classes attribute
-  if (attributes->AttributeUnion.inner_classes_attribute) {
-    printf("Numero de classes: %d\n", attributes->AttributeUnion.inner_classes_attribute.number_of_classes);
+  if (attributes->attribute_type == 4) {
+    printf("Numero de classes: %d\n", attributes->attribute_union.innerclasses_attribute.number_of_classes);
     printf("Classes:\n");
-    for (int i = 0; i < attributes->AttributeUnion.inner_classes_attribute.number_of_classes; i++) {
-      printf("Inner class info index: %d\n", attributes->AttributeUnion.inner_classes_attribute.classes[i].inner_class_info_index);
-      printf("Outer class info index: %d\n", attributes->AttributeUnion.inner_classes_attribute.classes[i].outer_class_info_index);
-      printf("Inner name index: %d\n", attributes->AttributeUnion.inner_classes_attribute.classes[i].inner_name_index);
-      printf("Inner class access flags: %d\n", attributes->AttributeUnion.inner_classes_attribute.classes[i].inner_class_access_flags);
-      print_inner_classes_access_flags_translation(attributes->AttributeUnion.inner_classes_attribute.classes[i].inner_class_access_flags);
+    for (int i = 0; i < attributes->attribute_union.innerclasses_attribute.number_of_classes; i++) {
+      printf("Inner class info index: %d\n", attributes->attribute_union.innerclasses_attribute.classes[i].inner_class_info_index);
+      printf("Outer class info index: %d\n", attributes->attribute_union.innerclasses_attribute.classes[i].outer_class_info_index);
+      printf("Inner name index: %d\n", attributes->attribute_union.innerclasses_attribute.classes[i].inner_name_index);
+      printf("Inner class access flags: %d\n", attributes->attribute_union.innerclasses_attribute.classes[i].inner_class_access_flags);
+      print_inner_classes_access_flags_translation(attributes->attribute_union.innerclasses_attribute.classes[i].inner_class_access_flags);
     }
   }
 }
