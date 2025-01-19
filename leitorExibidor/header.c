@@ -202,7 +202,11 @@ void free_methods(Method *methods) {
     free(methods);
 }
 
-// Funções de leitura auxiliar
+ClassFile * get_current_class_file() {
+  static ClassFile class_file;
+  return &class_file;
+}
+
+uint8_t readU1(FILE *fp) { uint8_t value; fread(&value, sizeof(uint8_t), 1, fp); return value; }
 uint32_t readU4(FILE *fp) { uint32_t value; fread(&value, sizeof(uint32_t), 1, fp); return __builtin_bswap32(value); }
 uint16_t readU2(FILE *fp) { uint16_t value; fread(&value, sizeof(uint16_t), 1, fp); return __builtin_bswap16(value); }
-uint8_t readU1(FILE *fp) { uint8_t value; fread(&value, sizeof(uint8_t), 1, fp); return value; }

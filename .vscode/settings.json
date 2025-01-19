@@ -1,3 +1,9 @@
 {
-    "makefile.configureOnOpen": false
+    "makefile.configureOnOpen": false,
+    "files.associations": {
+        "*.html.erb": "erb",
+        "attribute.h": "c",
+        "reader.h": "c",
+        "types.h": "c"
+    }
 }
