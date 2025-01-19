@@ -3,6 +3,7 @@
 
 #include "types.h"
 #include "reader.h"
+#include "header.h"
 
 // Nícolas
 
