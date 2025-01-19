@@ -20,9 +20,11 @@ Attribute * read_attribute() {
       attribute->attribute_union.code_attribute.max_locals = read_u16();
       attribute->attribute_union.code_attribute.code_length = read_u32();
       attribute->attribute_union.code_attribute.code = malloc(attribute->attribute_union.code_attribute.code_length * sizeof(uint8_t));
+
       for (int i = 0; i < attribute->attribute_union.code_attribute.code_length; i++){
         attribute->attribute_union.code_attribute.code[i] = read_u8();
       }
+
       attribute->attribute_union.code_attribute.exception_table_lenght = read_u16();
       attribute->attribute_union.code_attribute.exception_table = malloc(attribute->attribute_union.code_attribute.exception_table_lenght * sizeof(ExceptionTable));
       for (int j = 0; j < attribute->attribute_union.code_attribute.exception_table_lenght; j++){
@@ -31,10 +33,11 @@ Attribute * read_attribute() {
         attribute->attribute_union.code_attribute.exception_table[j].handler_pc = read_u16();
         attribute->attribute_union.code_attribute.exception_table[j].catch_type = read_u16();
       }
+
       attribute->attribute_union.code_attribute.attributes_count = read_u16();
-      attribute->attribute_union.code_attribute.attribute_info = malloc(attribute->attribute_union.code_attribute.attributes_count * sizeof(Attribute));
+      attribute->attribute_union.code_attribute.attribute_info = malloc(attribute->attribute_union.code_attribute.attributes_count * sizeof(Attribute *));
       for (int k = 0; k < attribute->attribute_union.code_attribute.attributes_count; k++){
-        attribute->attribute_union.code_attribute.attribute_info = read_attribute();
+        attribute->attribute_union.code_attribute.attribute_info[k] = read_attribute();
       }
       attribute->attribute_type = 2;
       return attribute;
@@ -83,7 +86,10 @@ void free_attribute(Attribute * attribute) {
         attribute->attribute_union.code_attribute.exception_table = NULL;
       }
       if (attribute->attribute_union.code_attribute.attribute_info != NULL){
-        free_attribute(attribute->attribute_union.code_attribute.attribute_info);
+        for (int i = 0; i < attribute->attribute_union.code_attribute.attributes_count; i++){
+          free_attribute(attribute->attribute_union.code_attribute.attribute_info[i]);
+        }
+        free(attribute->attribute_union.code_attribute.attribute_info);
         attribute->attribute_union.code_attribute.attribute_info = NULL;
       }
       break;

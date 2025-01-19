@@ -126,7 +126,8 @@ typedef struct CodeAttribute {
   uint16_t exception_table_lenght;
   ExceptionTable * exception_table;
   uint16_t attributes_count;
-  Attribute * attribute_info;
+  // list of all the attributes;
+  Attribute * * attribute_info;
 } CodeAttribute;
 
 typedef struct ConstantValueAttribute {
