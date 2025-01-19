@@ -119,8 +119,6 @@ typedef struct ExceptionTable {
 } ExceptionTable;
 
 typedef struct CodeAttribute {
-  uint16_t attribute_name_index;
-  uint32_t attribute_length;
   uint16_t max_stack;
   uint16_t max_locals;
   uint32_t code_length;
@@ -128,13 +126,49 @@ typedef struct CodeAttribute {
   uint16_t exception_table_lenght;
   ExceptionTable * exception_table;
   uint16_t attributes_count;
-  // Attribute * attribute_info;
+  // list of all the attributes;
+  Attribute * * attribute_info;
 } CodeAttribute;
 
+typedef struct ConstantValueAttribute {
+  uint16_t constantvalue_index;
+} ConstantValueAttribute;
+
+typedef struct ExceptionsAttribute {
+  uint16_t number_of_exceptions;
+  uint16_t * exception_index_table;
+} ExceptionsAttribute;
+
+typedef struct Classes {
+  uint16_t inner_class_info_index;
+  uint16_t outer_class_info_index;
+  uint16_t inner_name_index;
+  uint16_t inner_class_access_flags;
+} Classes;
+
+typedef struct InnerClassesAttribute {
+  uint16_t number_of_classes;
+  Classes * classes;
+} InnerClassesAttribute;
+
 // Attributes types
-typedef union Attribute {
+typedef union AttributeUnion {
   CodeAttribute code_attribute;
-  // TODO: add types
+  ConstantValueAttribute constantvalue_attribute;
+  ExceptionsAttribute exceptions_attribute;
+  InnerClassesAttribute innerclasses_attribute;
+} AttributeUnion;
+
+// 1 - ConstantValue
+// 2 - Code
+// 3 - Exceptions
+// 4 - InnerClasses
+// 0 - Não implementado
+typedef struct Attribute {
+  uint16_t attribute_name_index;
+  uint32_t attribute_length;
+  uint8_t attribute_type;
+  AttributeUnion attribute_union;
 } Attribute;
 
 // ClassFile types
