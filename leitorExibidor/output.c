@@ -5,49 +5,54 @@ void print_class_file(ClassFile * class_file) {
   printf("assinatura: 0x%x\n", class_file->magic);
   printf("Versão: %d.%d\n", class_file->major_version, class_file->minor_version);
   printf("número de entradas no pool de constantes: %d\n", class_file->constant_pool_count);
-  printf("endereço do pool de constantes: %p\n", class_file->constant_pool);
   printf("flags de acesso: %d\n", class_file->access_flags);
   print_classfile_access_flags_translation(class_file->access_flags);
   printf("índice da classe: %d\n", class_file->this_class);
   printf("índice da super classe: %d\n", class_file->super_class);
   printf("número de superinterfaces diretas: %d\n", class_file->interfaces_count);
-  printf("endereço do array de interfaces: %p\n", class_file->interfaces);
   printf("número de fields: %d\n", class_file->fields_count);
-  printf("endereço do array de fields: %p\n", class_file->fields);
   printf("número de methods: %d\n", class_file->methods_count);
-  printf("endereço do array de methods: %p\n", class_file->methods);
   printf("número de attributes: %d\n", class_file->attributes_count);
-  printf("endereço do array de attributes: %p\n", class_file->attributes);
 
   printf("Pool de constantes:\n");
   for (int i = 1; i < class_file->constant_pool_count; i++) {
     print_constant_pool(class_file->constant_pool + i);
   }
 
-  printf("Fields:\n");
+
+  print_title("Fields");
   for (int i = 0; i < class_file->fields_count; i++) {
     printf("Field %d:\n", i);
     print_fields(class_file->fields + i);
   }
-  print_fields(class_file->fields);
 
-  printf("Métodos:\n");
+  print_title("Methods");
   for (int i = 0; i < class_file->methods_count; i++) {
     printf("Método %d:\n", i);
     print_methods(class_file->methods + i);
   }
-  print_methods(class_file->methods);
 
-  printf("Atributos:\n");
+  print_title("Attributes");
   for (int i = 0; i < class_file->attributes_count; i++) {
     printf("Atributo %d:\n", i);
     print_attributes(class_file->attributes + i);
   }
-  print_attributes(class_file->attributes);
 }
 
-void print_constant_pool(Constant * constant_pool) {
-  Constant * cp = constant_pool;
+void print_divider() {
+  printf("================================================================================\n");
+}
+
+void print_title(const char * string) {
+  printf("\n");
+  print_divider();
+  printf("\n%s\n\n", string);
+  print_divider();
+  printf("\n");
+}
+
+void print_constant_pool(Constant * constant) {
+  Constant * cp = constant;
   switch (cp->tag) {
     case 1:
       printf("CONSTANT_Utf8_info\n");
@@ -131,7 +136,9 @@ void print_attributes(Attribute * attributes) {
     printf("Profundidade máxima da pilha de operandos: %d\n", attributes->attribute_union.code_attribute.max_stack);
     printf("Número de variáveis locais: %d\n", attributes->attribute_union.code_attribute.max_locals);
     printf("Número de bytes no array code: %d\n", attributes->attribute_union.code_attribute.code_length);
-    printf("Código: %p\n", attributes->attribute_union.code_attribute.code);
+    
+    print_title("Código");
+
     printf("Número de tabelas de exceções: %d\n", attributes->attribute_union.code_attribute.exception_table_length);
     printf("Tabelas de exceções: %p\n", attributes->attribute_union.code_attribute.exception_table);
     printf("Número de atributos: %d\n", attributes->attribute_union.code_attribute.attributes_count);
@@ -161,6 +168,8 @@ void print_attributes(Attribute * attributes) {
     }
   }
 }
+
+void print_code() {};
 
 void print_classfile_access_flags_translation(uint16_t access_flags) {
     switch (access_flags & 0x000f) {
