@@ -72,6 +72,18 @@ Attribute * read_attribute() {
   return attribute;
 }
 
+Attribute * read_attributes(u2 attributes_count) {
+    Attribute *attributes = malloc(attributes_count * sizeof(Attribute));
+
+    for (u2 i = 0; i < attributes_count; i++) {
+        Attribute *attribute = read_attribute();
+        attributes[i] = *attribute;
+        free(attribute);
+    }
+
+    return attributes;
+}
+
 void free_attribute(Attribute * attribute) {
   switch (attribute->attribute_type){
     case 1:

@@ -8,6 +8,7 @@
 // Nícolas
 
 Attribute * read_attribute();
+Attribute * read_attributes(u2 attributes_count);
 
 void free_attribute(Attribute * attribute);
 
