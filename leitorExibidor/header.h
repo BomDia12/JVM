@@ -7,10 +7,10 @@
 
 // Vanessa
 
-ClassFile * read_class_file();
-Constant * read_constant_pool();
-Field * read_fields();
-Method * read_methods();
+ClassFile * read_class_file(char path[]);
+Constant * read_constant_pool(FILE *fp, uint16_t constant_pool_count);
+Field * read_fields(FILE *fp, uint16_t fields_count);
+Method * read_methods(FILE *fp, uint16_t methods_count);
 
 ClassFile * get_current_class_file();
 
