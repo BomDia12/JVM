@@ -5,29 +5,54 @@ void print_class_file(ClassFile * class_file) {
   printf("assinatura: 0x%x\n", class_file->magic);
   printf("Versão: %d.%d\n", class_file->major_version, class_file->minor_version);
   printf("número de entradas no pool de constantes: %d\n", class_file->constant_pool_count);
-  printf("endereço do pool de constantes: %p\n", class_file->constant_pool);
   printf("flags de acesso: %d\n", class_file->access_flags);
-  // TODO: printar interpretação das flags de acesso
-  print_access_flags_translation(class_file->access_flags);
+  print_classfile_access_flags_translation(class_file->access_flags);
   printf("índice da classe: %d\n", class_file->this_class);
   printf("índice da super classe: %d\n", class_file->super_class);
   printf("número de superinterfaces diretas: %d\n", class_file->interfaces_count);
-  printf("endereço do array de interfaces: %p\n", class_file->interfaces);
   printf("número de fields: %d\n", class_file->fields_count);
-  printf("endereço do array de fields: %p\n", class_file->fields);
   printf("número de methods: %d\n", class_file->methods_count);
-  printf("endereço do array de methods: %p\n", class_file->methods);
   printf("número de attributes: %d\n", class_file->attributes_count);
-  printf("endereço do array de attributes: %p\n", class_file->attributes);
 
   printf("Pool de constantes:\n");
   for (int i = 1; i < class_file->constant_pool_count; i++) {
     print_constant_pool(class_file->constant_pool + i);
   }
+
+
+  print_title("Fields");
+  for (int i = 0; i < class_file->fields_count; i++) {
+    printf("Field %d:\n", i);
+    print_fields(class_file->fields + i);
+  }
+
+  print_title("Methods");
+  for (int i = 0; i < class_file->methods_count; i++) {
+    printf("Método %d:\n", i);
+    print_methods(class_file->methods + i);
+  }
+
+  print_title("Attributes");
+  for (int i = 0; i < class_file->attributes_count; i++) {
+    printf("Atributo %d:\n", i);
+    print_attributes(class_file->attributes + i);
+  }
 }
 
-void print_constant_pool(Constant * constant_pool) {
-  Constant * cp = constant_pool;
+void print_divider() {
+  printf("================================================================================\n");
+}
+
+void print_title(const char * string) {
+  printf("\n");
+  print_divider();
+  printf("\n%s\n\n", string);
+  print_divider();
+  printf("\n");
+}
+
+void print_constant_pool(Constant * constant) {
+  Constant * cp = constant;
   switch (cp->tag) {
     case 1:
       printf("CONSTANT_Utf8_info\n");
@@ -83,13 +108,70 @@ void print_constant_pool(Constant * constant_pool) {
   }
 }
 
-void print_fields(Field * fields) {}
+void print_fields(Field * fields) {
+  printf("Flags de acesso: %d\n", fields->FieldUnion.info.access_flags);
+  print_fields_access_flags_translation(fields->FieldUnion.info.access_flags);
+  printf("Index de nome: %d\n", fields->FieldUnion.info.name_index);
+  printf("Index de tipo: %d\n", fields->FieldUnion.info.descriptor_index);
+  printf("Número de atributos: %d\n", fields->FieldUnion.info.attributes_count);
+}
 
-void print_methods(Method * methods) {}
+void print_methods(Method * methods) {
+  printf("Flags de acesso: %d\n", methods->access_flags);
+  print_methods_access_flags_translation(methods->access_flags);
+  printf("Index de nome: %d\n", methods->name_index);
+  printf("Index de tipo: %d\n", methods->descriptor_index);
+  printf("Numero de atributos: %d\n", methods->attributes_count);
+}
 
-void print_attributes(Attribute * attributes) {}
+void print_attributes(Attribute * attributes) {
+  const char * type_names[5] = {"Não implementado","ConstantValue", "Code", "Exceptions", "InnerClasses"};
 
-void print_access_flags_translation(uint16_t access_flags) {
+  printf("Index de nome: %d\n", attributes->attribute_name_index);
+  printf("Tamanho: %d\n", attributes->attribute_length);
+  printf("Tipo de atributo: %s\n", type_names[attributes->attribute_type]);
+  
+  // If it's a code attribute
+  if (attributes->attribute_type == 2) {
+    printf("Profundidade máxima da pilha de operandos: %d\n", attributes->attribute_union.code_attribute.max_stack);
+    printf("Número de variáveis locais: %d\n", attributes->attribute_union.code_attribute.max_locals);
+    printf("Número de bytes no array code: %d\n", attributes->attribute_union.code_attribute.code_length);
+    
+    print_title("Código");
+
+    printf("Número de tabelas de exceções: %d\n", attributes->attribute_union.code_attribute.exception_table_length);
+    printf("Tabelas de exceções: %p\n", attributes->attribute_union.code_attribute.exception_table);
+    printf("Número de atributos: %d\n", attributes->attribute_union.code_attribute.attributes_count);
+  }
+
+  // If it's a constant value attribute
+  if (attributes->attribute_type == 1) {
+    printf("Index da constante: %d\n", attributes->attribute_union.constantvalue_attribute.constantvalue_index);
+  }
+
+  // If it's an exception attribute
+  if (attributes->attribute_type == 3) {
+    printf("Numero de exceções: %d\n", attributes->attribute_union.exceptions_attribute.number_of_exceptions);
+    printf("Índice da tabela de exceções: %p\n", attributes->attribute_union.exceptions_attribute.exception_index_table);
+  }
+
+  // If it's an inner classes attribute
+  if (attributes->attribute_type == 4) {
+    printf("Numero de classes: %d\n", attributes->attribute_union.innerclasses_attribute.number_of_classes);
+    printf("Classes:\n");
+    for (int i = 0; i < attributes->attribute_union.innerclasses_attribute.number_of_classes; i++) {
+      printf("Inner class info index: %d\n", attributes->attribute_union.innerclasses_attribute.classes[i].inner_class_info_index);
+      printf("Outer class info index: %d\n", attributes->attribute_union.innerclasses_attribute.classes[i].outer_class_info_index);
+      printf("Inner name index: %d\n", attributes->attribute_union.innerclasses_attribute.classes[i].inner_name_index);
+      printf("Inner class access flags: %d\n", attributes->attribute_union.innerclasses_attribute.classes[i].inner_class_access_flags);
+      print_inner_classes_access_flags_translation(attributes->attribute_union.innerclasses_attribute.classes[i].inner_class_access_flags);
+    }
+  }
+}
+
+void print_code() {};
+
+void print_classfile_access_flags_translation(uint16_t access_flags) {
     switch (access_flags & 0x000f) {
       case 0x0001:
         printf("ACC_PUBLIC\n");
@@ -133,4 +215,144 @@ void print_access_flags_translation(uint16_t access_flags) {
       default:
         break;
     }
+}
+
+void print_fields_access_flags_translation(uint16_t access_flags) {
+  switch (access_flags & 0x000f) {
+    case 0x0001:
+      printf("ACC_PUBLIC\n");
+      break;
+    case 0x0002:
+      printf("ACC_PRIVATE\n");
+      break;
+    case 0x0004:
+      printf("ACC_PROTECTED\n");
+      break;
+    case 0x0008:
+      printf("ACC_STATIC\n");
+      break;
+    default:
+      break;
+  }
+
+  switch (access_flags & 0x00f0) {
+    case 0x0010:
+      printf("ACC_FINAL\n");
+      break;
+    case 0x0040:
+      printf("ACC_VOLATILE\n");
+      break;
+    case 0x0080:
+      printf("ACC_TRANSIENT\n");
+      break;
+    default:
+      break;
+  }
+
+  switch (access_flags & 0xf000) {
+    case 0x1000:
+      printf("ACC_SYNTHETIC\n");
+      break;
+    case 0x4000:
+      printf("ACC_ENUM\n");
+      break;
+    default:
+      break;
+  }
+}
+
+void print_methods_access_flags_translation(uint16_t access_flags) {
+  switch (access_flags & 0x000f) {
+    case 0x0001:
+      printf("ACC_PUBLIC\n");
+      break;
+    case 0x0002:
+      printf("ACC_PRIVATE\n");
+      break;
+    case 0x0004:
+      printf("ACC_PROTECTED\n");
+      break;
+    case 0x0008:
+      printf("ACC_STATIC\n");
+      break;
+    default:
+      break;
+  }
+
+  switch (access_flags & 0x00f0) {
+    case 0x0010:
+      printf("ACC_FINAL\n");
+      break;
+    case 0x0020:
+      printf("ACC_SYNCHRONIZED\n");
+      break;
+    case 0x0040:
+      printf("ACC_BRIDGE\n");
+      break;
+    case 0x0080:
+      printf("ACC_VARARGS\n");
+      break;
+    default:
+      break;
+  }
+
+  switch (access_flags & 0x0f00) {
+    case 0x0100:
+      printf("ACC_NATIVE\n");
+      break;
+    case 0x0400:
+      printf("ACC_ABSTRACT\n");
+      break;
+    case 0x0800:
+      printf("ACC_STRICT\n");
+      break;
+    default:
+      break;
+  }
+
+  switch (access_flags & 0xf000) {
+    case 0x1000:
+      printf("ACC_SYNTHETIC\n");
+      break;
+    default:
+      break;
+  }
+}
+
+void print_inner_classes_access_flags_translation(uint16_t access_flags) {
+  switch (access_flags & 0x000f) {
+    case 0x0001:
+      printf("ACC_PUBLIC\n");
+      break;
+    case 0x0002:
+      printf("ACC_PRIVATE\n");
+      break;
+    case 0x0004:
+      printf("ACC_PROTECTED\n");
+      break;
+    case 0x0008:
+      printf("ACC_STATIC\n");
+      break;
+    default:
+      break;
+  }
+
+  switch (access_flags & 0x00f0) {
+    case 0x0010:
+      printf("ACC_FINAL\n");
+      break;
+    default:  
+      break;
+  }
+
+  switch (access_flags & 0x0f00) {
+    case 0x0200:
+      printf("ACC_INTERFACE\n");
+      break;
+    case 0x0400:
+      printf("ACC_ABSTRACT\n");
+      break;
+    default:
+      break;
+  }
 }
