@@ -4,6 +4,8 @@
         "*.html.erb": "erb",
         "attribute.h": "c",
         "reader.h": "c",
-        "types.h": "c"
+        "types.h": "c",
+        "header.h": "c",
+        "string.h": "c"
     }
 }
