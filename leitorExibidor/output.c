@@ -7,8 +7,7 @@ void print_class_file(ClassFile * class_file) {
   printf("número de entradas no pool de constantes: %d\n", class_file->constant_pool_count);
   printf("endereço do pool de constantes: %p\n", class_file->constant_pool);
   printf("flags de acesso: %d\n", class_file->access_flags);
-  // TODO: printar interpretação das flags de acesso
-  print_access_flags_translation(class_file->access_flags);
+  print_classfile_access_flags_translation(class_file->access_flags);
   printf("índice da classe: %d\n", class_file->this_class);
   printf("índice da super classe: %d\n", class_file->super_class);
   printf("número de superinterfaces diretas: %d\n", class_file->interfaces_count);
@@ -24,6 +23,13 @@ void print_class_file(ClassFile * class_file) {
   for (int i = 1; i < class_file->constant_pool_count; i++) {
     print_constant_pool(class_file->constant_pool + i);
   }
+
+  printf("Fields:\n");
+  for (int i = 0; i < class_file->fields_count; i++) {
+    printf("Field %d:\n", i);
+    print_fields(class_file->fields + i);
+  }
+  print_fields(class_file->fields);
 }
 
 void print_constant_pool(Constant * constant_pool) {
@@ -83,13 +89,27 @@ void print_constant_pool(Constant * constant_pool) {
   }
 }
 
-void print_fields(Field * fields) {}
+void print_fields(Field * fields) {
+  printf("Flags de acesso: %d\n", fields->FieldUnion.info.access_flags);
+  print_fields_access_flags_translation(fields->FieldUnion.info.access_flags);
+  printf("Index de nome: %d\n", fields->FieldUnion.info.name_index);
+  printf("Index de tipo: %d\n", fields->FieldUnion.info.descriptor_index);
+  printf("Número de atributos: %d\n", fields->FieldUnion.info.attributes_count);
+}
 
-void print_methods(Method * methods) {}
+void print_methods(Method * methods) {
+  printf("Flags de acesso: %d\n", methods->access_flags);
+  print_methods_access_flags_translation(methods->access_flags);
+  printf("Index de nome: %d\n", methods->name_index);
+  printf("Index de tipo: %d\n", methods->descriptor_index);
+  printf("Numero de atributos: %d\n", methods->attributes_count);
+}
 
-void print_attributes(Attribute * attributes) {}
+void print_attributes(Attribute * attributes) {
+  
+}
 
-void print_access_flags_translation(uint16_t access_flags) {
+void print_classfile_access_flags_translation(uint16_t access_flags) {
     switch (access_flags & 0x000f) {
       case 0x0001:
         printf("ACC_PUBLIC\n");
@@ -133,4 +153,106 @@ void print_access_flags_translation(uint16_t access_flags) {
       default:
         break;
     }
+}
+
+void print_fields_access_flags_translation(uint16_t access_flags) {
+  switch (access_flags & 0x000f) {
+    case 0x0001:
+      printf("ACC_PUBLIC\n");
+      break;
+    case 0x0002:
+      printf("ACC_PRIVATE\n");
+      break;
+    case 0x0004:
+      printf("ACC_PROTECTED\n");
+      break;
+    case 0x0008:
+      printf("ACC_STATIC\n");
+      break;
+    default:
+      break;
+  }
+
+  switch (access_flags & 0x00f0) {
+    case 0x0010:
+      printf("ACC_FINAL\n");
+      break;
+    case 0x0040:
+      printf("ACC_VOLATILE\n");
+      break;
+    case 0x0080:
+      printf("ACC_TRANSIENT\n");
+      break;
+    default:
+      break;
+  }
+
+  switch (access_flags & 0xf000) {
+    case 0x1000:
+      printf("ACC_SYNTHETIC\n");
+      break;
+    case 0x4000:
+      printf("ACC_ENUM\n");
+      break;
+    default:
+      break;
+  }
+}
+
+void print_methods_access_flags_translation(uint16_t access_flags) {
+  switch (access_flags & 0x000f) {
+    case 0x0001:
+      printf("ACC_PUBLIC\n");
+      break;
+    case 0x0002:
+      printf("ACC_PRIVATE\n");
+      break;
+    case 0x0004:
+      printf("ACC_PROTECTED\n");
+      break;
+    case 0x0008:
+      printf("ACC_STATIC\n");
+      break;
+    default:
+      break;
+  }
+
+  switch (access_flags & 0x00f0) {
+    case 0x0010:
+      printf("ACC_FINAL\n");
+      break;
+    case 0x0020:
+      printf("ACC_SYNCHRONIZED\n");
+      break;
+    case 0x0040:
+      printf("ACC_BRIDGE\n");
+      break;
+    case 0x0080:
+      printf("ACC_VARARGS\n");
+      break;
+    default:
+      break;
+  }
+
+  switch (access_flags & 0x0f00) {
+    case 0x0100:
+      printf("ACC_NATIVE\n");
+      break;
+    case 0x0400:
+      printf("ACC_ABSTRACT\n");
+      break;
+    case 0x0800:
+      printf("ACC_STRICT\n");
+      break;
+    default:
+      break;
+  }
+
+  switch (access_flags & 0xf000) {
+    case 0x1000:
+      printf("ACC_SYNTHETIC\n");
+      break;
+    default:
+      break;
+  }
 }
