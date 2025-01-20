@@ -1,6 +1,7 @@
 #include "reader.h"
 #include "header.h"
 #include "output.h"
+#include <stdio.h>
 
 int main (int argc, char *argv[]) {
   
@@ -11,8 +12,10 @@ int main (int argc, char *argv[]) {
   }
 
   read_file(argv[1]);
+  printf("ANTES DO HEADER\n");
 
   ClassFile * class_file = read_class_file();
+  printf("ANTES DO PRINT\n");
   print_class_file(class_file);
 
   free_class_file(class_file);

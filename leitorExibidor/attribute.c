@@ -4,18 +4,18 @@ Attribute * read_attribute() {
   Attribute * attribute = malloc(sizeof(Attribute));
   attribute->attribute_name_index = read_u16();
   attribute->attribute_length = read_u32();
-  ClassFile * class_file = get_current_class_file();
+  ClassFileBuffer * class_file = get_current_class_file();
 
-  Constant * constant = &class_file->constant_pool[attribute->attribute_name_index];
+  Constant * constant = class_file->buffer->constant_pool[attribute->attribute_name_index - 1];
 
-  if (constant->tag == 1){
-    char * string = constant->ConstantUnion.utf8_info.bytes;
-    if (string == "ConstantValue"){
+  if (constant->tag == 1) {
+    const char * string = constant->ConstantUnion.utf8_info.bytes;
+    if (strcmp(string, "ConstantValue") == 0){
       attribute->attribute_union.constantvalue_attribute.constantvalue_index = read_u16();
       attribute->attribute_type = 1;
       return attribute;
     }
-    else if (string == "Code"){
+    else if (strcmp(string, "Code") == 0){
       attribute->attribute_union.code_attribute.max_stack = read_u16();
       attribute->attribute_union.code_attribute.max_locals = read_u16();
       attribute->attribute_union.code_attribute.code_length = read_u32();
@@ -42,7 +42,7 @@ Attribute * read_attribute() {
       attribute->attribute_type = 2;
       return attribute;
     }
-    else if (string == "Exceptions"){
+    else if (strcmp(string, "Exceptions") == 0){
       attribute->attribute_union.exceptions_attribute.number_of_exceptions = read_u16();
       attribute->attribute_union.exceptions_attribute.exception_index_table = malloc(attribute->attribute_union.exceptions_attribute.number_of_exceptions * sizeof(uint16_t));
       for (int i = 0; i < attribute->attribute_union.exceptions_attribute.number_of_exceptions; i++){
@@ -51,7 +51,7 @@ Attribute * read_attribute() {
       attribute->attribute_type = 3;
       return attribute;
     }
-    else if (string == "InnerClasses"){
+    else if (strcmp(string, "InnerClasses") == 0){
       attribute->attribute_union.innerclasses_attribute.number_of_classes = read_u16();
       attribute->attribute_union.innerclasses_attribute.classes = malloc(attribute->attribute_union.innerclasses_attribute.number_of_classes * sizeof(Classes));
       for (int i = 0; i < attribute->attribute_union.exceptions_attribute.number_of_exceptions; i++){

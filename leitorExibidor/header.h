@@ -11,15 +11,15 @@
 // Vanessa
 
 ClassFile * read_class_file();
-Constant * read_constant_pool(uint16_t constant_pool_count);
-Field * read_fields(uint16_t fields_count);
-Method * read_methods(uint16_t methods_count);
+Constant * read_constant();
+Field * read_field();
+Method * read_method();
 
-ClassFile * get_current_class_file();
+ClassFileBuffer * get_current_class_file();
 
 void free_class_file(ClassFile * class_file);
-void free_constant_pool(Constant * constant_pool, uint16_t constant_pool_count);
-void free_fields(Field * fields, uint16_t fields_count);
-void free_methods(Method * methods, uint16_t methods_count);
+void free_constant(Constant * constant);
+void free_field(Field * fields);
+void free_method(Method * methods);
 
 #endif

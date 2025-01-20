@@ -14,28 +14,28 @@ void print_class_file(ClassFile * class_file) {
   printf("número de methods: %d\n", class_file->methods_count);
   printf("número de attributes: %d\n", class_file->attributes_count);
 
-  printf("Pool de constantes:\n");
-  for (int i = 1; i < class_file->constant_pool_count; i++) {
-    print_constant_pool(class_file->constant_pool + i);
+  print_title("Pool de constantes:");
+  for (int i = 1; i < (class_file->constant_pool_count - 1); i++) {
+    print_constant_pool(class_file->constant_pool[i]);
   }
 
 
   print_title("Fields");
   for (int i = 0; i < class_file->fields_count; i++) {
     printf("Field %d:\n", i);
-    print_fields(class_file->fields + i);
+    print_fields(class_file->fields[i]);
   }
 
   print_title("Methods");
   for (int i = 0; i < class_file->methods_count; i++) {
     printf("Método %d:\n", i);
-    print_methods(class_file->methods + i);
+    print_methods(class_file->methods[i]);
   }
 
   print_title("Attributes");
   for (int i = 0; i < class_file->attributes_count; i++) {
     printf("Atributo %d:\n", i);
-    print_attributes(class_file->attributes + i);
+    print_attributes(class_file->attributes[i]);
   }
 }
 
@@ -73,7 +73,7 @@ void print_constant_pool(Constant * constant) {
       break;
     case 6:
       printf("CONSTANT_Double_info\n");
-      printf("Valor: %lf\n", (double)((cp->ConstantUnion.double_info.high_bytes << 32) | cp->ConstantUnion.double_info.low_bytes));
+      printf("Valor: %lf\n", (double)((((long long) cp->ConstantUnion.double_info.high_bytes) << 32) | cp->ConstantUnion.double_info.low_bytes));
       break;
     case 7:
       printf("CONSTANT_Class_info\n");
@@ -109,11 +109,18 @@ void print_constant_pool(Constant * constant) {
 }
 
 void print_fields(Field * fields) {
-  printf("Flags de acesso: %d\n", fields->FieldUnion.info.access_flags);
-  print_fields_access_flags_translation(fields->FieldUnion.info.access_flags);
-  printf("Index de nome: %d\n", fields->FieldUnion.info.name_index);
-  printf("Index de tipo: %d\n", fields->FieldUnion.info.descriptor_index);
-  printf("Número de atributos: %d\n", fields->FieldUnion.info.attributes_count);
+  printf("Flags de acesso: %d\n", fields->access_flags);
+  print_fields_access_flags_translation(fields->access_flags);
+  printf("Index de nome: %d\n", fields->name_index);
+  printf("Index de tipo: %d\n", fields->descriptor_index);
+  printf("Número de atributos: %d\n", fields->attributes_count);
+  if (fields->attributes_count > 0) {
+    print_title("Attributes");
+    for (int i = 0; i < fields->attributes_count; i++) {
+      printf("Atributo %d:\n", i);
+      print_attributes(fields->attributes[i]);
+    }
+  }
 }
 
 void print_methods(Method * methods) {
@@ -122,6 +129,13 @@ void print_methods(Method * methods) {
   printf("Index de nome: %d\n", methods->name_index);
   printf("Index de tipo: %d\n", methods->descriptor_index);
   printf("Numero de atributos: %d\n", methods->attributes_count);
+  if (methods->attributes_count > 0) {
+    print_title("Attributes");
+    for (int i = 0; i < methods->attributes_count; i++) {
+      printf("Atributo %d:\n", i);
+      print_attributes(methods->attributes[i]);
+    }
+  }
 }
 
 void print_attributes(Attribute * attributes) {

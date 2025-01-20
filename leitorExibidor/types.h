@@ -8,6 +8,7 @@ typedef struct Buffer {
   uint64_t position;
 } Buffer;
 
+typedef struct Attribute Attribute;
 
 typedef struct ExceptionTable {
   uint16_t start_pc;
@@ -62,12 +63,12 @@ typedef union AttributeUnion {
 // 3 - Exceptions
 // 4 - InnerClasses
 // 0 - Não implementado
-typedef struct Attribute {
+struct Attribute {
   uint16_t attribute_name_index;
   uint32_t attribute_length;
   uint8_t attribute_type;
   AttributeUnion attribute_union;
-} Attribute;
+};
 
 // Constant Pool types
 typedef struct CONSTANT_Class_info {
@@ -167,7 +168,7 @@ typedef struct Field {
 } Field;
 
 // Method types
-typedef union Method {
+typedef struct Method {
   uint16_t access_flags;
   uint16_t name_index;
   uint16_t descriptor_index;
@@ -181,16 +182,16 @@ typedef struct ClassFile {
   uint16_t minor_version;
   uint16_t major_version;
   uint16_t constant_pool_count;
-  Constant * constant_pool;
+  Constant * * constant_pool;
   uint16_t access_flags;
   uint16_t this_class;
   uint16_t super_class;
   uint16_t interfaces_count;
   uint16_t * interfaces;
   uint16_t fields_count;
-  Field * fields;
+  Field * * fields;
   uint16_t methods_count;
-  Method * methods;
+  Method * * methods;
   uint16_t attributes_count;
   Attribute * * attributes;
 } ClassFile;
@@ -206,5 +207,10 @@ typedef struct Instruction {
   InstructionType * type;
   uint32_t * operands;
 } Instruction;
+
+typedef struct ClassFileBuffer {
+  ClassFile * buffer;
+  uint64_t position;
+} ClassFileBuffer;
 
 #endif
