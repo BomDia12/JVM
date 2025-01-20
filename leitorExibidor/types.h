@@ -210,7 +210,6 @@ typedef struct Instruction {
 
 typedef struct ClassFileBuffer {
   ClassFile * buffer;
-  uint64_t position;
 } ClassFileBuffer;
 
 #endif

@@ -73,11 +73,3 @@ void free_buffer() {
     buffer->buffer = NULL;
   }
 }
-
-void free_code_buffer() {
-  Buffer * buffer = get_code_buffer();
-  if (buffer->buffer != NULL) {
-    free(buffer->buffer);
-    buffer->buffer = NULL;
-  }
-}

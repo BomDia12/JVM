@@ -95,10 +95,11 @@ Constant * read_constant() {
       break;
     case 1: // utf8
       constant->ConstantUnion.utf8_info.length = read_u16();
-      constant->ConstantUnion.utf8_info.bytes = malloc(sizeof(uint8_t) * constant->ConstantUnion.utf8_info.length);
+      constant->ConstantUnion.utf8_info.bytes = malloc(sizeof(uint8_t) * (constant->ConstantUnion.utf8_info.length + 1));
       for (int j = 0; j < constant->ConstantUnion.utf8_info.length; j++) {
         constant->ConstantUnion.utf8_info.bytes[j] = read_u8();
       }
+      constant->ConstantUnion.utf8_info.bytes[constant->ConstantUnion.utf8_info.length] = '\0';
       break;
     case 15: // MethodHandle
       constant->ConstantUnion.method_handle.reference_kind = read_u8();
@@ -154,6 +155,7 @@ void free_class_file(ClassFile *class_file) {
   for (int i = 0; i < (class_file->constant_pool_count - 1); i++) {
     free_constant(class_file->constant_pool[i]);
   }
+
 
   for (int i = 0; i < class_file->fields_count; i++) {
     free_field(class_file->fields[i]);

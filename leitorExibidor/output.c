@@ -33,7 +33,7 @@ void print_class_file(ClassFile * class_file) {
     print_methods(class_file->methods[i]);
   }
 
-  print_title("Attributes");
+  print_title("Atributos de classe");
   for (int i = 0; i < class_file->attributes_count; i++) {
     printf("Atributo %d:\n", i);
     print_attributes(class_file->attributes[i]);
@@ -136,6 +136,9 @@ void print_methods(Method * methods) {
       printf("Atributo %d:\n", i);
       print_attributes(methods->attributes[i]);
     }
+    printf("\n");
+    print_divider();
+    printf("\n");
   }
 }
 
@@ -188,11 +191,14 @@ void print_attributes(Attribute * attributes) {
 void print_code(CodeAttribute code) {
   Buffer * code_buffer = get_code_buffer();
   code_buffer->position = 0;
+  code_buffer->buffer = code.code;
+  print_title("Seção de código");
   while (code_buffer->position < code.code_length) {
-    Instruction * instruction;
-    instruction = read_instruction();
-    print_instruction(*instruction);
+    Instruction instruction = read_instruction();
+    print_instruction(instruction);
   }
+  printf("\n");
+  print_divider();
   printf("\n");
 };
 

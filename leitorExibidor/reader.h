@@ -22,6 +22,5 @@ Buffer * get_code_buffer();
 
 
 void free_buffer();
-void free_code_buffer();
 
 #endif

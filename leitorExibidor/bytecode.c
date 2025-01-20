@@ -2,7 +2,7 @@
 
 Instruction read_instruction() {
   Buffer * code_buffer = get_code_buffer();
-  InstructionType * instruction_type = &instructions[read_u8(code_buffer)];
+  InstructionType * instruction_type = get_instruction_type(read_u8_buffer(code_buffer));
   Instruction instruction;
   instruction.type = instruction_type;
   if (instruction_type->operand_count == 0) {
