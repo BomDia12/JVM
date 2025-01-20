@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "output.h"
+#include "reader.h"
 
 void print_class_file(ClassFile * class_file) {
   printf("assinatura: 0x%x\n", class_file->magic);
@@ -151,7 +152,8 @@ void print_attributes(Attribute * attributes) {
     printf("Número de variáveis locais: %d\n", attributes->attribute_union.code_attribute.max_locals);
     printf("Número de bytes no array code: %d\n", attributes->attribute_union.code_attribute.code_length);
     
-    print_title("Código");
+    printf("Código:\n");
+    print_code(attributes->attribute_union.code_attribute);
 
     printf("Número de tabelas de exceções: %d\n", attributes->attribute_union.code_attribute.exception_table_length);
     printf("Tabelas de exceções: %p\n", attributes->attribute_union.code_attribute.exception_table);
@@ -183,7 +185,28 @@ void print_attributes(Attribute * attributes) {
   }
 }
 
-void print_code() {};
+void print_code(CodeAttribute code) {
+  Buffer * code_buffer = get_code_buffer();
+  code_buffer->position = 0;
+  while (code_buffer->position < code.code_length) {
+    Instruction * instruction;
+    instruction = read_instruction();
+    print_instruction(*instruction);
+  }
+  printf("\n");
+};
+
+void print_instruction(Instruction instruction) {
+  printf("Opcode: %d\n", instruction.type->opcode);
+  if (instruction.type->operand_count > 0) {
+    printf("Mnemônico: %s\n", instruction.type->mnemonic);
+    printf("Operandos: ");
+    for (int i = 0; i < instruction.type->operand_count; i++) {
+      printf("%d ", instruction.operands[i]);
+    }
+    printf("\n");
+  }
+}
 
 void print_classfile_access_flags_translation(uint16_t access_flags) {
     switch (access_flags & 0x000f) {
