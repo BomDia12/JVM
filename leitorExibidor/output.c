@@ -401,3 +401,28 @@ void print_inner_classes_access_flags_translation(uint16_t access_flags) {
       break;
   }
 }
+
+const char * get_version(uint16_t major) {
+  const char * versions[] = {
+    "JDK 1.1",
+    "JDK 1.2",
+    "JDK 1.3",
+    "JDK 1.4",
+    "Java SE 5.0",
+    "Java SE 6.0",
+    "Java SE 7",
+    "Java SE 8",
+    "Java SE 9",
+    "Java SE 10",
+    "Java SE 11",
+    "Java SE 12",
+    "Java SE 13",
+    "Java SE 14",
+    "Java SE 15",
+    "Java SE 16",
+    "Java SE 17",
+    "Java SE 18"
+  };
+
+  return versions[major - 45];
+}

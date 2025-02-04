@@ -139,6 +139,8 @@ typedef struct CONSTANT_InvokeDynamic {
   uint16_t name_and_type_index;
 } CONSTANT_InvokeDynamic;
 
+typedef struct CONSTANT_padding {} CONSTANT_padding;
+
 typedef union ConstantUnion {
   CONSTANT_Class_info class_info;
   CONSTANT_Fieldref_info fieldref_info;
@@ -154,8 +156,24 @@ typedef union ConstantUnion {
   CONSTANT_MethodHandle method_handle;
   CONSTANT_MethodType method_type;
   CONSTANT_InvokeDynamic invoke_dynamic;
+  CONSTANT_padding padding;
 } ConstantUnion;
 
+/**
+ * Tags:
+ * 7 - Class
+ * 9 - FieldRef
+ * 10 - MethodRef
+ * 11 - InterfaceMethodRef
+ * 8 - String
+ * 3 - Integer
+ * 4 - Float
+ * 5 - Long
+ * 6 - Double
+ * 12 - NameAndType
+ * 1 - Utf8
+ * 0 - padding
+ */
 typedef struct Constant {
   uint8_t tag;
   ConstantUnion ConstantUnion;

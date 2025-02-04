@@ -17,7 +17,12 @@ ClassFile * read_class_file() {
   classFile->constant_pool_count = read_u16();
   classFile->constant_pool = malloc(classFile->constant_pool_count * sizeof(Constant *));
   for (uint16_t i = 0; i < (classFile->constant_pool_count - 1); i++) {
-    classFile->constant_pool[i] = read_constant();
+    Constant * constant = read_constant();
+    classFile->constant_pool[i] = constant;
+
+    if (constant->tag == 5 || constant->tag == 6) {
+      i++;
+    }
   }
 
   classFile->access_flags = read_u16();

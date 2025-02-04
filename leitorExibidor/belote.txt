@@ -507,6 +507,7 @@ Seção de código
 ================================================================================
 
 Opcode: 26
+Mnemônico: iload_0
 Opcode: 154
 Mnemônico: ifne
 Operandos: 0 6 
@@ -514,8 +515,11 @@ Opcode: 18
 Mnemônico: ldc
 Operandos: 1 
 Opcode: 176
+Mnemônico: areturn
 Opcode: 26
+Mnemônico: iload_0
 Opcode: 4
+Mnemônico: iconst_1
 Opcode: 160
 Mnemônico: if_icmpne
 Operandos: 0 6 
@@ -523,8 +527,11 @@ Opcode: 18
 Mnemônico: ldc
 Operandos: 2 
 Opcode: 176
+Mnemônico: areturn
 Opcode: 26
+Mnemônico: iload_0
 Opcode: 5
+Mnemônico: iconst_2
 Opcode: 160
 Mnemônico: if_icmpne
 Operandos: 0 6 
@@ -532,8 +539,11 @@ Opcode: 18
 Mnemônico: ldc
 Operandos: 3 
 Opcode: 176
+Mnemônico: areturn
 Opcode: 26
+Mnemônico: iload_0
 Opcode: 6
+Mnemônico: iconst_3
 Opcode: 160
 Mnemônico: if_icmpne
 Operandos: 0 6 
@@ -541,13 +551,16 @@ Opcode: 18
 Mnemônico: ldc
 Operandos: 4 
 Opcode: 176
+Mnemônico: areturn
 Opcode: 1
+Mnemônico: aconst_null
 Opcode: 176
+Mnemônico: areturn
 
 ================================================================================
 
 Número de tabelas de exceções: 0
-Tabelas de exceções: 0x55aafec783e0
+Tabelas de exceções: 0x58dd4130
 Número de atributos: 1
 
 ================================================================================
@@ -580,9 +593,13 @@ Seção de código
 ================================================================================
 
 Opcode: 3
+Mnemônico: iconst_0
 Opcode: 59
+Mnemônico: istore_0
 Opcode: 26
+Mnemônico: iload_0
 Opcode: 7
+Mnemônico: iconst_4
 Opcode: 162
 Mnemônico: if_icmpge
 Operandos: 0 102 
@@ -602,7 +619,9 @@ Opcode: 178
 Mnemônico: getstatic
 Operandos: 0 8 
 Opcode: 26
+Mnemônico: iload_0
 Opcode: 50
+Mnemônico: aaload
 Opcode: 180
 Mnemônico: getfield
 Operandos: 0 9 
@@ -619,8 +638,11 @@ Opcode: 182
 Mnemônico: invokevirtual
 Operandos: 0 7 
 Opcode: 3
+Mnemônico: iconst_0
 Opcode: 60
+Mnemônico: istore_1
 Opcode: 27
+Mnemônico: iload_1
 Opcode: 16
 Mnemônico: bipush
 Operandos: 13 
@@ -634,12 +656,16 @@ Opcode: 178
 Mnemônico: getstatic
 Operandos: 0 8 
 Opcode: 26
+Mnemônico: iload_0
 Opcode: 50
+Mnemônico: aaload
 Opcode: 180
 Mnemônico: getfield
 Operandos: 0 11 
 Opcode: 27
+Mnemônico: iload_1
 Opcode: 50
+Mnemônico: aaload
 Opcode: 180
 Mnemônico: getfield
 Operandos: 0 12 
@@ -662,12 +688,16 @@ Opcode: 178
 Mnemônico: getstatic
 Operandos: 0 8 
 Opcode: 26
+Mnemônico: iload_0
 Opcode: 50
+Mnemônico: aaload
 Opcode: 180
 Mnemônico: getfield
 Operandos: 0 11 
 Opcode: 27
+Mnemônico: iload_1
 Opcode: 50
+Mnemônico: aaload
 Opcode: 180
 Mnemônico: getfield
 Operandos: 0 14 
@@ -699,11 +729,12 @@ Opcode: 182
 Mnemônico: invokevirtual
 Operandos: 0 7 
 Opcode: 177
+Mnemônico: return
 
 ================================================================================
 
 Número de tabelas de exceções: 0
-Tabelas de exceções: 0x55aafec78580
+Tabelas de exceções: 0x58dd4250
 Número de atributos: 1
 
 ================================================================================
@@ -737,38 +768,53 @@ Seção de código
 ================================================================================
 
 Opcode: 42
+Mnemônico: aload_0
 Opcode: 183
 Mnemônico: invokespecial
 Operandos: 0 16 
 Opcode: 7
+Mnemônico: iconst_4
 Opcode: 189
 Mnemônico: anewarray
 Operandos: 0 17 
 Opcode: 89
+Mnemônico: dup
 Opcode: 3
+Mnemônico: iconst_0
 Opcode: 18
 Mnemônico: ldc
 Operandos: 18 
 Opcode: 83
+Mnemônico: aastore
 Opcode: 89
+Mnemônico: dup
 Opcode: 4
+Mnemônico: iconst_1
 Opcode: 18
 Mnemônico: ldc
 Operandos: 19 
 Opcode: 83
+Mnemônico: aastore
 Opcode: 89
+Mnemônico: dup
 Opcode: 5
+Mnemônico: iconst_2
 Opcode: 18
 Mnemônico: ldc
 Operandos: 20 
 Opcode: 83
+Mnemônico: aastore
 Opcode: 89
+Mnemônico: dup
 Opcode: 6
+Mnemônico: iconst_3
 Opcode: 18
 Mnemônico: ldc
 Operandos: 21 
 Opcode: 83
+Mnemônico: aastore
 Opcode: 76
+Mnemônico: astore_1
 Opcode: 16
 Mnemônico: bipush
 Operandos: 13 
@@ -776,42 +822,61 @@ Opcode: 189
 Mnemônico: anewarray
 Operandos: 0 17 
 Opcode: 89
+Mnemônico: dup
 Opcode: 3
+Mnemônico: iconst_0
 Opcode: 18
 Mnemônico: ldc
 Operandos: 22 
 Opcode: 83
+Mnemônico: aastore
 Opcode: 89
+Mnemônico: dup
 Opcode: 4
+Mnemônico: iconst_1
 Opcode: 18
 Mnemônico: ldc
 Operandos: 23 
 Opcode: 83
+Mnemônico: aastore
 Opcode: 89
+Mnemônico: dup
 Opcode: 5
+Mnemônico: iconst_2
 Opcode: 18
 Mnemônico: ldc
 Operandos: 24 
 Opcode: 83
+Mnemônico: aastore
 Opcode: 89
+Mnemônico: dup
 Opcode: 6
+Mnemônico: iconst_3
 Opcode: 18
 Mnemônico: ldc
 Operandos: 25 
 Opcode: 83
+Mnemônico: aastore
 Opcode: 89
+Mnemônico: dup
 Opcode: 7
+Mnemônico: iconst_4
 Opcode: 18
 Mnemônico: ldc
 Operandos: 26 
 Opcode: 83
+Mnemônico: aastore
 Opcode: 89
+Mnemônico: dup
 Opcode: 8
+Mnemônico: iconst_5
 Opcode: 18
 Mnemônico: ldc
 Operandos: 27 
 Opcode: 83
+Mnemônico: aastore
 Opcode: 89
+Mnemônico: dup
 Opcode: 16
 Mnemônico: bipush
 Operandos: 6 
@@ -819,7 +884,9 @@ Opcode: 18
 Mnemônico: ldc
 Operandos: 28 
 Opcode: 83
+Mnemônico: aastore
 Opcode: 89
+Mnemônico: dup
 Opcode: 16
 Mnemônico: bipush
 Operandos: 7 
@@ -827,7 +894,9 @@ Opcode: 18
 Mnemônico: ldc
 Operandos: 29 
 Opcode: 83
+Mnemônico: aastore
 Opcode: 89
+Mnemônico: dup
 Opcode: 16
 Mnemônico: bipush
 Operandos: 8 
@@ -835,7 +904,9 @@ Opcode: 18
 Mnemônico: ldc
 Operandos: 30 
 Opcode: 83
+Mnemônico: aastore
 Opcode: 89
+Mnemônico: dup
 Opcode: 16
 Mnemônico: bipush
 Operandos: 9 
@@ -843,7 +914,9 @@ Opcode: 18
 Mnemônico: ldc
 Operandos: 31 
 Opcode: 83
+Mnemônico: aastore
 Opcode: 89
+Mnemônico: dup
 Opcode: 16
 Mnemônico: bipush
 Operandos: 10 
@@ -851,7 +924,9 @@ Opcode: 18
 Mnemônico: ldc
 Operandos: 32 
 Opcode: 83
+Mnemônico: aastore
 Opcode: 89
+Mnemônico: dup
 Opcode: 16
 Mnemônico: bipush
 Operandos: 11 
@@ -859,7 +934,9 @@ Opcode: 18
 Mnemônico: ldc
 Operandos: 33 
 Opcode: 83
+Mnemônico: aastore
 Opcode: 89
+Mnemônico: dup
 Opcode: 16
 Mnemônico: bipush
 Operandos: 12 
@@ -867,8 +944,11 @@ Opcode: 18
 Mnemônico: ldc
 Operandos: 34 
 Opcode: 83
+Mnemônico: aastore
 Opcode: 77
+Mnemônico: astore_2
 Opcode: 7
+Mnemônico: iconst_4
 Opcode: 189
 Mnemônico: anewarray
 Operandos: 0 35 
@@ -885,9 +965,13 @@ Opcode: 179
 Mnemônico: putstatic
 Operandos: 0 37 
 Opcode: 3
+Mnemônico: iconst_0
 Opcode: 62
+Mnemônico: istore_3
 Opcode: 29
+Mnemônico: iload_3
 Opcode: 7
+Mnemônico: iconst_4
 Opcode: 162
 Mnemônico: if_icmpge
 Operandos: 0 38 
@@ -895,17 +979,23 @@ Opcode: 178
 Mnemônico: getstatic
 Operandos: 0 8 
 Opcode: 29
+Mnemônico: iload_3
 Opcode: 187
 Mnemônico: new
 Operandos: 0 35 
 Opcode: 89
+Mnemônico: dup
 Opcode: 43
+Mnemônico: aload_1
 Opcode: 29
+Mnemônico: iload_3
 Opcode: 50
+Mnemônico: aaload
 Opcode: 183
 Mnemônico: invokespecial
 Operandos: 0 38 
 Opcode: 83
+Mnemônico: aastore
 Opcode: 178
 Mnemônico: getstatic
 Operandos: 0 5 
@@ -913,7 +1003,9 @@ Opcode: 178
 Mnemônico: getstatic
 Operandos: 0 8 
 Opcode: 29
+Mnemônico: iload_3
 Opcode: 50
+Mnemônico: aaload
 Opcode: 180
 Mnemônico: getfield
 Operandos: 0 9 
@@ -927,13 +1019,18 @@ Opcode: 167
 Mnemônico: goto
 Operandos: 255 219 
 Opcode: 3
+Mnemônico: iconst_0
 Opcode: 62
+Mnemônico: istore_3
 Opcode: 29
+Mnemônico: iload_3
 Opcode: 7
+Mnemônico: iconst_4
 Opcode: 162
 Mnemônico: if_icmpge
 Operandos: 0 66 
 Opcode: 3
+Mnemônico: iconst_0
 Opcode: 54
 Mnemônico: istore
 Operandos: 4 
@@ -950,33 +1047,43 @@ Opcode: 178
 Mnemônico: getstatic
 Operandos: 0 37 
 Opcode: 29
+Mnemônico: iload_3
 Opcode: 16
 Mnemônico: bipush
 Operandos: 13 
 Opcode: 104
+Mnemônico: imul
 Opcode: 21
 Mnemônico: iload
 Operandos: 4 
 Opcode: 96
+Mnemônico: iadd
 Opcode: 187
 Mnemônico: new
 Operandos: 0 36 
 Opcode: 89
+Mnemônico: dup
 Opcode: 29
+Mnemônico: iload_3
 Opcode: 44
+Mnemônico: aload_2
 Opcode: 21
 Mnemônico: iload
 Operandos: 4 
 Opcode: 50
+Mnemônico: aaload
 Opcode: 21
 Mnemônico: iload
 Operandos: 4 
 Opcode: 4
+Mnemônico: iconst_1
 Opcode: 96
+Mnemônico: iadd
 Opcode: 183
 Mnemônico: invokespecial
 Operandos: 0 39 
 Opcode: 83
+Mnemônico: aastore
 Opcode: 178
 Mnemônico: getstatic
 Operandos: 0 5 
@@ -984,7 +1091,9 @@ Opcode: 178
 Mnemônico: getstatic
 Operandos: 0 37 
 Opcode: 29
+Mnemônico: iload_3
 Opcode: 50
+Mnemônico: aaload
 Opcode: 180
 Mnemônico: getfield
 Operandos: 0 12 
@@ -1010,13 +1119,18 @@ Opcode: 184
 Mnemônico: invokestatic
 Operandos: 0 40 
 Opcode: 3
+Mnemônico: iconst_0
 Opcode: 62
+Mnemônico: istore_3
 Opcode: 29
+Mnemônico: iload_3
 Opcode: 7
+Mnemônico: iconst_4
 Opcode: 162
 Mnemônico: if_icmpge
 Operandos: 0 44 
 Opcode: 3
+Mnemônico: iconst_0
 Opcode: 54
 Mnemônico: istore
 Operandos: 4 
@@ -1033,20 +1147,26 @@ Opcode: 178
 Mnemônico: getstatic
 Operandos: 0 8 
 Opcode: 29
+Mnemônico: iload_3
 Opcode: 50
+Mnemônico: aaload
 Opcode: 178
 Mnemônico: getstatic
 Operandos: 0 37 
 Opcode: 29
+Mnemônico: iload_3
 Opcode: 16
 Mnemônico: bipush
 Operandos: 13 
 Opcode: 104
+Mnemônico: imul
 Opcode: 21
 Mnemônico: iload
 Operandos: 4 
 Opcode: 96
+Mnemônico: iadd
 Opcode: 50
+Mnemônico: aaload
 Opcode: 182
 Mnemônico: invokevirtual
 Operandos: 0 41 
@@ -1063,11 +1183,12 @@ Opcode: 167
 Mnemônico: goto
 Operandos: 255 213 
 Opcode: 177
+Mnemônico: return
 
 ================================================================================
 
 Número de tabelas de exceções: 0
-Tabelas de exceções: 0x55aafec787d0
+Tabelas de exceções: 0x58dd4420
 Número de atributos: 1
 
 ================================================================================
@@ -1103,18 +1224,25 @@ Opcode: 187
 Mnemônico: new
 Operandos: 0 36 
 Opcode: 89
+Mnemônico: dup
 Opcode: 4
+Mnemônico: iconst_1
 Opcode: 18
 Mnemônico: ldc
 Operandos: 42 
 Opcode: 4
+Mnemônico: iconst_1
 Opcode: 183
 Mnemônico: invokespecial
 Operandos: 0 39 
 Opcode: 77
+Mnemônico: astore_2
 Opcode: 3
+Mnemônico: iconst_0
 Opcode: 62
+Mnemônico: istore_3
 Opcode: 29
+Mnemônico: iload_3
 Opcode: 16
 Mnemônico: bipush
 Operandos: 52 
@@ -1125,20 +1253,35 @@ Opcode: 16
 Mnemônico: bipush
 Operandos: 51 
 Opcode: 60
+Mnemônico: istore_1
 Opcode: 42
+Mnemônico: aload_0
 Opcode: 29
+Mnemônico: iload_3
 Opcode: 50
+Mnemônico: aaload
 Opcode: 77
+Mnemônico: astore_2
 Opcode: 42
+Mnemônico: aload_0
 Opcode: 29
+Mnemônico: iload_3
 Opcode: 42
+Mnemônico: aload_0
 Opcode: 27
+Mnemônico: iload_1
 Opcode: 50
+Mnemônico: aaload
 Opcode: 83
+Mnemônico: aastore
 Opcode: 42
+Mnemônico: aload_0
 Opcode: 27
+Mnemônico: iload_1
 Opcode: 44
+Mnemônico: aload_2
 Opcode: 83
+Mnemônico: aastore
 Opcode: 132
 Mnemônico: iinc
 Operandos: 3 1 
@@ -1146,11 +1289,12 @@ Opcode: 167
 Mnemônico: goto
 Operandos: 255 230 
 Opcode: 177
+Mnemônico: return
 
 ================================================================================
 
 Número de tabelas de exceções: 0
-Tabelas de exceções: 0x55aafec78930
+Tabelas de exceções: 0x58dd44f0
 Número de atributos: 1
 
 ================================================================================
@@ -1186,14 +1330,17 @@ Opcode: 187
 Mnemônico: new
 Operandos: 0 43 
 Opcode: 89
+Mnemônico: dup
 Opcode: 183
 Mnemônico: invokespecial
 Operandos: 0 44 
 Opcode: 76
+Mnemônico: astore_1
 Opcode: 184
 Mnemônico: invokestatic
 Operandos: 0 45 
 Opcode: 7
+Mnemônico: iconst_4
 Opcode: 189
 Mnemônico: anewarray
 Operandos: 0 36 
@@ -1201,6 +1348,7 @@ Opcode: 58
 Mnemônico: astore
 Operandos: 5 
 Opcode: 3
+Mnemônico: iconst_0
 Opcode: 54
 Mnemônico: istore
 Operandos: 6 
@@ -1208,6 +1356,7 @@ Opcode: 21
 Mnemônico: iload
 Operandos: 6 
 Opcode: 7
+Mnemônico: iconst_4
 Opcode: 162
 Mnemônico: if_icmpge
 Operandos: 0 25 
@@ -1221,15 +1370,19 @@ Opcode: 187
 Mnemônico: new
 Operandos: 0 36 
 Opcode: 89
+Mnemônico: dup
 Opcode: 4
+Mnemônico: iconst_1
 Opcode: 18
 Mnemônico: ldc
 Operandos: 42 
 Opcode: 4
+Mnemônico: iconst_1
 Opcode: 183
 Mnemônico: invokespecial
 Operandos: 0 39 
 Opcode: 83
+Mnemônico: aastore
 Opcode: 132
 Mnemônico: iinc
 Operandos: 6 1 
@@ -1237,41 +1390,56 @@ Opcode: 167
 Mnemônico: goto
 Operandos: 255 231 
 Opcode: 3
+Mnemônico: iconst_0
 Opcode: 62
+Mnemônico: istore_3
 Opcode: 25
 Mnemônico: aload
 Operandos: 5 
 Opcode: 29
+Mnemônico: iload_3
 Opcode: 178
 Mnemônico: getstatic
 Operandos: 0 8 
 Opcode: 29
+Mnemônico: iload_3
 Opcode: 50
+Mnemônico: aaload
 Opcode: 182
 Mnemônico: invokevirtual
 Operandos: 0 46 
 Opcode: 83
+Mnemônico: aastore
 Opcode: 25
 Mnemônico: aload
 Operandos: 5 
 Opcode: 29
+Mnemônico: iload_3
 Opcode: 50
+Mnemônico: aaload
 Opcode: 198
 Mnemônico: ifnull
 Operandos: 0 238 
 Opcode: 29
+Mnemônico: iload_3
 Opcode: 54
 Mnemônico: istore
 Operandos: 4 
 Opcode: 3
+Mnemônico: iconst_0
 Opcode: 61
+Mnemônico: istore_2
 Opcode: 28
+Mnemônico: iload_2
 Opcode: 7
+Mnemônico: iconst_4
 Opcode: 162
 Mnemônico: if_icmpge
 Operandos: 0 72 
 Opcode: 28
+Mnemônico: iload_2
 Opcode: 29
+Mnemônico: iload_3
 Opcode: 159
 Mnemônico: if_icmpeq
 Operandos: 0 61 
@@ -1279,16 +1447,21 @@ Opcode: 25
 Mnemônico: aload
 Operandos: 5 
 Opcode: 28
+Mnemônico: iload_2
 Opcode: 178
 Mnemônico: getstatic
 Operandos: 0 8 
 Opcode: 28
+Mnemônico: iload_2
 Opcode: 50
+Mnemônico: aaload
 Opcode: 25
 Mnemônico: aload
 Operandos: 5 
 Opcode: 29
+Mnemônico: iload_3
 Opcode: 50
+Mnemônico: aaload
 Opcode: 180
 Mnemônico: getfield
 Operandos: 0 14 
@@ -1296,11 +1469,14 @@ Opcode: 182
 Mnemônico: invokevirtual
 Operandos: 0 47 
 Opcode: 83
+Mnemônico: aastore
 Opcode: 25
 Mnemônico: aload
 Operandos: 5 
 Opcode: 28
+Mnemônico: iload_2
 Opcode: 50
+Mnemônico: aaload
 Opcode: 180
 Mnemônico: getfield
 Operandos: 0 48 
@@ -1311,6 +1487,7 @@ Opcode: 21
 Mnemônico: iload
 Operandos: 4 
 Opcode: 50
+Mnemônico: aaload
 Opcode: 180
 Mnemônico: getfield
 Operandos: 0 48 
@@ -1321,7 +1498,9 @@ Opcode: 25
 Mnemônico: aload
 Operandos: 5 
 Opcode: 28
+Mnemônico: iload_2
 Opcode: 50
+Mnemônico: aaload
 Opcode: 180
 Mnemônico: getfield
 Operandos: 0 14 
@@ -1332,6 +1511,7 @@ Opcode: 21
 Mnemônico: iload
 Operandos: 4 
 Opcode: 50
+Mnemônico: aaload
 Opcode: 180
 Mnemônico: getfield
 Operandos: 0 14 
@@ -1339,6 +1519,7 @@ Opcode: 160
 Mnemônico: if_icmpne
 Operandos: 0 6 
 Opcode: 28
+Mnemônico: iload_2
 Opcode: 54
 Mnemônico: istore
 Operandos: 4 
@@ -1355,7 +1536,9 @@ Opcode: 178
 Mnemônico: getstatic
 Operandos: 0 8 
 Opcode: 29
+Mnemônico: iload_3
 Opcode: 50
+Mnemônico: aaload
 Opcode: 180
 Mnemônico: getfield
 Operandos: 0 9 
@@ -1381,9 +1564,13 @@ Opcode: 182
 Mnemônico: invokevirtual
 Operandos: 0 7 
 Opcode: 3
+Mnemônico: iconst_0
 Opcode: 61
+Mnemônico: istore_2
 Opcode: 28
+Mnemônico: iload_2
 Opcode: 7
+Mnemônico: iconst_4
 Opcode: 162
 Mnemônico: if_icmpge
 Operandos: 0 63 
@@ -1394,7 +1581,9 @@ Opcode: 178
 Mnemônico: getstatic
 Operandos: 0 8 
 Opcode: 28
+Mnemônico: iload_2
 Opcode: 50
+Mnemônico: aaload
 Opcode: 180
 Mnemônico: getfield
 Operandos: 0 9 
@@ -1417,7 +1606,9 @@ Opcode: 25
 Mnemônico: aload
 Operandos: 5 
 Opcode: 28
+Mnemônico: iload_2
 Opcode: 50
+Mnemônico: aaload
 Opcode: 180
 Mnemônico: getfield
 Operandos: 0 12 
@@ -1437,7 +1628,9 @@ Opcode: 25
 Mnemônico: aload
 Operandos: 5 
 Opcode: 28
+Mnemônico: iload_2
 Opcode: 50
+Mnemônico: aaload
 Opcode: 180
 Mnemônico: getfield
 Operandos: 0 14 
@@ -1445,6 +1638,7 @@ Opcode: 184
 Mnemônico: invokestatic
 Operandos: 0 15 
 Opcode: 87
+Mnemônico: pop
 Opcode: 132
 Mnemônico: iinc
 Operandos: 2 1 
@@ -1458,6 +1652,7 @@ Opcode: 21
 Mnemônico: iload
 Operandos: 4 
 Opcode: 50
+Mnemônico: aaload
 Opcode: 25
 Mnemônico: aload
 Operandos: 5 
@@ -1468,6 +1663,7 @@ Opcode: 21
 Mnemônico: iload
 Operandos: 4 
 Opcode: 62
+Mnemônico: istore_3
 Opcode: 178
 Mnemônico: getstatic
 Operandos: 0 5 
@@ -1484,7 +1680,9 @@ Opcode: 178
 Mnemônico: getstatic
 Operandos: 0 8 
 Opcode: 29
+Mnemônico: iload_3
 Opcode: 50
+Mnemônico: aaload
 Opcode: 180
 Mnemônico: getfield
 Operandos: 0 9 
@@ -1504,15 +1702,19 @@ Opcode: 25
 Mnemônico: aload
 Operandos: 5 
 Opcode: 29
+Mnemônico: iload_3
 Opcode: 178
 Mnemônico: getstatic
 Operandos: 0 8 
 Opcode: 29
+Mnemônico: iload_3
 Opcode: 50
+Mnemônico: aaload
 Opcode: 182
 Mnemônico: invokevirtual
 Operandos: 0 46 
 Opcode: 83
+Mnemônico: aastore
 Opcode: 167
 Mnemônico: goto
 Operandos: 255 17 
@@ -1532,7 +1734,9 @@ Opcode: 178
 Mnemônico: getstatic
 Operandos: 0 8 
 Opcode: 3
+Mnemônico: iconst_0
 Opcode: 50
+Mnemônico: aaload
 Opcode: 180
 Mnemônico: getfield
 Operandos: 0 9 
@@ -1555,7 +1759,9 @@ Opcode: 178
 Mnemônico: getstatic
 Operandos: 0 8 
 Opcode: 3
+Mnemônico: iconst_0
 Opcode: 50
+Mnemônico: aaload
 Opcode: 180
 Mnemônico: getfield
 Operandos: 0 57 
@@ -1569,7 +1775,9 @@ Opcode: 178
 Mnemônico: getstatic
 Operandos: 0 8 
 Opcode: 4
+Mnemônico: iconst_1
 Opcode: 50
+Mnemônico: aaload
 Opcode: 180
 Mnemônico: getfield
 Operandos: 0 9 
@@ -1592,7 +1800,9 @@ Opcode: 178
 Mnemônico: getstatic
 Operandos: 0 8 
 Opcode: 4
+Mnemônico: iconst_1
 Opcode: 50
+Mnemônico: aaload
 Opcode: 180
 Mnemônico: getfield
 Operandos: 0 57 
@@ -1606,7 +1816,9 @@ Opcode: 178
 Mnemônico: getstatic
 Operandos: 0 8 
 Opcode: 5
+Mnemônico: iconst_2
 Opcode: 50
+Mnemônico: aaload
 Opcode: 180
 Mnemônico: getfield
 Operandos: 0 9 
@@ -1629,7 +1841,9 @@ Opcode: 178
 Mnemônico: getstatic
 Operandos: 0 8 
 Opcode: 5
+Mnemônico: iconst_2
 Opcode: 50
+Mnemônico: aaload
 Opcode: 180
 Mnemônico: getfield
 Operandos: 0 57 
@@ -1643,7 +1857,9 @@ Opcode: 178
 Mnemônico: getstatic
 Operandos: 0 8 
 Opcode: 6
+Mnemônico: iconst_3
 Opcode: 50
+Mnemônico: aaload
 Opcode: 180
 Mnemônico: getfield
 Operandos: 0 9 
@@ -1666,7 +1882,9 @@ Opcode: 178
 Mnemônico: getstatic
 Operandos: 0 8 
 Opcode: 6
+Mnemônico: iconst_3
 Opcode: 50
+Mnemônico: aaload
 Opcode: 180
 Mnemônico: getfield
 Operandos: 0 57 
@@ -1674,11 +1892,12 @@ Opcode: 182
 Mnemônico: invokevirtual
 Operandos: 0 58 
 Opcode: 177
+Mnemônico: return
 
 ================================================================================
 
 Número de tabelas de exceções: 0
-Tabelas de exceções: 0x55aafec78a50
+Tabelas de exceções: 0x58dd4760
 Número de atributos: 1
 
 ================================================================================

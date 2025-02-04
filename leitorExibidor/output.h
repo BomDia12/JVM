@@ -23,4 +23,6 @@ void print_title(const char * string);
 void print_code(CodeAttribute code);
 void print_instruction(Instruction instruction, int i);
 
+const char * get_version(uint16_t major);
+
 #endif
