@@ -8,7 +8,10 @@ typedef struct Buffer {
   uint64_t position;
 } Buffer;
 
+typedef struct Frame Frame;
 typedef struct Attribute Attribute;
+typedef struct Stack Stack;
+typedef struct Instruction Instruction;
 
 typedef struct ExceptionTable {
   uint16_t start_pc;
@@ -201,15 +204,49 @@ typedef struct InstructionType {
   uint8_t opcode;
   uint8_t operand_count;
   char * mnemonic;
+  void (*opcode_function) (Instruction instruction, Frame * frame);
 } InstructionType;
 
-typedef struct Instruction {
+struct Instruction {
   InstructionType * type;
   uint32_t * operands;
-} Instruction;
+};
 
 typedef struct ClassFileBuffer {
-  ClassFile * buffer;
+  ClassFile * * buffer;
+  uint32_t size;
 } ClassFileBuffer;
+
+struct Stack {
+  uint32_t * self;
+  Stack * next;
+};
+
+typedef struct Object {
+  ClassFile * class;
+  uint32_t * fields;
+} Object;
+
+typedef struct LocalVariables {
+  uint8_t * variables;
+  uint32_t size;
+} LocalVariables;
+
+struct Frame {
+  ClassFile * this_class;
+  Method * this_method;
+  Stack * stack_top;
+  uint32_t stack_size;
+  LocalVariables * local_variables;
+  Frame * next;
+};
+
+typedef struct FrameStack FrameStack;
+
+struct FrameStack {
+  uint32_t stack_size;
+  Frame * top_frame;
+};
+
 
 #endif

@@ -21,6 +21,6 @@ void print_divider();
 void print_title(const char * string);
 
 void print_code(CodeAttribute code);
-void print_instruction(Instruction instruction);
+void print_instruction(Instruction instruction, int i);
 
 #endif

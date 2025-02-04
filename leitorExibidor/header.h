@@ -14,8 +14,10 @@ ClassFile * read_class_file();
 Constant * read_constant();
 Field * read_field();
 Method * read_method();
+Constant * getFromConstantPool(ClassFile * class_file, uint16_t index);
 
 ClassFileBuffer * get_current_class_file();
+void pushToClassFileBuffer(ClassFile * class_file);
 
 void free_class_file(ClassFile * class_file);
 void free_constant(Constant * constant);

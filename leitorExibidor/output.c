@@ -193,19 +193,21 @@ void print_code(CodeAttribute code) {
   code_buffer->position = 0;
   code_buffer->buffer = code.code;
   print_title("Seção de código");
+  int i = 0;
   while (code_buffer->position < code.code_length) {
+    i++;
     Instruction instruction = read_instruction();
-    print_instruction(instruction);
+    print_instruction(instruction, i);
   }
   printf("\n");
   print_divider();
   printf("\n");
 };
 
-void print_instruction(Instruction instruction) {
+void print_instruction(Instruction instruction, int i) {
   printf("Opcode: %d\n", instruction.type->opcode);
+  printf("Mnemônico: %s\n", instruction.type->mnemonic);
   if (instruction.type->operand_count > 0) {
-    printf("Mnemônico: %s\n", instruction.type->mnemonic);
     printf("Operandos: ");
     for (int i = 0; i < instruction.type->operand_count; i++) {
       printf("%d ", instruction.operands[i]);

@@ -2,8 +2,7 @@
 
 ClassFile * read_class_file() {
   ClassFile * classFile = malloc(sizeof(ClassFile));
-  ClassFileBuffer * singleton = get_current_class_file();
-  singleton->buffer = classFile;
+  pushToClassFileBuffer(classFile);
 
   classFile->magic = read_u32();
   if (classFile->magic != 0xCAFEBABE) {
@@ -202,6 +201,24 @@ void free_method(Method *method) {
 }
 
 ClassFileBuffer * get_current_class_file() {
-  static ClassFileBuffer class_file;
+  static ClassFileBuffer class_file = {
+    .buffer = NULL,
+    .size = 0
+  };
   return &class_file;
 }
+
+void pushToClassFileBuffer(ClassFile * class_file) {
+  ClassFileBuffer * buffer = get_current_class_file();
+  ClassFile * * old = buffer->buffer;
+  buffer->buffer = malloc((buffer->size + 1) * sizeof(ClassFile *));
+  for (int i = 0; i < buffer->size; i++) {
+    buffer->buffer[i] = old[i];
+  }
+  buffer->buffer[buffer->size] = class_file;
+  buffer->size++;
+}
+
+Constant * getFromConstantPool(ClassFile * class_file, uint16_t index) {
+  return class_file->constant_pool[index];
+};
