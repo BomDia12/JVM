@@ -2,6 +2,7 @@
 #define TYPES_H
 
 #include <stdint.h>
+#include <stdio.h>
 
 typedef struct Buffer {
   uint8_t * buffer;
@@ -222,12 +223,12 @@ typedef struct InstructionType {
   uint8_t opcode;
   uint8_t operand_count;
   char * mnemonic;
-  void (*opcode_function) (Instruction instruction, Frame * frame);
+  void (*opcode_function) (Frame * frame, Instruction instruction);
 } InstructionType;
 
 struct Instruction {
   InstructionType * type;
-  uint32_t * operands;
+  uint8_t * operands;
 };
 
 typedef struct ClassFileBuffer {

@@ -222,6 +222,7 @@ void pushToClassFileBuffer(ClassFile * class_file) {
   }
   buffer->buffer[buffer->size] = class_file;
   buffer->size++;
+  free(old);
 }
 
 Constant * getFromConstantPool(ClassFile * class_file, uint16_t index) {

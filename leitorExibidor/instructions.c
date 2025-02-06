@@ -1,11 +1,40 @@
 #include "instructions.h"
 
+void load_constant(Frame * frame, Instruction instruction) {
+  add_to_stack(frame, 0);
+}
+
+void add_to_stack(Frame * frame, uint32_t value) {
+  Stack * stack = malloc(sizeof(Stack));
+  stack->self = value;
+  stack->next = frame->stack_top;
+  frame->stack_top = stack;
+}
+
+uint32_t remove_from_stack(Frame * frame) {
+  Stack * stack = frame->stack_top;
+  uint32_t value = stack->self;
+  frame->stack_top = stack->next;
+  free(stack);
+  return value;
+}
+
+void i2l(Frame * frame, Instruction Instruction) {
+  uint32_t oi = remove_from_stack(frame);
+  if (oi > 0x7fffffff) {
+    add_to_stack(frame, 0xffffffff);
+  } else {
+    add_to_stack(frame, 0);
+  }
+  add_to_stack(frame, oi);
+}
+
 InstructionType * get_instruction_type(uint8_t opcode) {
   static InstructionType instructions[] = {
-    {0x00, 0, "nop"},
+    {0x00, 0, "nop", nop},
     {0x01, 0, "aconst_null"},
     {0x02, 0, "iconst_m1"},
-    {0x03, 0, "iconst_0"},
+    {0x03, 0, "iconst_0", load_constant},
     {0x04, 0, "iconst_1"},
     {0x05, 0, "iconst_2"},
     {0x06, 0, "iconst_3"},
@@ -264,3 +293,7 @@ InstructionType * get_instruction_type(uint8_t opcode) {
 
   return &instructions[opcode];
 };
+
+void nop(Frame * frame) {
+  printf("Nop\n");
+}
