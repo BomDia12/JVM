@@ -19,16 +19,6 @@ uint32_t remove_from_stack(Frame * frame) {
   return value;
 }
 
-void i2l(Frame * frame, Instruction Instruction) {
-  uint32_t oi = remove_from_stack(frame);
-  if (oi > 0x7fffffff) {
-    add_to_stack(frame, 0xffffffff);
-  } else {
-    add_to_stack(frame, 0);
-  }
-  add_to_stack(frame, oi);
-}
-
 InstructionType * get_instruction_type(uint8_t opcode) {
   static InstructionType instructions[] = {
     {0x00, 0, "nop", nop},
