@@ -247,7 +247,7 @@ typedef struct Object {
 } Object;
 
 typedef struct LocalVariables {
-  uint8_t * variables;
+  uint32_t * variables;
   uint32_t size;
 } LocalVariables;
 
@@ -267,5 +267,26 @@ struct FrameStack {
   Frame * top_frame;
 };
 
+typedef union ArrayTypes {
+  char char_;
+  short short_;
+  int integer;
+  long long long_;
+  uint32_t reference;
+  uint8_t boolean;
+  float float_;
+  double double_;
+  uint32_t uint32;
+} ArrayTypes;
+
+typedef struct Array {
+  uint32_t size;
+  ArrayTypes * array;
+} Array;
+
+typedef struct ArrayList {
+  uint32_t size;
+  Array * * array;
+} ArrayList;
 
 #endif

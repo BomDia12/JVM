@@ -22,6 +22,6 @@ float uint32_to_float(uint32_t value);
 uint32_t float_to_uint32(float value);
 double uint64_to_double(uint64_t value);
 uint64_t double_to_uint64(double value);
-void double_to_ints(double d, int* hi, int* lo);
+void double_to_ints(double d, uint32_t* hi, uint32_t* lo);
 
 #endif
