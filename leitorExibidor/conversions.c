@@ -122,6 +122,12 @@ void i2s(Frame * frame, Instruction Instruction) {
   add_to_stack(frame, converted_number);
 }
 
+void i2c(Frame * frame, Instruction Instruction) {
+  char number = (char) remove_from_stack(frame);
+  uint32_t converted_number = (uint32_t) number;
+  add_to_stack(frame, converted_number);
+}
+
 float uint32_to_float(uint32_t value) {
     union {
         uint32_t u32;
