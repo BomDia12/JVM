@@ -9,6 +9,7 @@
         "string.h": "c",
         "stdio.h": "c",
         "stdint.h": "c",
-        "cstdint": "c"
+        "cstdint": "c",
+        "array.h": "c"
     }
 }

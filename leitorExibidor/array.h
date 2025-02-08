@@ -5,10 +5,11 @@
 #include "instructions.h"
 
 ArrayList * get_array_list();
-
 Array * get_array(uint32_t index);
-
 uint32_t add_array(Array * array);
+
+void free_array(Array * array);
+void free_array_list(ArrayList * array_list);
 
 void new_array(Frame * frame, Instruction instruction);
 void anewarray(Frame * frame, Instruction instruction);

@@ -13,6 +13,19 @@ Array * get_array(uint32_t index) {
   return array_list->array[index];
 }
 
+void free_array(Array * array) {
+  free(array->array);
+  free(array);
+}
+
+void free_array_list(ArrayList * array_list) {
+  for (uint32_t i = 0; i < array_list->size; i++) {
+    free_array(array_list->array[i]);
+  }
+  free(array_list->array);
+  free(array_list);
+}
+
 uint32_t add_array(Array * array) {
   ArrayList * array_list = get_array_list();
   array_list->size++;

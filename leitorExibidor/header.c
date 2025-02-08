@@ -215,14 +215,9 @@ ClassFileBuffer * get_current_class_file() {
 
 void pushToClassFileBuffer(ClassFile * class_file) {
   ClassFileBuffer * buffer = get_current_class_file();
-  ClassFile * * old = buffer->buffer;
-  buffer->buffer = malloc((buffer->size + 1) * sizeof(ClassFile *));
-  for (int i = 0; i < buffer->size; i++) {
-    buffer->buffer[i] = old[i];
-  }
-  buffer->buffer[buffer->size] = class_file;
   buffer->size++;
-  free(old);
+  buffer->buffer = realloc(buffer, sizeof(ClassFile *) * buffer->size);
+  buffer->buffer[buffer->size - 1] = class_file;
 }
 
 Constant * getFromConstantPool(ClassFile * class_file, uint16_t index) {
