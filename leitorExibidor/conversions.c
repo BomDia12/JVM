@@ -60,13 +60,11 @@ void f2i(Frame * frame, Instruction Instruction) {
 
 void f2l(Frame * frame, Instruction Instruction) {
   float number = uint32_to_float(remove_from_stack(frame));
-  uint32_t converted_number = (uint32_t) number;
-  if (converted_number > 0x7fffffff) {
-    add_to_stack(frame, 0xffffffff);
-  } else {
-    add_to_stack(frame, 0);
-  }
-  add_to_stack(frame, converted_number);
+  uint64_t converted_number = (uint64_t) number;
+  uint32_t low = (uint32_t) converted_number;
+  uint32_t high = (uint32_t) (converted_number >> 32);
+  add_to_stack(frame, high);
+  add_to_stack(frame, low);
 }
 
 void f2d(Frame * frame, Instruction Instruction) {
