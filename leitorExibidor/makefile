@@ -1,4 +1,4 @@
-all: main.c reader.o header.o bytecode.o attribute.o output.o instructions.o arithmetic.o conversions.o array.o interpreter.o invoke.o
+all: main.c reader.o header.o bytecode.o attribute.o output.o instructions.o arithmetic.o conversions.o array.o interpreter.o stores.o loads.o stackops.o invoke.o
 	gcc -m32 ./*.o ./main.c -o main.exe -lm
 
 reader.o: reader.c reader.h types.h
@@ -33,6 +33,15 @@ interpreter.o: interpreter.c interpreter.h types.h instructions.h
 
 invoke.o: invoke.c invoke.h types.h instructions.h
 	gcc -m32 -c invoke.c -o invoke.o
+
+stores.o: stores.c stores.h types.h instructions.h
+	gcc -m32 -c stores.c -o stores.o
+
+loads.o: loads.c loads.h types.h instructions.h
+	gcc -m32 -c loads.c -o loads.o
+
+stackops.o: stackops.c stackops.h types.h instructions.h
+	gcc -m32 -c stackops.c -o stackops.o
 
 clean:
 	rm -rf *.exe ./**/*.o *.o out.txt
