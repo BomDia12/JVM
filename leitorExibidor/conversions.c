@@ -127,6 +127,42 @@ void i2c(Frame * frame, Instruction Instruction) {
   add_to_stack(frame, converted_number);
 }
 
+int8_t uint8_to_short(uint8_t value) {
+  union {
+    uint8_t u8;
+    int8_t b;
+  } converter;
+  converter.u8 = value;
+  return converter.b;
+}
+
+uint8_t short_to_uint8(int8_t value) {
+  union {
+    uint8_t u8;
+    int8_t b;
+  } converter;
+  converter.b = value;
+  return converter.u8;
+}
+
+int16_t uint16_to_short(uint16_t value) {
+  union {
+    uint16_t u16;
+    int16_t s;
+  } converter;
+  converter.u16 = value;
+  return converter.s;
+}
+
+uint16_t short_to_uint16(int16_t value) {
+  union {
+    uint16_t u16;
+    int16_t s;
+  } converter;
+  converter.s = value;
+  return converter.u16;
+}
+
 int32_t uint32_to_int(uint32_t value) {
   union {
     uint32_t u32;
