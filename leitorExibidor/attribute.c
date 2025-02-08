@@ -6,7 +6,7 @@ Attribute * read_attribute() {
   attribute->attribute_length = read_u32();
   ClassFileBuffer * class_file = get_current_class_file();
 
-  Constant * constant = class_file->buffer[0]->constant_pool[attribute->attribute_name_index - 1];
+  Constant * constant = class_file->buffer[class_file->size - 1]->constant_pool[attribute->attribute_name_index - 1];
 
   if (constant->tag == 1) {
     const char * string = constant->ConstantUnion.utf8_info.bytes;

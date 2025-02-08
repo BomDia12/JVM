@@ -17,441 +17,600 @@ Pool de constantes:
 
 ================================================================================
 
+Index: 1
 CONSTANT_String_info
-Index: 78
+referencia: 77
+Index: 2
 CONSTANT_String_info
-Index: 79
+referencia: 78
+Index: 3
 CONSTANT_String_info
-Index: 80
+referencia: 79
+Index: 4
+CONSTANT_String_info
+referencia: 80
+Index: 5
 CONSTANT_Fieldref_info
 Index da classe: 81
 Index de nome e tipo: 82
+Index: 6
 CONSTANT_String_info
-Index: 83
+referencia: 83
+Index: 7
 CONSTANT_Methodref_info
 Index da classe: 84
 Index de nome e tipo: 85
+Index: 8
 CONSTANT_Fieldref_info
 Index da classe: 43
 Index de nome e tipo: 86
+Index: 9
 CONSTANT_Fieldref_info
 Index da classe: 35
 Index de nome e tipo: 87
+Index: 10
 CONSTANT_String_info
-Index: 88
+referencia: 88
+Index: 11
 CONSTANT_Fieldref_info
 Index da classe: 35
 Index de nome e tipo: 89
+Index: 12
 CONSTANT_Fieldref_info
 Index da classe: 36
 Index de nome e tipo: 87
+Index: 13
 CONSTANT_String_info
-Index: 90
+referencia: 90
+Index: 14
 CONSTANT_Fieldref_info
 Index da classe: 36
 Index de nome e tipo: 91
+Index: 15
 CONSTANT_Methodref_info
 Index da classe: 43
 Index de nome e tipo: 92
+Index: 16
 CONSTANT_Methodref_info
 Index da classe: 59
 Index de nome e tipo: 93
+Index: 17
 CONSTANT_Class_info
 Index: 94
+Index: 18
 CONSTANT_String_info
-Index: 95
+referencia: 95
+Index: 19
 CONSTANT_String_info
-Index: 96
+referencia: 96
+Index: 20
 CONSTANT_String_info
-Index: 97
+referencia: 97
+Index: 21
 CONSTANT_String_info
-Index: 98
+referencia: 98
+Index: 22
 CONSTANT_String_info
-Index: 99
+referencia: 99
+Index: 23
 CONSTANT_String_info
-Index: 100
+referencia: 100
+Index: 24
 CONSTANT_String_info
-Index: 101
+referencia: 101
+Index: 25
 CONSTANT_String_info
-Index: 102
+referencia: 102
+Index: 26
 CONSTANT_String_info
-Index: 103
+referencia: 103
+Index: 27
 CONSTANT_String_info
-Index: 104
+referencia: 104
+Index: 28
 CONSTANT_String_info
-Index: 105
+referencia: 105
+Index: 29
 CONSTANT_String_info
-Index: 106
+referencia: 106
+Index: 30
 CONSTANT_String_info
-Index: 107
+referencia: 107
+Index: 31
 CONSTANT_String_info
-Index: 108
+referencia: 108
+Index: 32
 CONSTANT_String_info
-Index: 109
+referencia: 109
+Index: 33
 CONSTANT_String_info
-Index: 110
+referencia: 110
+Index: 34
 CONSTANT_String_info
-Index: 111
+referencia: 111
+Index: 35
 CONSTANT_Class_info
 Index: 112
+Index: 36
 CONSTANT_Class_info
 Index: 113
+Index: 37
 CONSTANT_Fieldref_info
 Index da classe: 43
 Index de nome e tipo: 114
+Index: 38
 CONSTANT_Methodref_info
 Index da classe: 35
 Index de nome e tipo: 115
+Index: 39
 CONSTANT_Methodref_info
 Index da classe: 36
 Index de nome e tipo: 116
+Index: 40
 CONSTANT_Methodref_info
 Index da classe: 43
 Index de nome e tipo: 117
+Index: 41
 CONSTANT_Methodref_info
 Index da classe: 35
 Index de nome e tipo: 118
+Index: 42
 CONSTANT_String_info
-Index: 119
+referencia: 119
+Index: 43
 CONSTANT_Class_info
 Index: 120
+Index: 44
 CONSTANT_Methodref_info
 Index da classe: 43
 Index de nome e tipo: 93
+Index: 45
 CONSTANT_Methodref_info
 Index da classe: 43
 Index de nome e tipo: 121
+Index: 46
 CONSTANT_Methodref_info
 Index da classe: 35
 Index de nome e tipo: 122
+Index: 47
 CONSTANT_Methodref_info
 Index da classe: 35
 Index de nome e tipo: 123
+Index: 48
 CONSTANT_Fieldref_info
 Index da classe: 36
 Index de nome e tipo: 124
+Index: 49
 CONSTANT_String_info
-Index: 125
+referencia: 125
+Index: 50
 CONSTANT_String_info
-Index: 126
+referencia: 126
+Index: 51
 CONSTANT_String_info
-Index: 127
+referencia: 127
+Index: 52
 CONSTANT_Methodref_info
 Index da classe: 35
 Index de nome e tipo: 128
+Index: 53
 CONSTANT_String_info
-Index: 129
+referencia: 129
+Index: 54
 CONSTANT_String_info
-Index: 130
+referencia: 130
+Index: 55
 CONSTANT_String_info
-Index: 131
+referencia: 131
+Index: 56
 CONSTANT_String_info
-Index: 132
+referencia: 132
+Index: 57
 CONSTANT_Fieldref_info
 Index da classe: 35
 Index de nome e tipo: 133
+Index: 58
 CONSTANT_Methodref_info
 Index da classe: 84
 Index de nome e tipo: 134
+Index: 59
 CONSTANT_Class_info
 Index: 135
+Index: 60
 CONSTANT_Utf8_info
 Tamanho: 9
 String: jogadores
+Index: 61
 CONSTANT_Utf8_info
 Tamanho: 10
 String: [LJogador;
+Index: 62
 CONSTANT_Utf8_info
 Tamanho: 7
 String: baralho
+Index: 63
 CONSTANT_Utf8_info
 Tamanho: 8
 String: [LCarta;
+Index: 64
 CONSTANT_Utf8_info
 Tamanho: 11
 String: retornaNome
+Index: 65
 CONSTANT_Utf8_info
 Tamanho: 21
 String: (I)Ljava/lang/String;
+Index: 66
 CONSTANT_Utf8_info
 Tamanho: 4
 String: Code
+Index: 67
 CONSTANT_Utf8_info
 Tamanho: 15
 String: LineNumberTable
+Index: 68
 CONSTANT_Utf8_info
 Tamanho: 11
 String: printStatus
+Index: 69
 CONSTANT_Utf8_info
 Tamanho: 3
 String: ()V
+Index: 70
 CONSTANT_Utf8_info
 Tamanho: 6
 String: <init>
+Index: 71
 CONSTANT_Utf8_info
 Tamanho: 7
 String: shuffle
+Index: 72
 CONSTANT_Utf8_info
 Tamanho: 11
 String: ([LCarta;)V
+Index: 73
 CONSTANT_Utf8_info
 Tamanho: 4
 String: main
+Index: 74
 CONSTANT_Utf8_info
 Tamanho: 22
 String: ([Ljava/lang/String;)V
+Index: 75
 CONSTANT_Utf8_info
 Tamanho: 10
 String: SourceFile
+Index: 76
 CONSTANT_Utf8_info
 Tamanho: 11
 String: Belote.java
+Index: 77
 CONSTANT_Utf8_info
 Tamanho: 4
 String: Paus
+Index: 78
 CONSTANT_Utf8_info
 Tamanho: 5
 String: Ouros
+Index: 79
 CONSTANT_Utf8_info
 Tamanho: 5
 String: Copas
+Index: 80
 CONSTANT_Utf8_info
 Tamanho: 7
 String: Espadas
+Index: 81
 CONSTANT_Class_info
 Index: 136
+Index: 82
 CONSTANT_NameAndType_info
 Index de nome: 137
 Index de tipo: 138
+Index: 83
 CONSTANT_Utf8_info
 Tamanho: 11
 String: 
 Cartas de 
+Index: 84
 CONSTANT_Class_info
 Index: 139
+Index: 85
 CONSTANT_NameAndType_info
 Index de nome: 140
 Index de tipo: 141
+Index: 86
 CONSTANT_NameAndType_info
 Index de nome: 60
 Index de tipo: 61
+Index: 87
 CONSTANT_NameAndType_info
 Index de nome: 142
 Index de tipo: 143
+Index: 88
 CONSTANT_Utf8_info
 Tamanho: 1
 String: 
 
+Index: 89
 CONSTANT_NameAndType_info
 Index de nome: 144
 Index de tipo: 63
+Index: 90
 CONSTANT_Utf8_info
 Tamanho: 4
 String:  de 
+Index: 91
 CONSTANT_NameAndType_info
 Index de nome: 145
 Index de tipo: 146
+Index: 92
 CONSTANT_NameAndType_info
 Index de nome: 64
 Index de tipo: 65
+Index: 93
 CONSTANT_NameAndType_info
 Index de nome: 70
 Index de tipo: 69
+Index: 94
 CONSTANT_Utf8_info
 Tamanho: 16
 String: java/lang/String
+Index: 95
 CONSTANT_Utf8_info
 Tamanho: 4
 String: Adam
+Index: 96
 CONSTANT_Utf8_info
 Tamanho: 3
 String: Bob
+Index: 97
 CONSTANT_Utf8_info
 Tamanho: 7
 String: Charlie
+Index: 98
 CONSTANT_Utf8_info
 Tamanho: 6
 String: Daniel
+Index: 99
 CONSTANT_Utf8_info
 Tamanho: 2
 String: As
+Index: 100
 CONSTANT_Utf8_info
 Tamanho: 4
 String: Dois
+Index: 101
 CONSTANT_Utf8_info
 Tamanho: 4
 String: Tres
+Index: 102
 CONSTANT_Utf8_info
 Tamanho: 6
 String: Quatro
+Index: 103
 CONSTANT_Utf8_info
 Tamanho: 5
 String: Cinco
+Index: 104
 CONSTANT_Utf8_info
 Tamanho: 4
 String: Seis
+Index: 105
 CONSTANT_Utf8_info
 Tamanho: 4
 String: Sete
+Index: 106
 CONSTANT_Utf8_info
 Tamanho: 4
 String: Oito
+Index: 107
 CONSTANT_Utf8_info
 Tamanho: 4
 String: Nove
+Index: 108
 CONSTANT_Utf8_info
 Tamanho: 3
 String: Dez
+Index: 109
 CONSTANT_Utf8_info
 Tamanho: 6
 String: Valete
+Index: 110
 CONSTANT_Utf8_info
 Tamanho: 4
 String: Dama
+Index: 111
 CONSTANT_Utf8_info
 Tamanho: 3
 String: Rei
+Index: 112
 CONSTANT_Utf8_info
 Tamanho: 7
 String: Jogador
+Index: 113
 CONSTANT_Utf8_info
 Tamanho: 5
 String: Carta
+Index: 114
 CONSTANT_NameAndType_info
 Index de nome: 62
 Index de tipo: 63
+Index: 115
 CONSTANT_NameAndType_info
 Index de nome: 70
 Index de tipo: 141
+Index: 116
 CONSTANT_NameAndType_info
 Index de nome: 70
 Index de tipo: 147
+Index: 117
 CONSTANT_NameAndType_info
 Index de nome: 71
 Index de tipo: 72
+Index: 118
 CONSTANT_NameAndType_info
 Index de nome: 148
 Index de tipo: 149
+Index: 119
 CONSTANT_Utf8_info
 Tamanho: 1
 String: 1
+Index: 120
 CONSTANT_Utf8_info
 Tamanho: 6
 String: Belote
+Index: 121
 CONSTANT_NameAndType_info
 Index de nome: 68
 Index de tipo: 69
+Index: 122
 CONSTANT_NameAndType_info
 Index de nome: 150
 Index de tipo: 151
+Index: 123
 CONSTANT_NameAndType_info
 Index de nome: 152
 Index de tipo: 153
+Index: 124
 CONSTANT_NameAndType_info
 Index de nome: 154
 Index de tipo: 146
+Index: 125
 CONSTANT_Utf8_info
 Tamanho: 17
 String:  comecou jogando
 
+Index: 126
 CONSTANT_Utf8_info
 Tamanho: 25
 String: As cartas jogadas foram: 
+Index: 127
 CONSTANT_Utf8_info
 Tamanho: 7
 String:  jogou 
+Index: 128
 CONSTANT_NameAndType_info
 Index de nome: 155
 Index de tipo: 72
+Index: 129
 CONSTANT_Utf8_info
 Tamanho: 2
 String: 
 
 
+Index: 130
 CONSTANT_Utf8_info
 Tamanho: 18
 String:  Ganhou a rodada
 
 
+Index: 131
 CONSTANT_Utf8_info
 Tamanho: 31
 String: PontuaÃ§Ã£o dos jogadores.
 
+Index: 132
 CONSTANT_Utf8_info
 Tamanho: 4
 String:  =  
+Index: 133
 CONSTANT_NameAndType_info
 Index de nome: 156
 Index de tipo: 146
+Index: 134
 CONSTANT_NameAndType_info
 Index de nome: 140
 Index de tipo: 157
+Index: 135
 CONSTANT_Utf8_info
 Tamanho: 16
 String: java/lang/Object
+Index: 136
 CONSTANT_Utf8_info
 Tamanho: 16
 String: java/lang/System
+Index: 137
 CONSTANT_Utf8_info
 Tamanho: 3
 String: out
+Index: 138
 CONSTANT_Utf8_info
 Tamanho: 21
 String: Ljava/io/PrintStream;
+Index: 139
 CONSTANT_Utf8_info
 Tamanho: 19
 String: java/io/PrintStream
+Index: 140
 CONSTANT_Utf8_info
 Tamanho: 7
 String: println
+Index: 141
 CONSTANT_Utf8_info
 Tamanho: 21
 String: (Ljava/lang/String;)V
+Index: 142
 CONSTANT_Utf8_info
 Tamanho: 4
 String: nome
+Index: 143
 CONSTANT_Utf8_info
 Tamanho: 18
 String: Ljava/lang/String;
+Index: 144
 CONSTANT_Utf8_info
 Tamanho: 6
 String: cartas
+Index: 145
 CONSTANT_Utf8_info
 Tamanho: 5
 String: naipe
+Index: 146
 CONSTANT_Utf8_info
 Tamanho: 1
 String: I
+Index: 147
 CONSTANT_Utf8_info
 Tamanho: 23
 String: (ILjava/lang/String;I)V
+Index: 148
 CONSTANT_Utf8_info
 Tamanho: 8
 String: addCarta
+Index: 149
 CONSTANT_Utf8_info
 Tamanho: 10
 String: (LCarta;)V
+Index: 150
 CONSTANT_Utf8_info
 Tamanho: 15
 String: primeiroJogador
+Index: 151
 CONSTANT_Utf8_info
 Tamanho: 9
 String: ()LCarta;
+Index: 152
 CONSTANT_Utf8_info
 Tamanho: 4
 String: play
+Index: 153
 CONSTANT_Utf8_info
 Tamanho: 10
 String: (I)LCarta;
+Index: 154
 CONSTANT_Utf8_info
 Tamanho: 5
 String: valor
+Index: 155
 CONSTANT_Utf8_info
 Tamanho: 12
 String: ganheiRodada
+Index: 156
 CONSTANT_Utf8_info
 Tamanho: 9
 String: pontuacao
+Index: 157
 CONSTANT_Utf8_info
 Tamanho: 4
 String: (I)V
@@ -560,7 +719,7 @@ Mnemônico: areturn
 ================================================================================
 
 Número de tabelas de exceções: 0
-Tabelas de exceções: 0x58dd4130
+Tabelas de exceções: 0x676c1130
 Número de atributos: 1
 
 ================================================================================
@@ -734,7 +893,7 @@ Mnemônico: return
 ================================================================================
 
 Número de tabelas de exceções: 0
-Tabelas de exceções: 0x58dd4250
+Tabelas de exceções: 0x676c1250
 Número de atributos: 1
 
 ================================================================================
@@ -1188,7 +1347,7 @@ Mnemônico: return
 ================================================================================
 
 Número de tabelas de exceções: 0
-Tabelas de exceções: 0x58dd4420
+Tabelas de exceções: 0x676c1420
 Número de atributos: 1
 
 ================================================================================
@@ -1294,7 +1453,7 @@ Mnemônico: return
 ================================================================================
 
 Número de tabelas de exceções: 0
-Tabelas de exceções: 0x58dd44f0
+Tabelas de exceções: 0x676c14f0
 Número de atributos: 1
 
 ================================================================================
@@ -1897,7 +2056,7 @@ Mnemônico: return
 ================================================================================
 
 Número de tabelas de exceções: 0
-Tabelas de exceções: 0x58dd4760
+Tabelas de exceções: 0x676c1760
 Número de atributos: 1
 
 ================================================================================

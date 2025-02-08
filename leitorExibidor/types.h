@@ -13,6 +13,7 @@ typedef struct Frame Frame;
 typedef struct Attribute Attribute;
 typedef struct Stack Stack;
 typedef struct Instruction Instruction;
+typedef struct ClassFile ClassFile;
 
 typedef struct ExceptionTable {
   uint16_t start_pc;
@@ -162,18 +163,18 @@ typedef union ConstantUnion {
 
 /**
  * Tags:
+ * 0 - padding
+ * 1 - Utf8
  * 7 - Class
- * 9 - FieldRef
- * 10 - MethodRef
- * 11 - InterfaceMethodRef
- * 8 - String
  * 3 - Integer
  * 4 - Float
  * 5 - Long
+ * 9 - FieldRef
  * 6 - Double
+ * 8 - String
+ * 10 - MethodRef
+ * 11 - InterfaceMethodRef
  * 12 - NameAndType
- * 1 - Utf8
- * 0 - padding
  */
 typedef struct Constant {
   uint8_t tag;
@@ -199,7 +200,7 @@ typedef struct Method {
 } Method;
 
 // ClassFile types
-typedef struct ClassFile {
+struct ClassFile {
   uint32_t magic;
   uint16_t minor_version;
   uint16_t major_version;
@@ -216,14 +217,15 @@ typedef struct ClassFile {
   Method * * methods;
   uint16_t attributes_count;
   Attribute * * attributes;
-} ClassFile;
+  ClassFile * super_class_object;
+};
 
 // Bytecode types
 typedef struct InstructionType {
   uint8_t opcode;
   uint8_t operand_count;
   char * mnemonic;
-  void (*opcode_function) (Frame * frame, Instruction instruction);
+  int (*opcode_function) (Frame * frame, Instruction instruction);
 } InstructionType;
 
 struct Instruction {
@@ -237,7 +239,7 @@ typedef struct ClassFileBuffer {
 } ClassFileBuffer;
 
 struct Stack {
-  uint32_t * self;
+  uint32_t self;
   Stack * next;
 };
 
@@ -247,7 +249,7 @@ typedef struct Object {
 } Object;
 
 typedef struct LocalVariables {
-  uint8_t * variables;
+  uint32_t * variables;
   uint32_t size;
 } LocalVariables;
 
@@ -257,6 +259,7 @@ struct Frame {
   Stack * stack_top;
   uint32_t stack_size;
   LocalVariables * local_variables;
+  uint32_t pc;
   Frame * next;
 };
 
@@ -267,5 +270,26 @@ struct FrameStack {
   Frame * top_frame;
 };
 
+typedef union ArrayTypes {
+  int8_t char_;
+  int16_t short_;
+  int32_t integer;
+  int64_t long_;
+  uint32_t reference;
+  uint8_t boolean;
+  float float_;
+  double double_;
+  uint32_t uint32;
+} ArrayTypes;
+
+typedef struct Array {
+  uint32_t size;
+  ArrayTypes * array;
+} Array;
+
+typedef struct ArrayList {
+  uint32_t size;
+  Array * * array;
+} ArrayList;
 
 #endif

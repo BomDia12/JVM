@@ -7,6 +7,11 @@
         "types.h": "c",
         "header.h": "c",
         "string.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "stdint.h": "c",
+        "cstdint": "c",
+        "array.h": "c",
+        "interpreter.h": "c",
+        "instructions.h": "c"
     }
 }
