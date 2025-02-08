@@ -268,10 +268,10 @@ struct FrameStack {
 };
 
 typedef union ArrayTypes {
-  char char_;
-  short short_;
-  int integer;
-  long long long_;
+  int8_t char_;
+  int16_t short_;
+  int32_t integer;
+  int64_t long_;
   uint32_t reference;
   uint8_t boolean;
   float float_;
