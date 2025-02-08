@@ -11,6 +11,7 @@ int invoke_special(Frame * frame, Instruction instruction);
 int invoke_static(Frame * frame, Instruction instruction);
 int invoke_virtual(Frame * frame, Instruction instruction);
 
+int common_invoke(Frame * frame, Instruction instruction, char include_this);
 Arguments * get_arguments(Frame * frame, char include_this, char * method_descriptor);
 
 #endif

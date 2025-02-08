@@ -34,3 +34,4 @@ Exemplo:
  - Strings
  - Objetos
  - multianewarray
+ - invokevirtual

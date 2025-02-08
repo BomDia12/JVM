@@ -10,6 +10,7 @@
 #include "loads.h"
 #include "stores.h"
 #include "conversions.h"
+#include "invoke.h"
 
 InstructionType * get_instruction_type(uint8_t opcode);
 
