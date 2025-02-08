@@ -34,39 +34,44 @@ uint32_t add_array(Array * array) {
   return array_list->size - 1;
 }
 
-void new_array(Frame * frame, Instruction instruction) {
+int new_array(Frame * frame, Instruction instruction) {
   uint32_t size = remove_from_stack(frame);
   Array * array = malloc(sizeof(Array));
   array->size = size;
   array->array = malloc(sizeof(ArrayTypes) * size);
   uint32_t index = add_array(array);
   add_to_stack(frame, index);
+
+  return 0;
 }
 
-void anewarray(Frame * frame, Instruction instruction) {
+int anewarray(Frame * frame, Instruction instruction) {
   uint32_t size = remove_from_stack(frame);
   Array * array = malloc(sizeof(Array));
   array->size = size;
   array->array = malloc(sizeof(ArrayTypes) * size);
   uint32_t index = add_array(array);
   add_to_stack(frame, index);
+  return 0;
 }
 
-void arraylength(Frame * frame, Instruction instruction) {
+int arraylength(Frame * frame, Instruction instruction) {
   uint32_t index = remove_from_stack(frame);
   Array * array = get_array(index);
   add_to_stack(frame, array->size);
+  return 0;
 }
 
-void iaload(Frame * frame, Instruction instruction) {
+int iaload(Frame * frame, Instruction instruction) {
   uint32_t index = remove_from_stack(frame);
   uint32_t arrayref = remove_from_stack(frame);
   Array * array = get_array(arrayref);
   uint32_t value = array->array[index].uint32;
   add_to_stack(frame, value);
+  return 0;
 }
 
-void laload(Frame * frame, Instruction instruction) {
+int laload(Frame * frame, Instruction instruction) {
   uint32_t index = remove_from_stack(frame);
   uint32_t arrayref = remove_from_stack(frame);
   Array * array = get_array(arrayref);
@@ -75,17 +80,19 @@ void laload(Frame * frame, Instruction instruction) {
   uint32_t high = (uint32_t) (value >> 32);
   add_to_stack(frame, high);
   add_to_stack(frame, low);
+  return 0;
 }
 
-void faload(Frame * frame, Instruction instruction) {
+int faload(Frame * frame, Instruction instruction) {
   uint32_t index = remove_from_stack(frame);
   uint32_t arrayref = remove_from_stack(frame);
   Array * array = get_array(arrayref);
   uint32_t value = array->array[index].uint32;
   add_to_stack(frame, value);
+  return 0;
 }
 
-void daload(Frame * frame, Instruction instruction) {
+int daload(Frame * frame, Instruction instruction) {
   uint32_t index = remove_from_stack(frame);
   uint32_t arrayref = remove_from_stack(frame);
   Array * array = get_array(arrayref);
@@ -94,104 +101,128 @@ void daload(Frame * frame, Instruction instruction) {
   double_to_ints(value, &hi, &lo);
   add_to_stack(frame, hi);
   add_to_stack(frame, lo);
+  return 0;
 }
 
-void aaload(Frame * frame, Instruction instruction) {
+int aaload(Frame * frame, Instruction instruction) {
   uint32_t index = remove_from_stack(frame);
   uint32_t arrayref = remove_from_stack(frame);
   Array * array = get_array(arrayref);
   uint32_t value = array->array[index].reference;
   add_to_stack(frame, value);
+  return 0;
 }
 
-void baload(Frame * frame, Instruction instruction) {
+int baload(Frame * frame, Instruction instruction) {
   uint32_t index = remove_from_stack(frame);
   uint32_t arrayref = remove_from_stack(frame);
   Array * array = get_array(arrayref);
   uint32_t value = array->array[index].boolean;
   add_to_stack(frame, value);
+
+  return 0;
 }
 
-void caload(Frame * frame, Instruction instruction) {
+int caload(Frame * frame, Instruction instruction) {
   uint32_t index = remove_from_stack(frame);
   uint32_t arrayref = remove_from_stack(frame);
   Array * array = get_array(arrayref);
   uint32_t value = array->array[index].char_;
   add_to_stack(frame, value);
+
+  return 0;
 }
 
-void saload(Frame * frame, Instruction instruction) {
+int saload(Frame * frame, Instruction instruction) {
   uint32_t index = remove_from_stack(frame);
   uint32_t arrayref = remove_from_stack(frame);
   Array * array = get_array(arrayref);
   uint32_t value = array->array[index].short_;
   add_to_stack(frame, value);
+
+  return 0;
 }
 
-void iastore(Frame * frame, Instruction instruction) {
+int iastore(Frame * frame, Instruction instruction) {
   uint32_t value = remove_from_stack(frame);
   uint32_t index = remove_from_stack(frame);
   uint32_t arrayref = remove_from_stack(frame);
   Array * array = get_array(arrayref);
   array->array[index].integer = value;
+
+  return 0;
 }
 
-void lastore(Frame * frame, Instruction instruction) {
-  uint32_t value_hi = remove_from_stack(frame);
-  uint32_t value_low = remove_from_stack(frame);
+int lastore(Frame * frame, Instruction instruction) {
+  uint64_t value_hi = remove_from_stack(frame);
+  uint64_t value_low = remove_from_stack(frame);
   uint64_t value = value_hi << 32 | value_low;
   uint32_t index = remove_from_stack(frame);
   uint32_t arrayref = remove_from_stack(frame);
   Array * array = get_array(arrayref);
   array->array[index].long_ = value;
+
+  return 0;
 }
 
-void fastore(Frame * frame, Instruction instruction) {
+int fastore(Frame * frame, Instruction instruction) {
   uint32_t value = remove_from_stack(frame);
   uint32_t index = remove_from_stack(frame);
   uint32_t arrayref = remove_from_stack(frame);
   Array * array = get_array(arrayref);
   array->array[index].uint32 = value;
+
+  return 0;
 }
 
-void dastore(Frame * frame, Instruction instruction) {
-  uint32_t value_hi = remove_from_stack(frame);
-  uint32_t value_low = remove_from_stack(frame);
+int dastore(Frame * frame, Instruction instruction) {
+  uint64_t value_hi = remove_from_stack(frame);
+  uint64_t value_low = remove_from_stack(frame);
   double value = uint64_to_double(value_hi << 32 | value_low);
   uint32_t index = remove_from_stack(frame);
   uint32_t arrayref = remove_from_stack(frame);
   Array * array = get_array(arrayref);
   array->array[index].double_ = value;
+
+  return 0;
 }
 
-void aastore(Frame * frame, Instruction instruction) {
+int aastore(Frame * frame, Instruction instruction) {
   uint32_t value = remove_from_stack(frame);
   uint32_t index = remove_from_stack(frame);
   uint32_t arrayref = remove_from_stack(frame);
   Array * array = get_array(arrayref);
   array->array[index].reference = value;
+
+  return 0;
 }
 
-void bastore(Frame * frame, Instruction instruction) {
+int bastore(Frame * frame, Instruction instruction) {
   uint32_t value = remove_from_stack(frame);
   uint32_t index = remove_from_stack(frame);
   uint32_t arrayref = remove_from_stack(frame);
   Array * array = get_array(arrayref);
   array->array[index].boolean = value;
+
+  return 0;
 }
 
-void castore(Frame * frame, Instruction instruction) {
+int castore(Frame * frame, Instruction instruction) {
   uint32_t value = remove_from_stack(frame);
   uint32_t index = remove_from_stack(frame);
   uint32_t arrayref = remove_from_stack(frame);
   Array * array = get_array(arrayref);
   array->array[index].char_ = value;
+
+  return 0;
 }
 
-void sastore(Frame * frame, Instruction instruction) {
+int sastore(Frame * frame, Instruction instruction) {
   uint32_t value = remove_from_stack(frame);
   uint32_t index = remove_from_stack(frame);
   uint32_t arrayref = remove_from_stack(frame);
   Array * array = get_array(arrayref);
   array->array[index].short_ = value;
+
+  return 0;
 }

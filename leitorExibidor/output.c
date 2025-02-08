@@ -16,8 +16,8 @@ void print_class_file(ClassFile * class_file) {
   printf("número de attributes: %d\n", class_file->attributes_count);
 
   print_title("Pool de constantes:");
-  for (int i = 1; i < (class_file->constant_pool_count - 1); i++) {
-    print_constant_pool(class_file->constant_pool[i]);
+  for (int i = 0; i < (class_file->constant_pool_count - 1); i++) {
+    print_constant_pool(class_file->constant_pool[i], i + 1);
   }
 
 
@@ -52,8 +52,9 @@ void print_title(const char * string) {
   printf("\n");
 }
 
-void print_constant_pool(Constant * constant) {
+void print_constant_pool(Constant * constant, uint32_t index) {
   Constant * cp = constant;
+  printf("Index: %d\n", index);
   switch (cp->tag) {
     case 1:
       printf("CONSTANT_Utf8_info\n");
@@ -82,7 +83,7 @@ void print_constant_pool(Constant * constant) {
       break;
     case 8:
       printf("CONSTANT_String_info\n");
-      printf("Index: %d\n", cp->ConstantUnion.string_info.string_index);
+      printf("referencia: %d\n", cp->ConstantUnion.string_info.string_index);
       break;
     case 9:
       printf("CONSTANT_Fieldref_info\n");

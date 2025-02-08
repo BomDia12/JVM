@@ -216,10 +216,22 @@ ClassFileBuffer * get_current_class_file() {
 void pushToClassFileBuffer(ClassFile * class_file) {
   ClassFileBuffer * buffer = get_current_class_file();
   buffer->size++;
-  buffer->buffer = realloc(buffer, sizeof(ClassFile *) * buffer->size);
+  if (buffer->buffer == NULL) {
+    buffer->buffer = malloc(sizeof(ClassFile *) * buffer->size);
+  } else {
+    buffer->buffer = realloc(buffer->buffer, sizeof(ClassFile *) * buffer->size);
+  }
   buffer->buffer[buffer->size - 1] = class_file;
 }
 
 Constant * getFromConstantPool(ClassFile * class_file, uint16_t index) {
-  return class_file->constant_pool[index];
+  return class_file->constant_pool[index - 1];
 };
+
+Constant * getNestedString(ClassFile * class_file, uint16_t index) {
+  Constant * info = getFromConstantPool(class_file, index);
+  if (info->tag == 1) {
+    return info;
+  }
+  return getNestedString(class_file, info->ConstantUnion.class_info.name_index);
+}

@@ -1,6 +1,6 @@
 #include "conversions.h"
 
-void i2l(Frame * frame, Instruction Instruction) {
+int i2l(Frame * frame, Instruction Instruction) {
   uint32_t number = remove_from_stack(frame);
   if (number > 0x7fffffff) {
     add_to_stack(frame, 0xffffffff);
@@ -8,15 +8,19 @@ void i2l(Frame * frame, Instruction Instruction) {
     add_to_stack(frame, 0);
   }
   add_to_stack(frame, number);
+
+  return 0;
 }
 
-void i2f(Frame * frame, Instruction Instruction) {
+int i2f(Frame * frame, Instruction Instruction) {
   float number = (float) remove_from_stack(frame);
   uint32_t converted_number = float_to_uint32(number);
   add_to_stack(frame, converted_number);
+
+  return 0;
 }
 
-void i2d(Frame * frame, Instruction Instruction) {
+int i2d(Frame * frame, Instruction Instruction) {
   uint32_t number = remove_from_stack(frame);
   double converted_number = (double) number;
   int hi;
@@ -24,24 +28,30 @@ void i2d(Frame * frame, Instruction Instruction) {
   double_to_ints(converted_number, &hi, &lo);
   add_to_stack(frame, hi);
   add_to_stack(frame, lo);
+
+  return 0;
 }
 
-void l2i(Frame * frame, Instruction Instruction) {
+int l2i(Frame * frame, Instruction Instruction) {
   uint32_t low = remove_from_stack(frame);
   uint32_t high = remove_from_stack(frame);
   // uint64_t number = high << 32 | low;
   add_to_stack(frame, low);
+
+  return 0;
 }
 
-void l2f(Frame * frame, Instruction Instruction) {
+int l2f(Frame * frame, Instruction Instruction) {
   uint64_t low = (uint64_t) remove_from_stack(frame);
   uint64_t high = (uint64_t) remove_from_stack(frame);
   uint64_t number = high << 32 | low;
   float converted_number = (float) uint64_to_long(number);
   add_to_stack(frame, float_to_uint32(converted_number));
+
+  return 0;
 }
 
-void l2d(Frame * frame, Instruction Instruction) {
+int l2d(Frame * frame, Instruction Instruction) {
   uint64_t low = (uint64_t) remove_from_stack(frame);
   uint64_t high = (uint64_t) remove_from_stack(frame);
   uint64_t number = high << 32 | low;
@@ -51,24 +61,30 @@ void l2d(Frame * frame, Instruction Instruction) {
   double_to_ints(converted_number, &hi, &lo);
   add_to_stack(frame, hi);
   add_to_stack(frame, lo);
+
+  return 0;
 }
 
-void f2i(Frame * frame, Instruction Instruction) {
+int f2i(Frame * frame, Instruction Instruction) {
   float number = uint32_to_float(remove_from_stack(frame));
   uint32_t converted_number = (uint32_t) number;
   add_to_stack(frame, converted_number);
+
+  return 0;
 }
 
-void f2l(Frame * frame, Instruction Instruction) {
+int f2l(Frame * frame, Instruction Instruction) {
   float number = uint32_to_float(remove_from_stack(frame));
   uint64_t converted_number = (uint64_t) number;
   uint32_t low = (uint32_t) converted_number;
   uint32_t high = (uint32_t) (converted_number >> 32);
   add_to_stack(frame, high);
   add_to_stack(frame, low);
+
+  return 0;
 }
 
-void f2d(Frame * frame, Instruction Instruction) {
+int f2d(Frame * frame, Instruction Instruction) {
   float number = uint32_to_float(remove_from_stack(frame));
   double converted_number = (double) number;
   uint32_t hi;
@@ -76,18 +92,22 @@ void f2d(Frame * frame, Instruction Instruction) {
   double_to_ints(converted_number, &hi, &lo);
   add_to_stack(frame, hi);
   add_to_stack(frame, lo);
+
+  return 0;
 }
 
-void d2i(Frame * frame, Instruction Instruction) {
+int d2i(Frame * frame, Instruction Instruction) {
   uint64_t low = (uint64_t) remove_from_stack(frame);
   uint64_t high = (uint64_t) remove_from_stack(frame);
   uint64_t number = high << 32 | low;
   double converted_number = uint64_to_double(number);
   uint32_t final_number = (uint32_t) converted_number;
   add_to_stack(frame, final_number);
+
+  return 0;
 }
 
-void d2l(Frame * frame, Instruction Instruction) {
+int d2l(Frame * frame, Instruction Instruction) {
   uint64_t low = (uint64_t) remove_from_stack(frame);
   uint64_t high = (uint64_t) remove_from_stack(frame);
   uint64_t number = high << 32 | low;
@@ -97,9 +117,11 @@ void d2l(Frame * frame, Instruction Instruction) {
   uint32_t final_high = (uint32_t) (final_long_number >> 32);
   add_to_stack(frame, final_low);
   add_to_stack(frame, final_high);
+
+  return 0;
 }
 
-void d2f(Frame * frame, Instruction Instruction) {
+int d2f(Frame * frame, Instruction Instruction) {
   uint64_t low = (uint64_t) remove_from_stack(frame);
   uint64_t high = (uint64_t) remove_from_stack(frame);
   uint64_t number = high << 32 | low;
@@ -107,24 +129,32 @@ void d2f(Frame * frame, Instruction Instruction) {
   float final_float_number = (float) converted_number;
   uint32_t final_number = float_to_uint32(final_float_number);
   add_to_stack(frame, final_number);
+
+  return 0;
 }
 
-void i2b(Frame * frame, Instruction Instruction) {
+int i2b(Frame * frame, Instruction Instruction) {
   uint8_t number = (uint8_t) remove_from_stack(frame);
   uint32_t converted_number = (uint32_t) number;
   add_to_stack(frame, converted_number);
+
+  return 0;
 }
 
-void i2s(Frame * frame, Instruction Instruction) {
+int i2s(Frame * frame, Instruction Instruction) {
   uint16_t number = (uint16_t) remove_from_stack(frame);
   uint32_t converted_number = (uint32_t) number;
   add_to_stack(frame, converted_number);
+
+  return 0;
 }
 
-void i2c(Frame * frame, Instruction Instruction) {
+int i2c(Frame * frame, Instruction Instruction) {
   char number = (char) remove_from_stack(frame);
   uint32_t converted_number = (uint32_t) number;
   add_to_stack(frame, converted_number);
+
+  return 0;
 }
 
 int32_t uint32_to_int(uint32_t value) {

@@ -13,6 +13,7 @@ typedef struct Frame Frame;
 typedef struct Attribute Attribute;
 typedef struct Stack Stack;
 typedef struct Instruction Instruction;
+typedef struct ClassFile ClassFile;
 
 typedef struct ExceptionTable {
   uint16_t start_pc;
@@ -162,18 +163,18 @@ typedef union ConstantUnion {
 
 /**
  * Tags:
+ * 0 - padding
+ * 1 - Utf8
  * 7 - Class
- * 9 - FieldRef
- * 10 - MethodRef
- * 11 - InterfaceMethodRef
- * 8 - String
  * 3 - Integer
  * 4 - Float
  * 5 - Long
+ * 9 - FieldRef
  * 6 - Double
+ * 8 - String
+ * 10 - MethodRef
+ * 11 - InterfaceMethodRef
  * 12 - NameAndType
- * 1 - Utf8
- * 0 - padding
  */
 typedef struct Constant {
   uint8_t tag;
@@ -199,7 +200,7 @@ typedef struct Method {
 } Method;
 
 // ClassFile types
-typedef struct ClassFile {
+struct ClassFile {
   uint32_t magic;
   uint16_t minor_version;
   uint16_t major_version;
@@ -216,14 +217,15 @@ typedef struct ClassFile {
   Method * * methods;
   uint16_t attributes_count;
   Attribute * * attributes;
-} ClassFile;
+  ClassFile * super_class_object;
+};
 
 // Bytecode types
 typedef struct InstructionType {
   uint8_t opcode;
   uint8_t operand_count;
   char * mnemonic;
-  void (*opcode_function) (Frame * frame, Instruction instruction);
+  int (*opcode_function) (Frame * frame, Instruction instruction);
 } InstructionType;
 
 struct Instruction {
@@ -237,7 +239,7 @@ typedef struct ClassFileBuffer {
 } ClassFileBuffer;
 
 struct Stack {
-  uint32_t * self;
+  uint32_t self;
   Stack * next;
 };
 
@@ -257,6 +259,7 @@ struct Frame {
   Stack * stack_top;
   uint32_t stack_size;
   LocalVariables * local_variables;
+  uint32_t pc;
   Frame * next;
 };
 
