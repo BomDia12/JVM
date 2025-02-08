@@ -292,4 +292,15 @@ typedef struct ArrayList {
   Array * * array;
 } ArrayList;
 
+/**
+ * Status:
+ * 0 - Success
+ * -1 - Method not found
+ * -2 - Code attribute not found
+ */
+typedef struct MethodResponses {
+  int status;
+  uint32_t value;
+} MethodResponses;
+
 #endif
