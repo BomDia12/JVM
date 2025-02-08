@@ -23,7 +23,7 @@ int common_invoke(Frame * frame, Instruction instruction, char include_this) {
   char * method_name = getNestedString(frame->this_class, name_and_type->ConstantUnion.name_and_type_info.name_index);
   char * method_descriptor = getNestedString(frame->this_class, name_and_type->ConstantUnion.name_and_type_info.descriptor_index);
 
-  Arguments * arguments = get_arguments(frame, 1, method_descriptor);
+  Arguments * arguments = get_arguments(frame, include_this, method_descriptor);
 
   char * class_name = getNestedString(frame->this_class, methodref->ConstantUnion.methodref_info.class_index);
   char * current_class_name = getNestedString(frame->this_class, frame->this_class->this_class);
