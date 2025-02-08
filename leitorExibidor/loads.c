@@ -90,18 +90,6 @@ int dconst_1(Frame *frame, Instruction instruction) {
   return 0;
 }
 
-int bipush(Frame *frame, Instruction instruction) {
-  int8_t value = (int8_t) instruction.operands[0];
-  add_to_stack(frame, value);
-  return 0;
-}
-
-int sipush(Frame *frame, Instruction instruction) {
-  int16_t value = (int16_t)((instruction.operands[0] << 8) | instruction.operands[1]);
-  add_to_stack(frame, value);
-  return 0;
-}
-
 int ldc(Frame *frame, Instruction instruction) {
   uint8_t index = instruction.operands[0];
   Constant *constant = frame->this_class->constant_pool[index];

@@ -21,10 +21,6 @@ int fconst_2(Frame *frame, Instruction instruction);
 int dconst_0(Frame *frame, Instruction instruction);
 int dconst_1(Frame *frame, Instruction instruction);
 
-// Funções para carregar valores imediatos
-int bipush(Frame *frame, Instruction instruction);
-int sipush(Frame *frame, Instruction instruction);
-
 // Funções para carregar constantes da pool de constantes
 int ldc(Frame *frame, Instruction instruction);
 int ldc_w(Frame *frame, Instruction instruction);
