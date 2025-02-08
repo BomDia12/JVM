@@ -20,7 +20,7 @@ output.o: output.c output.h types.h reader.h bytecode.h header.h
 	gcc -m32 -c output.c -o output.o
 
 conversions.o: conversions.c conversions.h instructions.h
-	gcc -m32 -c conversions.c -o conversions.oß
+	gcc -m32 -c conversions.c -o conversions.o
 
 clean:
 	rm -rf *.exe ./**/*.o *.o out.txt
