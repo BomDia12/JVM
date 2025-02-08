@@ -3,6 +3,7 @@
 
 void add_to_stack(Frame * frame, uint32_t value) {
   Stack * stack = malloc(sizeof(Stack));
+  frame->stack_size++;
   stack->self = value;
   stack->next = frame->stack_top;
   frame->stack_top = stack;
@@ -10,6 +11,7 @@ void add_to_stack(Frame * frame, uint32_t value) {
 
 uint32_t remove_from_stack(Frame * frame) {
   Stack * stack = frame->stack_top;
+  frame->stack_size--;
   uint32_t value = stack->self;
   frame->stack_top = stack->next;
   free(stack);

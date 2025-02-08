@@ -12,6 +12,7 @@
         "cstdint": "c",
         "array.h": "c",
         "interpreter.h": "c",
-        "instructions.h": "c"
+        "instructions.h": "c",
+        "bytecode.h": "c"
     }
 }
