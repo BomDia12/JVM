@@ -259,7 +259,7 @@ struct Frame {
   Stack * stack_top;
   uint32_t stack_size;
   LocalVariables * local_variables;
-  uint32_t pc;
+  Buffer pc;
   Frame * next;
 };
 

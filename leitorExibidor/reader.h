@@ -19,8 +19,6 @@ void read_file(char* filename);
 Buffer * get_buffer();
 Buffer * get_code_buffer();
 
-
-
 void free_buffer();
 
 #endif
