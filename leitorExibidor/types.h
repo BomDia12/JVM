@@ -259,7 +259,7 @@ struct Frame {
   Stack * stack_top;
   uint32_t stack_size;
   LocalVariables * local_variables;
-  uint32_t pc;
+  Buffer pc;
   Frame * next;
 };
 
@@ -291,5 +291,16 @@ typedef struct ArrayList {
   uint32_t size;
   Array * * array;
 } ArrayList;
+
+/**
+ * Status:
+ * 0 - Success
+ * -1 - Method not found
+ * -2 - Code attribute not found
+ */
+typedef struct MethodResponses {
+  int status;
+  uint32_t value;
+} MethodResponses;
 
 #endif

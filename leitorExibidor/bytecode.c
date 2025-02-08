@@ -2,6 +2,10 @@
 
 Instruction read_instruction() {
   Buffer * code_buffer = get_code_buffer();
+  return read_instruction_buffer(code_buffer);
+}
+
+Instruction read_instruction_buffer(Buffer * code_buffer) {
   InstructionType * instruction_type = get_instruction_type(read_u8_buffer(code_buffer));
   Instruction instruction;
   instruction.type = instruction_type;

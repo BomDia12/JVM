@@ -2,6 +2,7 @@
 
 void add_to_stack(Frame * frame, uint32_t value) {
   Stack * stack = malloc(sizeof(Stack));
+  frame->stack_size++;
   stack->self = value;
   stack->next = frame->stack_top;
   frame->stack_top = stack;
@@ -9,6 +10,7 @@ void add_to_stack(Frame * frame, uint32_t value) {
 
 uint32_t remove_from_stack(Frame * frame) {
   Stack * stack = frame->stack_top;
+  frame->stack_size--;
   uint32_t value = stack->self;
   frame->stack_top = stack->next;
   free(stack);
@@ -104,15 +106,15 @@ InstructionType * get_instruction_type(uint8_t opcode) {
     {0x54, 0, "bastore", bastore},
     {0x55, 0, "castore", castore},
     {0x56, 0, "sastore", sastore},
-    {0x57, 0, "pop"},
-    {0x58, 0, "pop2"},
-    {0x59, 0, "dup"},
-    {0x5a, 0, "dup_x1"},
-    {0x5b, 0, "dup_x2"},
-    {0x5c, 0, "dup2"},
-    {0x5d, 0, "dup2_x1"},
-    {0x5e, 0, "dup2_x2"},
-    {0x5f, 0, "swap"},
+    {0x57, 0, "pop", pop},
+    {0x58, 0, "pop2", pop2},
+    {0x59, 0, "dup", dup},
+    {0x5a, 0, "dup_x1", dup_x1},
+    {0x5b, 0, "dup_x2", dup_x2},
+    {0x5c, 0, "dup2", dup2},
+    {0x5d, 0, "dup2_x1", dup2_x1},
+    {0x5e, 0, "dup2_x2", dup2_x2},
+    {0x5f, 0, "swap", swap},
     {0x60, 0, "iadd", iadd},
     {0x61, 0, "ladd", ladd},
     {0x62, 0, "fadd", fadd},
@@ -165,11 +167,11 @@ InstructionType * get_instruction_type(uint8_t opcode) {
     {0x91, 0, "i2b", i2b},
     {0x92, 0, "i2c", i2c},
     {0x93, 0, "i2s", i2s},
-    {0x94, 0, "lcmp"},
-    {0x95, 0, "fcmpl"},
-    {0x96, 0, "fcmpg"},
-    {0x97, 0, "dcmpl"},
-    {0x98, 0, "dcmpg"},
+    {0x94, 0, "lcmp", lcmp},
+    {0x95, 0, "fcmpl", fcmp},
+    {0x96, 0, "fcmpg", fcmp},
+    {0x97, 0, "dcmpl", dcmp},
+    {0x98, 0, "dcmpg", dcmp},
     {0x99, 2, "ifeq"},
     {0x9a, 2, "ifne"},
     {0x9b, 2, "iflt"},
