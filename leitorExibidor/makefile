@@ -1,4 +1,4 @@
-all: main.c reader.o header.o bytecode.o attribute.o output.o instructions.o
+all: main.c reader.o header.o bytecode.o attribute.o output.o instructions.o arithmetic.o
 	gcc -m32 ./*.o ./main.c -o main.exe
 
 reader.o: reader.c reader.h types.h
@@ -13,12 +13,15 @@ bytecode.o: bytecode.c bytecode.h types.h reader.h instructions.h
 attribute.o: attribute.c attribute.h types.h reader.h
 	gcc -m32 -c attribute.c -o attribute.o
 
-instructions.o: instructions.c instructions.h types.h
+instructions.o: instructions.c instructions.h types.h arithmetic.h
 	gcc -m32 -c instructions.c -o instructions.o
 
 output.o: output.c output.h types.h reader.h bytecode.h header.h
 	gcc -m32 -c output.c -o output.o
 
+arithmetic.o: arithmetic.c arithmetic.h types.h instructions.h
+	gcc -m32 -c arithmetic.c -o arithmetic.o
+	
 conversions.o: conversions.c conversions.h instructions.h
 	gcc -m32 -c conversions.c -o conversions.o
 
