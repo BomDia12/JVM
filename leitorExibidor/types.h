@@ -276,6 +276,7 @@ typedef union ArrayTypes {
   uint8_t boolean;
   float float_;
   double double_;
+  uint32_t uint32;
 } ArrayTypes;
 
 typedef struct Array {

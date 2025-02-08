@@ -23,4 +23,13 @@ void baload(Frame * frame, Instruction instruction);
 void caload(Frame * frame, Instruction instruction);
 void saload(Frame * frame, Instruction instruction);
 
+void iastore(Frame * frame, Instruction instruction);
+void lastore(Frame * frame, Instruction instruction);
+void fastore(Frame * frame, Instruction instruction);
+void dastore(Frame * frame, Instruction instruction);
+void aastore(Frame * frame, Instruction instruction);
+void bastore(Frame * frame, Instruction instruction);
+void castore(Frame * frame, Instruction instruction);
+void sastore(Frame * frame, Instruction instruction);
+
 #endif
