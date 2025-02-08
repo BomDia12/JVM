@@ -3,21 +3,21 @@
 
 #include "instructions.h"
 
-void i2l(Frame * frame, Instruction Instruction);
-void i2f(Frame * frame, Instruction Instruction);
-void i2d(Frame * frame, Instruction Instruction);
-void l2i(Frame * frame, Instruction Instruction);
-void l2f(Frame * frame, Instruction Instruction);
-void l2d(Frame * frame, Instruction Instruction);
-void f2i(Frame * frame, Instruction Instruction);
-void f2l(Frame * frame, Instruction Instruction);
-void f2d(Frame * frame, Instruction Instruction);
-void d2i(Frame * frame, Instruction Instruction);
-void d2l(Frame * frame, Instruction Instruction);
-void d2f(Frame * frame, Instruction Instruction);
-void i2b(Frame * frame, Instruction Instruction);
-void i2c(Frame * frame, Instruction Instruction);
-void i2s(Frame * frame, Instruction Instruction);
+int i2l(Frame * frame, Instruction Instruction);
+int i2f(Frame * frame, Instruction Instruction);
+int i2d(Frame * frame, Instruction Instruction);
+int l2i(Frame * frame, Instruction Instruction);
+int l2f(Frame * frame, Instruction Instruction);
+int l2d(Frame * frame, Instruction Instruction);
+int f2i(Frame * frame, Instruction Instruction);
+int f2l(Frame * frame, Instruction Instruction);
+int f2d(Frame * frame, Instruction Instruction);
+int d2i(Frame * frame, Instruction Instruction);
+int d2l(Frame * frame, Instruction Instruction);
+int d2f(Frame * frame, Instruction Instruction);
+int i2b(Frame * frame, Instruction Instruction);
+int i2c(Frame * frame, Instruction Instruction);
+int i2s(Frame * frame, Instruction Instruction);
 int8_t uint8_to_byte(uint8_t value);
 uint8_t byte_to_uint8(int8_t value);
 int16_t uint16_to_short(uint16_t value);

@@ -10,6 +10,9 @@
         "stdio.h": "c",
         "stdint.h": "c",
         "cstdint": "c",
-        "array.h": "c"
+        "array.h": "c",
+        "interpreter.h": "c",
+        "instructions.h": "c",
+        "bytecode.h": "c"
     }
 }

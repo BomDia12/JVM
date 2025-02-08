@@ -1,12 +1,8 @@
 #include "instructions.h"
-#include "conversions.h"
-
-void load_constant(Frame * frame, Instruction instruction) {
-  add_to_stack(frame, 0);
-}
 
 void add_to_stack(Frame * frame, uint32_t value) {
   Stack * stack = malloc(sizeof(Stack));
+  frame->stack_size++;
   stack->self = value;
   stack->next = frame->stack_top;
   frame->stack_top = stack;
@@ -14,6 +10,7 @@ void add_to_stack(Frame * frame, uint32_t value) {
 
 uint32_t remove_from_stack(Frame * frame) {
   Stack * stack = frame->stack_top;
+  frame->stack_size--;
   uint32_t value = stack->self;
   frame->stack_top = stack->next;
   free(stack);
@@ -25,7 +22,7 @@ InstructionType * get_instruction_type(uint8_t opcode) {
     {0x00, 0, "nop", nop},
     {0x01, 0, "aconst_null"},
     {0x02, 0, "iconst_m1"},
-    {0x03, 0, "iconst_0", load_constant},
+    {0x03, 0, "iconst_0"},
     {0x04, 0, "iconst_1"},
     {0x05, 0, "iconst_2"},
     {0x06, 0, "iconst_3"},
@@ -131,13 +128,13 @@ InstructionType * get_instruction_type(uint8_t opcode) {
     {0x6a, 0, "fmul", fmul},
     {0x6b, 0, "dmul", dmul},
     {0x6c, 0, "idiv", idiv},
-    {0x6d, 0, "ldiv", ldiv},
+    {0x6d, 0, "ldiv", ldiv_},
     {0x6e, 0, "fdiv", fdiv},
     {0x6f, 0, "ddiv", ddiv},
     {0x70, 0, "irem", irem},
     {0x71, 0, "lrem", lrem},
     {0x72, 0, "frem", frem},
-    {0x73, 0, "drem", drem},
+    {0x73, 0, "drem", drem_},
     {0x74, 0, "ineg", ineg},
     {0x75, 0, "lneg", lneg},
     {0x76, 0, "fneg", fneg},
@@ -285,6 +282,6 @@ InstructionType * get_instruction_type(uint8_t opcode) {
   return &instructions[opcode];
 };
 
-void nop(Frame * frame) {
-  printf("Nop\n");
+int nop(Frame * frame, Instruction instruction) {
+  return 0;
 }

@@ -1,5 +1,5 @@
-all: main.c reader.o header.o bytecode.o attribute.o output.o instructions.o arithmetic.o
-	gcc -m32 ./*.o ./main.c -o main.exe
+all: main.c reader.o header.o bytecode.o attribute.o output.o instructions.o arithmetic.o conversions.o array.o interpreter.o
+	gcc -m32 ./*.o ./main.c -o main.exe -lm
 
 reader.o: reader.c reader.h types.h
 	gcc -m32 -c reader.c -o reader.o
@@ -19,11 +19,17 @@ instructions.o: instructions.c instructions.h types.h arithmetic.h
 output.o: output.c output.h types.h reader.h bytecode.h header.h
 	gcc -m32 -c output.c -o output.o
 
-arithmetic.o: arithmetic.c arithmetic.h types.h instructions.h
-	gcc -m32 -c arithmetic.c -o arithmetic.o
+arithmetic.o: arithmetic.c arithmetic.h types.h instructions.h conversions.h
+	gcc -m32 -c arithmetic.c -lm -o arithmetic.o
 	
 conversions.o: conversions.c conversions.h instructions.h
 	gcc -m32 -c conversions.c -o conversions.o
+
+array.o: array.c array.h types.h instructions.h
+	gcc -m32 -c array.c -o array.o
+
+interpreter.o: interpreter.c interpreter.h types.h instructions.h
+	gcc -m32 -c interpreter.c -o interpreter.o
 
 clean:
 	rm -rf *.exe ./**/*.o *.o out.txt

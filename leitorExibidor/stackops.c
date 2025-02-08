@@ -150,10 +150,10 @@ int bipush(Frame * frame, Instruction Instruction) {
 int sipush(Frame * frame, Instruction Instruction) {
   uint16_t byte1 = Instruction.operands[0];
   uint16_t byte2 = Instruction.operands[1];
-  uint16_t byte = byte1 << 8;
-  byte |= byte2;
-  int16_t byte16 = uint16_to_byte(byte);
-  int32_t result = (int32_t) byte16;
+  uint16_t bytes = byte1 << 8;
+  bytes |= byte2;
+  int16_t bytes16 = uint16_to_short(bytes);
+  int32_t result = (int32_t) bytes16;
   add_to_stack(frame, int_to_uint32(result));
   return 0;
 }
