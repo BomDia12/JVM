@@ -28,13 +28,13 @@ void run_class_file(ClassFile * class_file) {
   }
 }
 
-void call_method(Frame * frame, ClassFile * class_file, uint16_t index) {
+uint32_t call_method(Frame * current_frame, ClassFile * class_file, char * method_name) {
   Frame * call_frame;
-  if (frame->next != NULL) {
+  if (current_frame->next != NULL) {
     call_frame = malloc(sizeof(Frame));
-    call_frame->next = frame;
+    call_frame->next = current_frame;
   } else {
-    call_frame = frame;
+    call_frame = current_frame;
   }
 
   

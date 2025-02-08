@@ -1,10 +1,6 @@
 #include "instructions.h"
 #include "conversions.h"
 
-void load_constant(Frame * frame, Instruction instruction) {
-  add_to_stack(frame, 0);
-}
-
 void add_to_stack(Frame * frame, uint32_t value) {
   Stack * stack = malloc(sizeof(Stack));
   stack->self = value;
@@ -25,7 +21,7 @@ InstructionType * get_instruction_type(uint8_t opcode) {
     {0x00, 0, "nop", nop},
     {0x01, 0, "aconst_null"},
     {0x02, 0, "iconst_m1"},
-    {0x03, 0, "iconst_0", load_constant},
+    {0x03, 0, "iconst_0"},
     {0x04, 0, "iconst_1"},
     {0x05, 0, "iconst_2"},
     {0x06, 0, "iconst_3"},
@@ -285,6 +281,6 @@ InstructionType * get_instruction_type(uint8_t opcode) {
   return &instructions[opcode];
 };
 
-void nop(Frame * frame, Instruction instruction) {
-  printf("Nop\n");
+int nop(Frame * frame, Instruction instruction) {
+  return 0;
 }

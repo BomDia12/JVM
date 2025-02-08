@@ -7,7 +7,7 @@
 
 InstructionType * get_instruction_type(uint8_t opcode);
 
-void nop(Frame * frame, Instruction instruction);
+int nop(Frame * frame, Instruction instruction);
 
 void add_to_stack(Frame * frame, uint32_t value);
 uint32_t remove_from_stack(Frame * frame);
@@ -19,7 +19,5 @@ float uint32_to_float(uint32_t value);
 uint32_t float_to_uint32(float value);
 double uint64_to_double(uint64_t value);
 uint64_t double_to_uint64(double value);
-
-void load_constant(Frame * frame, Instruction instruction);
 
 #endif

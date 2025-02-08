@@ -9,8 +9,8 @@ ArrayList * get_array_list();
 Array * get_array(uint32_t index);
 uint32_t add_array(Array * array);
 
-int free_array(Array * array);
-int free_array_list(ArrayList * array_list);
+void free_array(Array * array);
+void free_array_list(ArrayList * array_list);
 
 int new_array(Frame * frame, Instruction instruction);
 int anewarray(Frame * frame, Instruction instruction);
