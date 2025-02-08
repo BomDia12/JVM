@@ -34,17 +34,18 @@ void l2i(Frame * frame, Instruction Instruction) {
 }
 
 void l2f(Frame * frame, Instruction Instruction) {
-  float low = (float) remove_from_stack(frame);
-  uint32_t high = remove_from_stack(frame);
-  uint32_t converted_number = float_to_uint32(low);
-  add_to_stack(frame, converted_number);
+  uint64_t low = (uint64_t) remove_from_stack(frame);
+  uint64_t high = (uint64_t) remove_from_stack(frame);
+  uint64_t number = high << 32 | low;
+  float converted_number = (float) uint64_to_long(number);
+  add_to_stack(frame, float_to_uint32(converted_number));
 }
 
 void l2d(Frame * frame, Instruction Instruction) {
   uint64_t low = (uint64_t) remove_from_stack(frame);
   uint64_t high = (uint64_t) remove_from_stack(frame);
   uint64_t number = high << 32 | low;
-  double converted_number = (double) number;
+  double converted_number = (double) uint64_to_long(number);
   uint32_t hi;
   uint32_t lo;
   double_to_ints(converted_number, &hi, &lo);

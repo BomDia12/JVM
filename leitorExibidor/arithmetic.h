@@ -3,6 +3,7 @@
 
 #include "types.h"
 #include "instructions.h"
+#include "conversions.h"
 #include <math.h>
 
 void iadd(Frame * frame, Instruction Instruction);
