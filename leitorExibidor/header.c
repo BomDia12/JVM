@@ -235,3 +235,14 @@ Constant * getNestedString(ClassFile * class_file, uint16_t index) {
   }
   return getNestedString(class_file, info->ConstantUnion.class_info.name_index);
 }
+
+Method * get_method(ClassFile * class_file, char * method_name) {
+  for (int i = 0; i < class_file->methods_count; i++) {
+    Method * method = class_file->methods[i];
+    char * name = getNestedString(class_file, method->name_index)->ConstantUnion.utf8_info.bytes;
+    if (strcmp(method_name, name) == 0) {
+      return method;
+    }
+  }
+  return NULL;
+}

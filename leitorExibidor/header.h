@@ -26,4 +26,6 @@ void free_method(Method * methods);
 Constant * getFromConstantPool(ClassFile * class_file, uint16_t index);
 Constant * getNestedString(ClassFile * class_file, uint16_t index);
 
+Method * get_method(ClassFile * class_file, char * method_name);
+
 #endif

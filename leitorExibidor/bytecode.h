@@ -8,5 +8,6 @@
 // Miguel
 
 Instruction read_instruction();
+Instruction read_instruction_buffer(Buffer * code_buffer);
 
 #endif

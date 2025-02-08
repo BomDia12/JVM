@@ -4,6 +4,7 @@
 #include "types.h"
 #include "instructions.h"
 #include "header.h"
+#include "bytecode.h"
 
 void run_class_file(ClassFile * class_file);
 
