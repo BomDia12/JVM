@@ -142,20 +142,25 @@ int ldc_w(Frame *frame, Instruction instruction) {
           break;
       }
       case 4: { 
-          float value = *((float*)&constant->ConstantUnion.float_info.bytes);
+          float value = constant->ConstantUnion.float_info.bytes;
           add_to_stack(frame, value);
           break;
       }
       case 5: {
-          int64_t value = ((int64_t)constant->ConstantUnion.long_info.high_bytes << 32) 
-          | constant->ConstantUnion.long_info.low_bytes;
-          add_to_stack(frame, value);
-          break;
+        uint32_t high = constant->ConstantUnion.long_info.high_bytes;
+        uint32_t low = constant->ConstantUnion.long_info.low_bytes;
+
+        add_to_stack(frame, high);
+        add_to_stack(frame, low);
+        break;
       }
       case 6: { 
-          double value = *((double*)&constant->ConstantUnion.double_info.bytes);
-          add_to_stack(frame, value);
-          break;
+        uint32_t high = constant->ConstantUnion.double_info.high_bytes;
+        uint32_t low = constant->ConstantUnion.double_info.low_bytes;
+
+        add_to_stack(frame, high);
+        add_to_stack(frame, low);
+        break;
       }
       case 8: {
           uint16_t string_index = constant->ConstantUnion.string_info.string_index;
@@ -181,18 +186,22 @@ int ldc2_w(Frame *frame, Instruction instruction) {
 
   switch (constant->tag) {
       case 5: {
-          int64_t value = ((int64_t)constant->ConstantUnion.long_info.high_bytes << 32) | constant->ConstantUnion.long_info.low_bytes;
-          add_to_stack(frame, value);
-          break;
+        uint32_t high = constant->ConstantUnion.long_info.high_bytes;
+        uint32_t low = constant->ConstantUnion.long_info.low_bytes;
+        add_to_stack(frame, high);
+        add_to_stack(frame, low);  
+        break;
       }
       case 6: {
-          double value = *((double*)&constant->ConstantUnion.double_info.bytes);
-          add_to_stack(frame, value);
-          break;
+        uint32_t high = constant->ConstantUnion.double_info.high_bytes;
+        uint32_t low = constant->ConstantUnion.double_info.low_bytes;
+        add_to_stack(frame, high);
+        add_to_stack(frame, low);
+        break;
       }
       default:
-          printf("Tipo de constante não tratado para ldc2_w: %d\n", constant->tag);
-          break;
+        printf("Tipo de constante não tratado para ldc2_w: %d\n", constant->tag);
+        break;
   }
   return 0;
 }
@@ -293,25 +302,38 @@ int iload_3(Frame *frame, Instruction instruction) {
 }
 
 int lload_0(Frame *frame, Instruction instruction) {
-  int value = frame->local_variables->variables[0];
-  add_to_stack(frame, value);
+  uint32_t high = frame->local_variables->variables[0];
+  uint32_t low = frame->local_variables->variables[1];
+
+  add_to_stack(frame, high);
+  add_to_stack(frame, low);
+
   return 0;
 }
 
 int lload_1(Frame *frame, Instruction instruction) {
-  frame->local_variables->variables[1];
-  add_to_stack(frame, value);
+  uint32_t high = frame->local_variables->variables[1]; 
+  uint32_t low = frame->local_variables->variables[2];
+  
+  add_to_stack(frame, high);
+  add_to_stack(frame, low);
+
   return 0;
 }
 
 int lload_2(Frame *frame, Instruction instruction) {
-  frame->local_variables->variables[2];
-  add_to_stack(frame, value);
+  uint32_t high = frame->local_variables->variables[2];
+  uint32_t low = frame->local_variables->variables[3];
+
+  add_to_stack(frame, high);
+  add_to_stack(frame, low);
+
   return 0;
 }
 
 int lload_3(Frame *frame, Instruction instruction) {
-  frame->local_variables->variables[3];
+  uint32_t high = frame->local_variables->variables[3];
+  uint32_t low = frame->local_variables->variables[4];
   add_to_stack(frame, value);
   return 0;
 }
@@ -341,50 +363,62 @@ int fload_3(Frame *frame, Instruction instruction) {
 }
 
 int dload_0(Frame *frame, Instruction instruction) {
-  int64_t value = frame->local_variables->variables[0];
-  add_to_stack(frame, value);
+  uint32_t high = frame->local_variables->variables[0];
+  uint32_t low = frame->local_variables->variables[1];
+
+  add_to_stack(frame, high);
+  add_to_stack(frame, low);
   return 0;
 }
 
 int dload_1(Frame *frame, Instruction instruction) {
-  int64_t value = frame->local_variables->variables[1];
-  add_to_stack(frame, value);
+  uint32_t high = frame->local_variables->variables[1];
+  uint32_t low = frame->local_variables->variables[2];
+  
+  add_to_stack(frame, high);
+  add_to_stack(frame, low);
   return 0;
 }
 
 int dload_2(Frame *frame, Instruction instruction) {
-  int64_t value = frame->local_variables->variables[2];
-  add_to_stack(frame, value);
+  uint32_t high = frame->local_variables->variables[2];
+  uint32_t low = frame->local_variables->variables[1];
+  
+  add_to_stack(frame, high);
+  add_to_stack(frame, low);
   return 0;
 }
 
 int dload_3(Frame *frame, Instruction instruction) {
-  int64_t value = frame->local_variables->variables[3];
-  add_to_stack(frame, value);
+  uint32_t high = frame->local_variables->variables[3];
+  uint32_t low = frame->local_variables->variables[4];
+  
+  add_to_stack(frame, high);
+  add_to_stack(frame, low);
   return 0;
 }
 
 int aload_0(Frame *frame, Instruction instruction) {
-  uint32_t ref = (uint32_t) frame->local_variables->variables[0];  // Tratar como uint32_t
+  uint32_t ref = frame->local_variables->variables[0];
   add_to_stack(frame, ref);
   return 0;
 }
 
 
 int aload_1(Frame *frame, Instruction instruction) {
-  uint32_t ref = (uint32_t) frame->local_variables->variables[1];
+  uint32_t ref = frame->local_variables->variables[1];
   add_to_stack(frame, ref);
   return 0;
 }
 
 int aload_2(Frame *frame, Instruction instruction) {
-  uint32_t ref = (uint32_t) frame->local_variables->variables[2];
+  uint32_t ref = frame->local_variables->variables[2];
   add_to_stack(frame, ref);
   return 0;
 }
 
 int aload_3(Frame *frame, Instruction instruction) {
-  uint32_t ref = (uint32_t) frame->local_variables->variables[3];
+  uint32_t ref = frame->local_variables->variables[3];
   add_to_stack(frame, ref);
   return 0;
 }
