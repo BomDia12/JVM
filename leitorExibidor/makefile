@@ -21,6 +21,9 @@ output.o: output.c output.h types.h reader.h bytecode.h header.h
 
 arithmetic.o: arithmetic.c arithmetic.h types.h instructions.h
 	gcc -m32 -c arithmetic.c -o arithmetic.o
+	
+conversions.o: conversions.c conversions.h instructions.h
+	gcc -m32 -c conversions.c -o conversions.o
 
 clean:
 	rm -rf *.exe ./**/*.o *.o out.txt

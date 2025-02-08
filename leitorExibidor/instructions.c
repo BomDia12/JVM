@@ -1,4 +1,5 @@
 #include "instructions.h"
+#include "conversions.h"
 
 void load_constant(Frame * frame, Instruction instruction) {
   add_to_stack(frame, 0);
@@ -17,88 +18,6 @@ uint32_t remove_from_stack(Frame * frame) {
   frame->stack_top = stack->next;
   free(stack);
   return value;
-}
-
-void i2l(Frame * frame, Instruction Instruction) {
-  uint32_t oi = remove_from_stack(frame);
-  if (oi > 0x7fffffff) {
-    add_to_stack(frame, 0xffffffff);
-  } else {
-    add_to_stack(frame, 0);
-  }
-  add_to_stack(frame, oi);
-}
-
-int32_t uint32_to_int(uint32_t value) {
-  union {
-    uint32_t u32;
-    int32_t i;
-  } converter;
-  converter.u32 = value;
-  return converter.i;
-}
-
-uint32_t int_to_uint32(int32_t value) {
-  union {
-    uint32_t u32;
-    int32_t i;
-  } converter;
-  converter.i = value;
-  return converter.u32;
-}
-
-int64_t uint64_to_long(uint64_t value) {
-  union {
-    uint64_t u64;
-    int64_t l;
-  } converter;
-  converter.u64 = value;
-  return converter.l;
-}
-
-uint64_t long_to_uint64(int64_t value) {
-  union {
-    uint64_t u64;
-    int64_t l;
-  } converter;
-  converter.l = value;
-  return converter.u64;
-}
-
-float uint32_to_float(uint32_t value) {
-  union {
-    uint32_t u32;
-    float f;
-  } converter;
-  converter.u32 = value;
-  return converter.f;
-}
-
-uint32_t float_to_uint32(float value) {
-  union {
-    uint32_t u32;
-    float f;
-  } converter;
-  converter.f = value;
-  return converter.u32;
-}
-
-double uint64_to_double(uint64_t value) {
-  union {
-    uint64_t u64;
-    double d;
-  } converter;
-  converter.u64 = value;
-  return converter.d;
-}
-
-uint64_t double_to_uint64(double value) {
-  union {
-    uint64_t u64;
-    double d;
-  } converter;
-  converter.d = value;
-  return converter.u64;
 }
 
 InstructionType * get_instruction_type(uint8_t opcode) {
@@ -236,21 +155,21 @@ InstructionType * get_instruction_type(uint8_t opcode) {
     {0x82, 0, "ixor", ixor},
     {0x83, 0, "lxor", lxor},
     {0x84, 2, "iinc"},
-    {0x85, 0, "i2l"},
-    {0x86, 0, "i2f"},
-    {0x87, 0, "i2d"},
-    {0x88, 0, "l2i"},
-    {0x89, 0, "l2f"},
-    {0x8a, 0, "l2d"},
-    {0x8b, 0, "f2i"},
-    {0x8c, 0, "f2l"},
-    {0x8d, 0, "f2d"},
-    {0x8e, 0, "d2i"},
-    {0x8f, 0, "d2l"},
-    {0x90, 0, "d2f"},
-    {0x91, 0, "i2b"},
-    {0x92, 0, "i2c"},
-    {0x93, 0, "i2s"},
+    {0x85, 0, "i2l", i2l},
+    {0x86, 0, "i2f", i2f},
+    {0x87, 0, "i2d", i2d},
+    {0x88, 0, "l2i", l2i},
+    {0x89, 0, "l2f", l2f},
+    {0x8a, 0, "l2d", l2d},
+    {0x8b, 0, "f2i", f2i},
+    {0x8c, 0, "f2l", f2l},
+    {0x8d, 0, "f2d", f2d},
+    {0x8e, 0, "d2i", d2i},
+    {0x8f, 0, "d2l", d2l},
+    {0x90, 0, "d2f", d2f},
+    {0x91, 0, "i2b", i2b},
+    {0x92, 0, "i2c", i2c},
+    {0x93, 0, "i2s", i2s},
     {0x94, 0, "lcmp"},
     {0x95, 0, "fcmpl"},
     {0x96, 0, "fcmpg"},
