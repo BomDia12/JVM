@@ -2,6 +2,7 @@
 #define INSTRUCTIONS_H
 
 #include "types.h"
+#include "array.h"
 
 InstructionType * get_instruction_type(uint8_t opcode);
 
