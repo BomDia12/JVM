@@ -1,6 +1,7 @@
 #include "reader.h"
 #include "header.h"
 #include "output.h"
+#include "interpreter.h"
 
 int main (int argc, char *argv[]) {
   
@@ -13,6 +14,10 @@ int main (int argc, char *argv[]) {
   read_file(argv[1]);
 
   ClassFile * class_file = read_class_file();
+  pushToClassFileBuffer(class_file);
+
+  run_class_file(class_file);
+
   print_class_file(class_file);
 
   free_class_file(class_file);

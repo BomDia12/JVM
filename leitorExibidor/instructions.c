@@ -131,13 +131,13 @@ InstructionType * get_instruction_type(uint8_t opcode) {
     {0x6a, 0, "fmul", fmul},
     {0x6b, 0, "dmul", dmul},
     {0x6c, 0, "idiv", idiv},
-    {0x6d, 0, "ldiv", ldiv},
+    {0x6d, 0, "ldiv", ldiv_},
     {0x6e, 0, "fdiv", fdiv},
     {0x6f, 0, "ddiv", ddiv},
     {0x70, 0, "irem", irem},
     {0x71, 0, "lrem", lrem},
     {0x72, 0, "frem", frem},
-    {0x73, 0, "drem", drem},
+    {0x73, 0, "drem", drem_},
     {0x74, 0, "ineg", ineg},
     {0x75, 0, "lneg", lneg},
     {0x76, 0, "fneg", fneg},
@@ -154,7 +154,7 @@ InstructionType * get_instruction_type(uint8_t opcode) {
     {0x81, 0, "lor", lor},
     {0x82, 0, "ixor", ixor},
     {0x83, 0, "lxor", lxor},
-    {0x84, 2, "iinc"},
+    {0x84, 2, "iinc", iinc},
     {0x85, 0, "i2l", i2l},
     {0x86, 0, "i2f", i2f},
     {0x87, 0, "i2d", i2d},
@@ -285,6 +285,6 @@ InstructionType * get_instruction_type(uint8_t opcode) {
   return &instructions[opcode];
 };
 
-void nop(Frame * frame) {
+void nop(Frame * frame, Instruction instruction) {
   printf("Nop\n");
 }

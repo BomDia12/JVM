@@ -1,95 +1,121 @@
 #include "arithmetic.h"
 
-void iadd(Frame * frame, Instruction Instruction) {
+int iadd(Frame * frame, Instruction Instruction) {
   uint32_t value2 = remove_from_stack(frame);
   uint32_t value1 = remove_from_stack(frame);
   int32_t result = uint32_to_int(value1) + uint32_to_int(value2);
   add_to_stack(frame, int_to_uint32(result));
+
+  return 0;
 }
 
-void isub(Frame * frame, Instruction Instruction) {
+int isub(Frame * frame, Instruction Instruction) {
   uint32_t value2 = remove_from_stack(frame);
   uint32_t value1 = remove_from_stack(frame);
   int32_t result = uint32_to_int(value1) - uint32_to_int(value2);
   add_to_stack(frame, int_to_uint32(result));
+
+  return 0;
 }
 
-void imul(Frame * frame, Instruction Instruction) {
+int imul(Frame * frame, Instruction Instruction) {
   uint32_t value2 = remove_from_stack(frame);
   uint32_t value1 = remove_from_stack(frame);
   int32_t result = uint32_to_int(value1) * uint32_to_int(value2);
   add_to_stack(frame, int_to_uint32(result));
+
+  return 0;
 }
 
-void idiv(Frame * frame, Instruction Instruction) {
+int idiv(Frame * frame, Instruction Instruction) {
   uint32_t value2 = remove_from_stack(frame);
   uint32_t value1 = remove_from_stack(frame);
   int32_t result = uint32_to_int(value1) / uint32_to_int(value2);
   add_to_stack(frame, int_to_uint32(result));
+
+  return 0;
 }
 
-void irem(Frame * frame, Instruction Instruction) {
+int irem(Frame * frame, Instruction Instruction) {
   uint32_t value2 = remove_from_stack(frame);
   uint32_t value1 = remove_from_stack(frame);
   int32_t result = uint32_to_int(value1) % uint32_to_int(value2);
   add_to_stack(frame, int_to_uint32(result));
+
+  return 0;
 }
 
-void ineg(Frame * frame, Instruction Instruction) {
+int ineg(Frame * frame, Instruction Instruction) {
   uint32_t value1 = remove_from_stack(frame);
   int32_t result = - uint32_to_int(value1);
   add_to_stack(frame, int_to_uint32(result));
+
+  return 0;
 }
 
-void ishl(Frame * frame, Instruction Instruction) {
+int ishl(Frame * frame, Instruction Instruction) {
   uint32_t value2 = remove_from_stack(frame);
   uint32_t value1 = remove_from_stack(frame);
   int32_t result = uint32_to_int(value1) << (uint32_to_int(value2) & 0x1f);
   add_to_stack(frame, int_to_uint32(result));
+
+  return 0;
 }
 
-void ishr(Frame * frame, Instruction Instruction) {
+int ishr(Frame * frame, Instruction Instruction) {
   uint32_t value2 = remove_from_stack(frame);
   uint32_t value1 = remove_from_stack(frame);
   int32_t result = uint32_to_int(value1) >> (uint32_to_int(value2) & 0x1f);
   add_to_stack(frame, int_to_uint32(result));
+
+  return 0;
 }
 
-void iushr(Frame * frame, Instruction Instruction) {
+int iushr(Frame * frame, Instruction Instruction) {
   uint32_t value2 = remove_from_stack(frame);
   uint32_t value1 = remove_from_stack(frame);
   uint32_t result = value1 >> (uint32_to_int(value2) & 0x1f);
   add_to_stack(frame, result);
+
+  return 0;
 }
 
-void iand(Frame * frame, Instruction Instruction) {
+int iand(Frame * frame, Instruction Instruction) {
   uint32_t value2 = remove_from_stack(frame);
   uint32_t value1 = remove_from_stack(frame);
   int32_t result = uint32_to_int(value1) & uint32_to_int(value2);
   add_to_stack(frame, int_to_uint32(result));
+
+  return 0;
 }
 
-void ior(Frame * frame, Instruction Instruction) {
+int ior(Frame * frame, Instruction Instruction) {
   uint32_t value2 = remove_from_stack(frame);
   uint32_t value1 = remove_from_stack(frame);
   int32_t result = uint32_to_int(value1) | uint32_to_int(value2);
   add_to_stack(frame, int_to_uint32(result));
+
+  return 0;
 }
 
-void ixor(Frame * frame, Instruction Instruction) {
+int ixor(Frame * frame, Instruction Instruction) {
   uint32_t value2 = remove_from_stack(frame);
   uint32_t value1 = remove_from_stack(frame);
   int32_t result = uint32_to_int(value1) ^ uint32_to_int(value2);
   add_to_stack(frame, int_to_uint32(result));
+
+  return 0;
 }
 
-void iinc(Frame * frame, Instruction Instruction) {
+int iinc(Frame * frame, Instruction Instruction) {
   uint8_t index = Instruction.operands[0];
   uint8_t consti = Instruction.operands[1];
   frame->local_variables->variables[index] += consti;
+
+  return 0;
 }
 
-void ladd(Frame * frame, Instruction Instruction) {
+int ladd(Frame * frame, Instruction Instruction) {
   uint64_t value2_low = (uint64_t) remove_from_stack(frame);
   uint64_t value2_high = (uint64_t) remove_from_stack(frame);
   uint64_t value2 = value2_high << 32;
@@ -104,9 +130,11 @@ void ladd(Frame * frame, Instruction Instruction) {
   uint32_t result_high = (uint32_t) (result >> 32);
   add_to_stack(frame, result_high);
   add_to_stack(frame, result_low);
+
+  return 0;
 }
 
-void lsub(Frame * frame, Instruction Instruction) {
+int lsub(Frame * frame, Instruction Instruction) {
   uint64_t value2_low = (uint64_t) remove_from_stack(frame);
   uint64_t value2_high = (uint64_t) remove_from_stack(frame);
   uint64_t value2 = value2_high << 32;
@@ -121,9 +149,11 @@ void lsub(Frame * frame, Instruction Instruction) {
   uint32_t result_high = (uint32_t) (result >> 32);
   add_to_stack(frame, result_high);
   add_to_stack(frame, result_low);
+
+  return 0;
 }
 
-void lmul(Frame * frame, Instruction Instruction) {
+int lmul(Frame * frame, Instruction Instruction) {
   uint64_t value2_low = (uint64_t) remove_from_stack(frame);
   uint64_t value2_high = (uint64_t) remove_from_stack(frame);
   uint64_t value2 = value2_high << 32;
@@ -138,9 +168,11 @@ void lmul(Frame * frame, Instruction Instruction) {
   uint32_t result_high = (uint32_t) (result >> 32);
   add_to_stack(frame, result_high);
   add_to_stack(frame, result_low);
+
+  return 0;
 }
 
-void ldiv(Frame * frame, Instruction Instruction) {
+int ldiv_(Frame * frame, Instruction Instruction) {
   uint64_t value2_low = (uint64_t) remove_from_stack(frame);
   uint64_t value2_high = (uint64_t) remove_from_stack(frame);
   uint64_t value2 = value2_high << 32;
@@ -155,9 +187,11 @@ void ldiv(Frame * frame, Instruction Instruction) {
   uint32_t result_high = (uint32_t) (result >> 32);
   add_to_stack(frame, result_high);
   add_to_stack(frame, result_low);
+
+  return 0;
 }
 
-void lrem(Frame * frame, Instruction Instruction) {
+int lrem(Frame * frame, Instruction Instruction) {
   uint64_t value2_low = (uint64_t) remove_from_stack(frame);
   uint64_t value2_high = (uint64_t) remove_from_stack(frame);
   uint64_t value2 = value2_high << 32;
@@ -172,9 +206,11 @@ void lrem(Frame * frame, Instruction Instruction) {
   uint32_t result_high = (uint32_t) (result >> 32);
   add_to_stack(frame, result_high);
   add_to_stack(frame, result_low);
+
+  return 0;
 }
 
-void lneg(Frame * frame, Instruction Instruction) {
+int lneg(Frame * frame, Instruction Instruction) {
   uint64_t value1_low = (uint64_t) remove_from_stack(frame);
   uint64_t value1_high = (uint64_t) remove_from_stack(frame);
   uint64_t value1 = value1_high << 32;
@@ -185,9 +221,11 @@ void lneg(Frame * frame, Instruction Instruction) {
   uint32_t result_high = (uint32_t) (result >> 32);
   add_to_stack(frame, result_high);
   add_to_stack(frame, result_low);
+
+  return 0;
 }
 
-void lshl(Frame * frame, Instruction Instruction) {
+int lshl(Frame * frame, Instruction Instruction) {
   uint32_t value2 = remove_from_stack(frame);
   uint64_t value1_low = (uint64_t) remove_from_stack(frame);
   uint64_t value1_high = (uint64_t) remove_from_stack(frame);
@@ -199,9 +237,11 @@ void lshl(Frame * frame, Instruction Instruction) {
   uint32_t result_high = (uint32_t) (result >> 32);
   add_to_stack(frame, result_high);
   add_to_stack(frame, result_low);
+
+  return 0;
 }
 
-void lshr(Frame * frame, Instruction Instruction) {
+int lshr(Frame * frame, Instruction Instruction) {
   uint32_t value2 = remove_from_stack(frame);
   uint64_t value1_low = (uint64_t) remove_from_stack(frame);
   uint64_t value1_high = (uint64_t) remove_from_stack(frame);
@@ -213,9 +253,11 @@ void lshr(Frame * frame, Instruction Instruction) {
   uint32_t result_high = (uint32_t) (result >> 32);
   add_to_stack(frame, result_high);
   add_to_stack(frame, result_low);
+
+  return 0;
 }
 
-void lushr(Frame * frame, Instruction Instruction) {
+int lushr(Frame * frame, Instruction Instruction) {
   uint32_t value2 = remove_from_stack(frame);
   uint64_t value1_low = (uint64_t) remove_from_stack(frame);
   uint64_t value1_high = (uint64_t) remove_from_stack(frame);
@@ -226,9 +268,11 @@ void lushr(Frame * frame, Instruction Instruction) {
   uint32_t result_high = (uint32_t) (result >> 32);
   add_to_stack(frame, result_high);
   add_to_stack(frame, result_low);
+
+  return 0;
 }
 
-void land(Frame * frame, Instruction Instruction) {
+int land(Frame * frame, Instruction Instruction) {
   uint64_t value2_low = (uint64_t) remove_from_stack(frame);
   uint64_t value2_high = (uint64_t) remove_from_stack(frame);
   uint64_t value2 = value2_high << 32;
@@ -243,9 +287,11 @@ void land(Frame * frame, Instruction Instruction) {
   uint32_t result_high = (uint32_t) (result >> 32);
   add_to_stack(frame, result_high);
   add_to_stack(frame, result_low);
+
+  return 0;
 }
 
-void lor(Frame * frame, Instruction Instruction) {
+int lor(Frame * frame, Instruction Instruction) {
   uint64_t value2_low = (uint64_t) remove_from_stack(frame);
   uint64_t value2_high = (uint64_t) remove_from_stack(frame);
   uint64_t value2 = value2_high << 32;
@@ -260,9 +306,11 @@ void lor(Frame * frame, Instruction Instruction) {
   uint32_t result_high = (uint32_t) (result >> 32);
   add_to_stack(frame, result_high);
   add_to_stack(frame, result_low);
+
+  return 0;
 }
 
-void lxor(Frame * frame, Instruction Instruction) {
+int lxor(Frame * frame, Instruction Instruction) {
   uint64_t value2_low = (uint64_t) remove_from_stack(frame);
   uint64_t value2_high = (uint64_t) remove_from_stack(frame);
   uint64_t value2 = value2_high << 32;
@@ -277,37 +325,47 @@ void lxor(Frame * frame, Instruction Instruction) {
   uint32_t result_high = (uint32_t) (result >> 32);
   add_to_stack(frame, result_high);
   add_to_stack(frame, result_low);
+
+  return 0;
 }
 
-void fadd(Frame * frame, Instruction Instruction) {
+int fadd(Frame * frame, Instruction Instruction) {
   uint32_t value2 = remove_from_stack(frame);
   uint32_t value1 = remove_from_stack(frame);
   float result = uint32_to_float(value1) + uint32_to_float(value2);
   add_to_stack(frame, float_to_uint32(result));
+
+  return 0;
 }
 
-void fsub(Frame * frame, Instruction Instruction) {
+int fsub(Frame * frame, Instruction Instruction) {
   uint32_t value2 = remove_from_stack(frame);
   uint32_t value1 = remove_from_stack(frame);
   float result = uint32_to_float(value1) - uint32_to_float(value2);
   add_to_stack(frame, float_to_uint32(result));
+
+  return 0;
 }
 
-void fmul(Frame * frame, Instruction Instruction) {
+int fmul(Frame * frame, Instruction Instruction) {
   uint32_t value2 = remove_from_stack(frame);
   uint32_t value1 = remove_from_stack(frame);
   float result = uint32_to_float(value1) * uint32_to_float(value2);
   add_to_stack(frame, float_to_uint32(result));
+
+  return 0;
 }
 
-void fdiv(Frame * frame, Instruction Instruction) {
+int fdiv(Frame * frame, Instruction Instruction) {
   uint32_t value2 = remove_from_stack(frame);
   uint32_t value1 = remove_from_stack(frame);
   float result = uint32_to_float(value1) / uint32_to_float(value2);
   add_to_stack(frame, float_to_uint32(result));
+
+  return 0;
 }
 
-void frem(Frame * frame, Instruction Instruction) {
+int frem(Frame * frame, Instruction Instruction) {
   uint32_t value2 = remove_from_stack(frame);
   uint32_t value1 = remove_from_stack(frame);
   if (uint32_to_float(value2) == 0.0f) {
@@ -316,15 +374,19 @@ void frem(Frame * frame, Instruction Instruction) {
   }
   float result = fmodf(uint32_to_float(value1), uint32_to_float(value2));
   add_to_stack(frame, float_to_uint32(result));
+
+  return 0;
 }
 
-void fneg(Frame * frame, Instruction Instruction) {
+int fneg(Frame * frame, Instruction Instruction) {
   uint32_t value1 = remove_from_stack(frame);
   float result = - uint32_to_float(value1);
   add_to_stack(frame, float_to_uint32(result));
+
+  return 0;
 }
 
-void dadd(Frame * frame, Instruction Instruction){
+int dadd(Frame * frame, Instruction Instruction){
   uint64_t value2_low = (uint64_t) remove_from_stack(frame);
   uint64_t value2_high = (uint64_t) remove_from_stack(frame);
   uint64_t value2 = value2_high << 32;
@@ -339,9 +401,11 @@ void dadd(Frame * frame, Instruction Instruction){
   uint32_t result_high = (uint32_t) (result >> 32);
   add_to_stack(frame, result_high);
   add_to_stack(frame, result_low);
+
+  return 0;
 }
 
-void dsub(Frame * frame, Instruction Instruction){
+int dsub(Frame * frame, Instruction Instruction){
   uint64_t value2_low = (uint64_t) remove_from_stack(frame);
   uint64_t value2_high = (uint64_t) remove_from_stack(frame);
   uint64_t value2 = value2_high << 32;
@@ -356,9 +420,11 @@ void dsub(Frame * frame, Instruction Instruction){
   uint32_t result_high = (uint32_t) (result >> 32);
   add_to_stack(frame, result_high);
   add_to_stack(frame, result_low);
+
+  return 0;
 }
 
-void dmul(Frame * frame, Instruction Instruction){
+int dmul(Frame * frame, Instruction Instruction){
   uint64_t value2_low = (uint64_t) remove_from_stack(frame);
   uint64_t value2_high = (uint64_t) remove_from_stack(frame);
   uint64_t value2 = value2_high << 32;
@@ -373,9 +439,11 @@ void dmul(Frame * frame, Instruction Instruction){
   uint32_t result_high = (uint32_t) (result >> 32);
   add_to_stack(frame, result_high);
   add_to_stack(frame, result_low);
+
+  return 0;
 }
 
-void ddiv(Frame * frame, Instruction Instruction){
+int ddiv(Frame * frame, Instruction Instruction){
   uint64_t value2_low = (uint64_t) remove_from_stack(frame);
   uint64_t value2_high = (uint64_t) remove_from_stack(frame);
   uint64_t value2 = value2_high << 32;
@@ -390,9 +458,11 @@ void ddiv(Frame * frame, Instruction Instruction){
   uint32_t result_high = (uint32_t) (result >> 32);
   add_to_stack(frame, result_high);
   add_to_stack(frame, result_low);
+
+  return 0;
 }
 
-void drem(Frame * frame, Instruction Instruction){
+int drem_(Frame * frame, Instruction Instruction){
   uint64_t value2_low = (uint64_t) remove_from_stack(frame);
   uint64_t value2_high = (uint64_t) remove_from_stack(frame);
   uint64_t value2 = value2_high << 32;
@@ -406,7 +476,7 @@ void drem(Frame * frame, Instruction Instruction){
     uint32_t result_high = (uint32_t) (value1 >> 32);
     add_to_stack(frame, result_high);
     add_to_stack(frame, result_low);
-    return;
+    return 0;
   }
   double resultd = fmod(uint64_to_double(value1), uint64_to_double(value2));
   uint64_t result = double_to_uint64(resultd);
@@ -414,9 +484,11 @@ void drem(Frame * frame, Instruction Instruction){
   uint32_t result_high = (uint32_t) (result >> 32);
   add_to_stack(frame, result_high);
   add_to_stack(frame, result_low);
+
+  return 0;
 }
 
-void dneg(Frame * frame, Instruction Instruction){
+int dneg(Frame * frame, Instruction Instruction){
   uint64_t value1_low = (uint64_t) remove_from_stack(frame);
   uint64_t value1_high = (uint64_t) remove_from_stack(frame);
   uint64_t value1 = value1_high << 32;
@@ -427,4 +499,6 @@ void dneg(Frame * frame, Instruction Instruction){
   uint32_t result_high = (uint32_t) (result >> 32);
   add_to_stack(frame, result_high);
   add_to_stack(frame, result_low);
+
+  return 0;
 }

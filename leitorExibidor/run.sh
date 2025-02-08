@@ -1,4 +1,4 @@
 #!/bin/bash
 make
-./main.exe Belote.class > belote.txt
+./main.exe ./exemplos/Belote.class > belote.txt
 make clean
