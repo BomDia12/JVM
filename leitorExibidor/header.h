@@ -24,8 +24,9 @@ void free_field(Field * fields);
 void free_method(Method * methods);
 
 Constant * getFromConstantPool(ClassFile * class_file, uint16_t index);
-Constant * getNestedString(ClassFile * class_file, uint16_t index);
+char * getNestedString(ClassFile * class_file, uint16_t index);
 
-Method * get_method(ClassFile * class_file, char * method_name);
+Method * get_method(ClassFile * class_file, char * method_name, char * method_descriptor);
+uint16_t get_argument_amount(char * method_identifier);
 
 #endif

@@ -8,6 +8,6 @@
 
 int run_class_file(ClassFile * class_file);
 
-MethodResponses call_method(Frame * current_frame, ClassFile * class_file, char * method_name);
+MethodResponses call_method(Frame * current_frame, ClassFile * class_file, Method * method, Arguments * arguments);
 
 #endif

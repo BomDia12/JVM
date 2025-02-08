@@ -29,3 +29,8 @@ Exemplo:
 ```
 ./main.exe Belote.class
 ```
+
+## TODO:
+ - Strings
+ - Objetos
+ - multianewarray

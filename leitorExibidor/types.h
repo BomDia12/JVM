@@ -6,7 +6,7 @@
 
 typedef struct Buffer {
   uint8_t * buffer;
-  uint64_t position;
+  uint32_t position;
 } Buffer;
 
 typedef struct Frame Frame;
@@ -248,17 +248,12 @@ typedef struct Object {
   uint32_t * fields;
 } Object;
 
-typedef struct LocalVariables {
-  uint32_t * variables;
-  uint32_t size;
-} LocalVariables;
-
 struct Frame {
   ClassFile * this_class;
   Method * this_method;
   Stack * stack_top;
   uint32_t stack_size;
-  LocalVariables * local_variables;
+  uint32_t * local_variables;
   Buffer pc;
   Frame * next;
 };
@@ -302,5 +297,10 @@ typedef struct MethodResponses {
   int status;
   uint32_t value;
 } MethodResponses;
+
+typedef struct Arguments {
+  uint32_t * arguments;
+  uint32_t size;
+} Arguments;
 
 #endif

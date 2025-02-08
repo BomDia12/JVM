@@ -13,6 +13,7 @@
         "array.h": "c",
         "interpreter.h": "c",
         "instructions.h": "c",
-        "bytecode.h": "c"
+        "bytecode.h": "c",
+        "stdlib.h": "c"
     }
 }
