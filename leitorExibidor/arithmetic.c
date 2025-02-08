@@ -370,7 +370,7 @@ int frem(Frame * frame, Instruction Instruction) {
   uint32_t value1 = remove_from_stack(frame);
   if (uint32_to_float(value2) == 0.0f) {
     add_to_stack(frame, value1);
-    return;
+    return 0;
   }
   float result = fmodf(uint32_to_float(value1), uint32_to_float(value2));
   add_to_stack(frame, float_to_uint32(result));
