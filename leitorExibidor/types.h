@@ -247,7 +247,7 @@ typedef struct Object {
 } Object;
 
 typedef struct LocalVariables {
-  uint8_t * variables;
+  uint32_t * variables;
   uint32_t size;
 } LocalVariables;
 
