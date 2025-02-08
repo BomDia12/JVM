@@ -57,7 +57,7 @@ int fconst_0(Frame *frame, Instruction instruction) {
 
 int fconst_1(Frame *frame, Instruction instruction) {
   float value = 1.0;
-  add_to_stack(float_to_uint32(value));
+  add_to_stack(frame, float_to_uint32(value));
 
   return 0;
 }
@@ -65,7 +65,7 @@ int fconst_1(Frame *frame, Instruction instruction) {
 int fconst_2(Frame *frame, Instruction instruction) {
   float value = 1.0;
 
-  add_to_stack(float_to_uint32(value));
+  add_to_stack(frame, float_to_uint32(value));
 
   return 0;
 }
@@ -142,7 +142,7 @@ int ldc_w(Frame *frame, Instruction instruction) {
           break;
       }
       case 4: { 
-          float value = constant->ConstantUnion.float_info.bytes;
+          uint32_t value = constant->ConstantUnion.float_info.bytes;
           add_to_stack(frame, value);
           break;
       }
@@ -166,8 +166,9 @@ int ldc_w(Frame *frame, Instruction instruction) {
           uint16_t string_index = constant->ConstantUnion.string_info.string_index;
           Constant *string_constant = frame->this_class->constant_pool[string_index];
           if (string_constant->tag == 1) { 
-              char *str = (char*)string_constant->ConstantUnion.utf8_info.bytes;
-              add_to_stack(frame, str);
+              // TODO: lidar com strings
+              char * str = string_constant->ConstantUnion.utf8_info.bytes;
+              add_to_stack(frame, (uint32_t) &str);
           }
           break;
       }
@@ -250,7 +251,7 @@ int dload(Frame *frame, Instruction instruction) {
 int aload(Frame *frame, Instruction instruction) {
   uint8_t index = instruction.operands[0];
 
-  Object *obj = (Object*)frame->local_variables->variables[index];
+  uint32_t obj = frame->local_variables->variables[index];
 
   add_to_stack(frame, obj);
   return 0;
@@ -275,24 +276,6 @@ int iload_2(Frame *frame, Instruction instruction) {
   
   add_to_stack(frame, value);
   return 0;  
-}
-
-int iload_0(Frame *frame, Instruction instruction) {
-  int32_t value = frame->local_variables->variables[0];  
-  add_to_stack(frame, value);
-  return 0; 
-}
-
-int iload_1(Frame *frame, Instruction instruction) {
-  int32_t value = frame->local_variables->variables[1];  
-  add_to_stack(frame, value);
-  return 0;
-}
-
-int iload_2(Frame *frame, Instruction instruction) {
-  int32_t value = frame->local_variables->variables[2];  
-  add_to_stack(frame, value);
-  return 0; 
 }
 
 int iload_3(Frame *frame, Instruction instruction) {
@@ -334,30 +317,32 @@ int lload_2(Frame *frame, Instruction instruction) {
 int lload_3(Frame *frame, Instruction instruction) {
   uint32_t high = frame->local_variables->variables[3];
   uint32_t low = frame->local_variables->variables[4];
-  add_to_stack(frame, value);
+
+  add_to_stack(frame, high);
+  add_to_stack(frame, low);
   return 0;
 }
 
 int fload_0(Frame *frame, Instruction instruction) {
-  float value = frame->local_variables->variables[0];
+  uint32_t value = frame->local_variables->variables[0];
   add_to_stack(frame, value);
   return 0;
 }
 
 int fload_1(Frame *frame, Instruction instruction) {
-  float value = frame->local_variables->variables[1];
+  uint32_t value = frame->local_variables->variables[1];
   add_to_stack(frame, value);
   return 0;
 }
 
 int fload_2(Frame *frame, Instruction instruction) {
-  float value = frame->local_variables->variables[2];
+  uint32_t value = frame->local_variables->variables[2];
   add_to_stack(frame, value);
   return 0;
 }
 
 int fload_3(Frame *frame, Instruction instruction) {
-  float value = frame->local_variables->variables[3];
+  uint32_t value = frame->local_variables->variables[3];
   add_to_stack(frame, value);
   return 0;
 }

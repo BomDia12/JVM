@@ -45,31 +45,31 @@ int astore(Frame *frame, Instruction instruction) {
     return 0;
 }
 
-int istore_0(Frame *frame) {
+int istore_0(Frame *frame, Instruction instruction) {
     uint32_t value = remove_from_stack(frame);
     frame->local_variables->variables[0] = value;
     return 0;
 }
 
-int istore_1(Frame *frame) {
+int istore_1(Frame *frame, Instruction instruction) {
     uint32_t value = remove_from_stack(frame);
     frame->local_variables->variables[1] = value;
     return 0;
 }
 
-int istore_2(Frame *frame) {
+int istore_2(Frame *frame, Instruction instruction) {
     uint32_t value = remove_from_stack(frame);
     frame->local_variables->variables[2] = value;
     return 0;
 }
 
-int istore_3(Frame *frame) {
+int istore_3(Frame *frame, Instruction instruction) {
     uint32_t value = remove_from_stack(frame);
     frame->local_variables->variables[3] = value;
     return 0;
 }
 
-int lstore_0(Frame *frame) {
+int lstore_0(Frame *frame, Instruction instruction) {
     uint32_t low = remove_from_stack(frame);
     uint32_t high = remove_from_stack(frame);
 
@@ -78,7 +78,7 @@ int lstore_0(Frame *frame) {
     return 0;
 }
 
-int lstore_1(Frame *frame) {
+int lstore_1(Frame *frame, Instruction instruction) {
     uint32_t low = remove_from_stack(frame);
     uint32_t high = remove_from_stack(frame);
 
@@ -87,7 +87,7 @@ int lstore_1(Frame *frame) {
     return 0;
 }
 
-int lstore_2(Frame *frame) {
+int lstore_2(Frame *frame, Instruction instruction) {
     uint32_t low = remove_from_stack(frame);
     uint32_t high = remove_from_stack(frame);
 
@@ -96,7 +96,7 @@ int lstore_2(Frame *frame) {
     return 0;
 }
 
-int lstore_3(Frame *frame) {
+int lstore_3(Frame *frame, Instruction instruction) {
     uint32_t low = remove_from_stack(frame);
     uint32_t high = remove_from_stack(frame);
 
@@ -105,97 +105,89 @@ int lstore_3(Frame *frame) {
     return 0;
 }
 
-int fstore_0(Frame *frame) {
-    float value = remove_from_stack(frame);
+int fstore_0(Frame *frame, Instruction instruction) {
+    uint32_t value = remove_from_stack(frame);
     frame->local_variables->variables[0] = value;
     return 0;
 }
 
-int fstore_1(Frame *frame) {
-    float value = remove_from_stack(frame);
+int fstore_1(Frame *frame, Instruction instruction) {
+    uint32_t value = remove_from_stack(frame);
     frame->local_variables->variables[1] = value;
     return 0;
 }
 
-int fstore_2(Frame *frame) {
-    float value = remove_from_stack(frame);
+int fstore_2(Frame *frame, Instruction instruction) {
+    uint32_t value = remove_from_stack(frame);
     frame->local_variables->variables[2] = value;
     return 0;
 }
 
-int fstore_3(Frame *frame) {
-    float value = remove_from_stack(frame);
+int fstore_3(Frame *frame, Instruction instruction) {
+    uint32_t value = remove_from_stack(frame);
     frame->local_variables->variables[3] = value;
     return 0;
 }
 
-int dstore_0(Frame *frame) {
-    uint8_t index = instruction.operands[0];
-
+int dstore_0(Frame *frame, Instruction instruction) {
     uint32_t low = remove_from_stack(frame);
     uint32_t high = remove_from_stack(frame);
 
-    frame->local_variables->variables[index] = high;
-    frame->local_variables->variables[index + 1] = low;
+    frame->local_variables->variables[0] = high;
+    frame->local_variables->variables[0 + 1] = low;
 
     return 0;
 }
 
-int dstore_1(Frame *frame) {
-    uint8_t index = instruction.operands[1];
-
+int dstore_1(Frame *frame, Instruction instruction) {
     uint32_t low = remove_from_stack(frame);
     uint32_t high = remove_from_stack(frame);
 
-    frame->local_variables->variables[index] = high;
-    frame->local_variables->variables[index + 1] = low;
+    frame->local_variables->variables[1] = high;
+    frame->local_variables->variables[1 + 1] = low;
     
     return 0;
 }
 
-int dstore_2(Frame *frame) {
-    uint8_t index = instruction.operands[2];
-
+int dstore_2(Frame *frame, Instruction instruction) {
     uint32_t low = remove_from_stack(frame);
     uint32_t high = remove_from_stack(frame);
 
-    frame->local_variables->variables[index] = high;
-    frame->local_variables->variables[index + 1] = low;
+    frame->local_variables->variables[2] = high;
+    frame->local_variables->variables[2 + 1] = low;
     
     return 0;
 }
 
-int dstore_3(Frame *frame) {
-uint8_t index = instruction.operands[2];
-
+int dstore_3(Frame *frame, Instruction instruction) {
     uint32_t low = remove_from_stack(frame);
     uint32_t high = remove_from_stack(frame);
 
-    frame->local_variables->variables[index] = high;
-    frame->local_variables->variables[index + 1] = low;
+    frame->local_variables->variables[3] = high;
+    frame->local_variables->variables[3 + 1] = low;
     
     return 0;
 }
 
-int astore_0(Frame *frame) {
+int astore_0(Frame *frame, Instruction instruction) {
     uint32_t value = remove_from_stack(frame);
     frame->local_variables->variables[0] = value;
     return 0;
 }
 
-int astore_1(Frame *frame) {
+int astore_1(Frame *frame, Instruction instruction) {
     uint32_t value = remove_from_stack(frame);
     frame->local_variables->variables[1] = value;
     return 0;
 }
 
-int astore_2(Frame *frame) {
+int astore_2(Frame *frame, Instruction instruction) {
     uint32_t value = remove_from_stack(frame);
     frame->local_variables->variables[2] = value;
     return 0;
 }
 
-int astore_3(Frame *frame) {
+int astore_3(Frame *frame, Instruction instruction) {
     uint32_t value = remove_from_stack(frame);
     frame->local_variables->variables[2] = value;
     return 0;
