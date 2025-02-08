@@ -192,7 +192,7 @@ InstructionType * get_instruction_type(uint8_t opcode) {
     {0xab, 8, "lookupswitch"},
     {0xac, 0, "ireturn"},
     {0xad, 0, "lreturn"},
-    {0xae, 0, "freturn"},int32_t
+    {0xae, 0, "freturn"},
     {0xaf, 0, "dreturn"},
     {0xb0, 0, "areturn"},
     {0xb1, 0, "return"},
