@@ -4,6 +4,9 @@
 #include "types.h"
 #include "arithmetic.h"
 #include "array.h"
+#include "loads.h"
+#include "stores.h"
+#include "conversions.h"
 
 InstructionType * get_instruction_type(uint8_t opcode);
 

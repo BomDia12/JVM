@@ -1,7 +1,4 @@
 #include "instructions.h"
-#include "loads.h"
-#include "stores.h"
-#include "conversions.h"
 
 void add_to_stack(Frame * frame, uint32_t value) {
   Stack * stack = malloc(sizeof(Stack));
