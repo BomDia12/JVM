@@ -1,18 +1,5 @@
 #include "object.h"
 
-ClassFile * get_class_file(char * class_name) {
-  ClassFileBuffer * buffer = get_current_class_file();
-  for (uint16_t i = 0; i < buffer->size; i++) {
-    ClassFile * class_file = buffer->buffer[i];
-    char * class_file_name = getNestedString(class_file, class_file->this_class);
-    if (strcmp(class_file_name, class_name) == 0) {
-      return class_file;
-    }
-  }
-
-  return NULL;
-}
-
 ObjectList * get_object_list() {
   static ObjectList object_list;
   return &object_list;
@@ -54,6 +41,7 @@ void free_object_list(ObjectList * object_list) {
 int new_(Frame * frame, Instruction instruction) {
   uint16_t index = (((uint16_t) instruction.operands[0]) << 8) | instruction.operands[1];
   char * class_name = getNestedString(frame->this_class, index);
+  // TODO: Implement java classes
 
   ClassFile * class_file = get_class_file(class_name);
   if (class_file == NULL) {

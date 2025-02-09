@@ -236,10 +236,10 @@ struct Instruction {
   uint8_t * operands;
 };
 
-typedef struct ClassFileBuffer {
+typedef struct ClassFileList {
   ClassFile * * buffer;
   uint32_t size;
-} ClassFileBuffer;
+} ClassFileList;
 
 struct Stack {
   uint32_t self;

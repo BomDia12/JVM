@@ -16,7 +16,7 @@ int main (int argc, char *argv[]) {
   read_file(argv[1]);
 
   ClassFile * class_file = read_class_file();
-  pushToClassFileBuffer(class_file);
+  pushToClassFileList(class_file);
 
   if (argc > 3) {
     if (strcmp(argv[3], "-show") == 0) {

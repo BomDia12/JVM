@@ -4,12 +4,12 @@
 #include "types.h"
 #include "instructions.h"
 #include "array.h"
+#include "interpreter.h"
 #include <stdlib.h>
 
 ObjectList * get_object_list();
 Object * get_object(uint32_t index);
 uint32_t add_object(Object * object);
-ClassFile * get_class_file(char * class_name);
 
 void free_object(Object * object);
 void free_object_list(ObjectList * object_list);

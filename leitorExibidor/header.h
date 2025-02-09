@@ -15,8 +15,8 @@ Constant * read_constant();
 Field * read_field();
 Method * read_method();
 
-ClassFileBuffer * get_current_class_file();
-void pushToClassFileBuffer(ClassFile * class_file);
+ClassFileList * get_class_file_list();
+void pushToClassFileList(ClassFile * class_file);
 
 void free_class_file(ClassFile * class_file);
 void free_constant(Constant * constant);

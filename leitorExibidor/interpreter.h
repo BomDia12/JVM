@@ -10,4 +10,7 @@ int run_class_file(ClassFile * class_file);
 
 MethodResponses call_method(Frame * current_frame, ClassFile * class_file, Method * method, Arguments * arguments);
 
+ClassFile * load_class_file(char * class_name);
+ClassFile * get_class_file(char * class_name);
+
 #endif

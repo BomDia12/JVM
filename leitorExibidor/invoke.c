@@ -25,19 +25,25 @@ int common_invoke(Frame * frame, Instruction instruction, char include_this) {
 
   Arguments * arguments = get_arguments(frame, include_this, method_descriptor);
 
-  char * class_name = getNestedString(frame->this_class, methodref->ConstantUnion.methodref_info.class_index);
-  char * current_class_name = getNestedString(frame->this_class, frame->this_class->this_class);
-  if (strcmp(class_name, current_class_name) != 0) {
-    // TODO: Implement get from other class
+  ClassFile * class_file;
+  if (include_this) {
+    Object * this_object = get_object(arguments->arguments[0]);
+    class_file = this_object->class;
+  } else {
+    char * class_name = getNestedString(frame->this_class, methodref->ConstantUnion.methodref_info.class_index);
+    class_file = get_class_file(class_name);
+  }
+  
+  if (class_file == NULL) {
     return -1;
   }
 
-  Method * method = get_method(frame->this_class, method_name, method_descriptor);
+  Method * method = get_method(class_file, method_name, method_descriptor);
   if (method == NULL) {
     return -1;
   }
 
-  MethodResponses res = call_method(frame, frame->this_class, method, arguments);
+  MethodResponses res = call_method(frame, class_file, method, arguments);
   if (res.status != 0) {
     return res.status;
   }
@@ -48,12 +54,12 @@ int common_invoke(Frame * frame, Instruction instruction, char include_this) {
 }
 
 int invoke_dynamic(Frame * frame, Instruction instruction) {
-  int res = common_invoke(frame, instruction, 1);
+  int res = common_invoke(frame, instruction, 0);
   return res;
 }
 
 int invoke_interface(Frame * frame, Instruction instruction) {
-  int res = common_invoke(frame, instruction, 0);
+  int res = common_invoke(frame, instruction, 1);
   return res;
 }
 
