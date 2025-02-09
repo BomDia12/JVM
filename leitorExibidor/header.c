@@ -228,21 +228,52 @@ Constant * getFromConstantPool(ClassFile * class_file, uint16_t index) {
   return class_file->constant_pool[index - 1];
 };
 
-Constant * getNestedString(ClassFile * class_file, uint16_t index) {
+char * getNestedString(ClassFile * class_file, uint16_t index) {
   Constant * info = getFromConstantPool(class_file, index);
   if (info->tag == 1) {
-    return info;
+    return info->ConstantUnion.utf8_info.bytes;
   }
   return getNestedString(class_file, info->ConstantUnion.class_info.name_index);
 }
 
-Method * get_method(ClassFile * class_file, char * method_name) {
+Method * get_method(ClassFile * class_file, char * method_name, char * method_descriptor) {
   for (int i = 0; i < class_file->methods_count; i++) {
     Method * method = class_file->methods[i];
-    char * name = getNestedString(class_file, method->name_index)->ConstantUnion.utf8_info.bytes;
+    char * name = getNestedString(class_file, method->name_index);
     if (strcmp(method_name, name) == 0) {
-      return method;
+      char * descriptor = getNestedString(class_file, method->descriptor_index);
+      if (strcmp(method_descriptor, descriptor) == 0) {
+        return method;
+      }
     }
   }
   return NULL;
+}
+
+uint16_t get_argument_amount(char * method_identifier) {
+  int amount = 0;
+  for (int i = 0; method_identifier[i] != '\0'; i++) {
+    if (method_identifier[i] == ')') {
+      return amount;
+    }
+    if (method_identifier[i] == '(') {
+      amount = 0;
+    }
+    if (method_identifier[i] == 'L') {
+      while (method_identifier[i] != ';') {
+        i++;
+      }
+    }
+    if (method_identifier[i] == '[') {
+      while(method_identifier[i] == '[') {
+        i++;
+      }
+      continue;
+    }
+    if (method_identifier[i] == 'J' || method_identifier[i] == 'D') {
+      amount++;
+    }
+    amount++;
+  }
+  return amount;
 }

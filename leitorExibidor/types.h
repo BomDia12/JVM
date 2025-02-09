@@ -248,17 +248,12 @@ typedef struct Object {
   uint32_t * fields;
 } Object;
 
-typedef struct LocalVariables {
-  uint32_t * variables;
-  uint32_t size;
-} LocalVariables;
-
 struct Frame {
   ClassFile * this_class;
   Method * this_method;
   Stack * stack_top;
   uint32_t stack_size;
-  LocalVariables * local_variables;
+  uint32_t * local_variables;
   Buffer pc;
   Frame * next;
 };
@@ -292,6 +287,16 @@ typedef struct ArrayList {
   Array * * array;
 } ArrayList;
 
+typedef struct String {
+  uint32_t size;
+  char * string;
+} String;
+
+typedef struct StringList {
+  uint32_t size;
+  String * * string;
+} StringList;
+
 /**
  * Status:
  * 0 - Success
@@ -302,5 +307,10 @@ typedef struct MethodResponses {
   int status;
   uint32_t value;
 } MethodResponses;
+
+typedef struct Arguments {
+  uint32_t * arguments;
+  uint32_t size;
+} Arguments;
 
 #endif

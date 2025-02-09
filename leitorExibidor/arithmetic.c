@@ -110,7 +110,7 @@ int ixor(Frame * frame, Instruction Instruction) {
 int iinc(Frame * frame, Instruction Instruction) {
   uint8_t index = Instruction.operands[0];
   uint8_t consti = Instruction.operands[1];
-  frame->local_variables->variables[index] += consti;
+  frame->local_variables[index] += consti;
 
   return 0;
 }

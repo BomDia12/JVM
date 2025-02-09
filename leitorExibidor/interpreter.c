@@ -2,8 +2,7 @@
 
 int run_class_file(ClassFile * class_file) {
   uint16_t this_class = class_file->this_class;
-  Constant * super = getNestedString(class_file, class_file->super_class);
-  char * super_name = super->ConstantUnion.utf8_info.bytes;
+  char * super_name = getNestedString(class_file, class_file->super_class);
 
   if (strcmp(super_name, "java/lang/Object") != 0) {
     read_file(strcat("exemplos/", strcat(super_name, ".class")));
@@ -22,7 +21,7 @@ int run_class_file(ClassFile * class_file) {
     .next = NULL,
   };
 
-  int res = call_method(&firstFrame, class_file, "main").status;
+  int res = call_method(&firstFrame, class_file, get_method(class_file, "main", "([Ljava/lang/String;)V"), NULL).status;
   if (res != 0) {
     printf("Erro ao executar o método main\n");
     return -1;
@@ -31,7 +30,7 @@ int run_class_file(ClassFile * class_file) {
   return 0;
 }
 
-MethodResponses call_method(Frame * current_frame, ClassFile * class_file, char * method_name) {
+MethodResponses call_method(Frame * current_frame, ClassFile * class_file, Method * method, Arguments * arguments) {
   MethodResponses res = {
     .status = 0,
     .value = 0,
@@ -42,13 +41,6 @@ MethodResponses call_method(Frame * current_frame, ClassFile * class_file, char 
     call_frame->next = current_frame;
   } else {
     call_frame = current_frame;
-  }
-
-  Method * method = get_method(class_file, method_name);
-  if (method == NULL) {
-    printf("Method not found\n");
-    res.status = -1;
-    return res;
   }
 
   Attribute * code_attribute;
@@ -70,7 +62,12 @@ MethodResponses call_method(Frame * current_frame, ClassFile * class_file, char 
   call_frame->this_method = method;
   call_frame->stack_top = NULL;
   call_frame->stack_size = 0;
-  call_frame->local_variables = malloc(sizeof(LocalVariables) * code_attribute->attribute_union.code_attribute.max_locals);
+  call_frame->local_variables = malloc(sizeof(uint32_t) * code_attribute->attribute_union.code_attribute.max_locals);
+  if (arguments != NULL) {
+    for (int i = 0; i < arguments->size; i++) {
+      call_frame->local_variables[i] = arguments->arguments[i];
+    }
+  }
 
   call_frame->pc.position = 0;
   call_frame->pc.buffer = code_attribute->attribute_union.code_attribute.code;

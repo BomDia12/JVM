@@ -11,6 +11,7 @@
 #include "stores.h"
 #include "conditional.h"
 #include "return.h"
+#include "invoke.h"
 
 InstructionType * get_instruction_type(uint8_t opcode);
 
