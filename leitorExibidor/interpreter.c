@@ -82,7 +82,9 @@ MethodResponses call_method(Frame * current_frame, ClassFile * class_file, char 
       if (result == 1) {
         res.value = (uint32_t) NULL;
       } else if (result == 2) {
-        res.value = call_frame->local_variables->variables[0];
+        res.value = remove_from_stack(call_frame);
+      } else if (result == 3) {
+        res.value = remove_from_stack(call_frame);
       }
       break;
     }

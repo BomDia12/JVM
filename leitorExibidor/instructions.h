@@ -9,7 +9,8 @@
 #include "array.h"
 #include "loads.h"
 #include "stores.h"
-#include "conversions.h"
+#include "conditional.h"
+#include "return.h"
 
 InstructionType * get_instruction_type(uint8_t opcode);
 

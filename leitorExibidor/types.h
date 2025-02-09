@@ -6,7 +6,7 @@
 
 typedef struct Buffer {
   uint8_t * buffer;
-  uint64_t position;
+  uint32_t position;
 } Buffer;
 
 typedef struct Frame Frame;
