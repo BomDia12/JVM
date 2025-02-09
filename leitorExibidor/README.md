@@ -38,3 +38,6 @@ Exemplo:
  - instanceof
  - monitorenter
  - monitorexit
+ - tablelookup
+ - lookupswitch
+ - Melhorar o output

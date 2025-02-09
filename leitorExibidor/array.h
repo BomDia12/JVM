@@ -17,7 +17,7 @@ int anewarray(Frame * frame, Instruction instruction);
 int arraylength(Frame * frame, Instruction instruction);
 int multinewarray(Frame * frame, Instruction instruction);
 
-uint32_t recursive_new_array(uint8_t dimensions, Frame * frame, Instruction instruction, uint32_t size);
+uint32_t recursive_new_array(uint8_t dimensions, ArrayDimensions * array_dimensions);
 
 int iaload(Frame * frame, Instruction instruction);
 int laload(Frame * frame, Instruction instruction);
