@@ -15,6 +15,9 @@ void free_array_list(ArrayList * array_list);
 int new_array(Frame * frame, Instruction instruction);
 int anewarray(Frame * frame, Instruction instruction);
 int arraylength(Frame * frame, Instruction instruction);
+int multinewarray(Frame * frame, Instruction instruction);
+
+uint32_t recursive_new_array(uint8_t dimensions, Frame * frame, Instruction instruction, uint32_t size);
 
 int iaload(Frame * frame, Instruction instruction);
 int laload(Frame * frame, Instruction instruction);

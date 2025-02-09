@@ -327,4 +327,9 @@ typedef struct Arguments {
   uint32_t size;
 } Arguments;
 
+typedef struct ArrayDimensions {
+  uint32_t dimensions;
+  uint32_t * sizes;
+} ArrayDimensions;
+
 #endif

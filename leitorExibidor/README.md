@@ -31,5 +31,10 @@ Exemplo:
 ```
 
 ## TODO:
- - multianewarray
+ - wide
  - invokevirtual
+ - athrow
+ - checkcast
+ - instanceof
+ - monitorenter
+ - monitorexit
