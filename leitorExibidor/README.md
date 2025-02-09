@@ -31,6 +31,5 @@ Exemplo:
 ```
 
 ## TODO:
- - Objetos
  - multianewarray
  - invokevirtual
