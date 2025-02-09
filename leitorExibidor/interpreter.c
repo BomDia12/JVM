@@ -2,8 +2,7 @@
 
 int run_class_file(ClassFile * class_file) {
   uint16_t this_class = class_file->this_class;
-  Constant * super = getNestedString(class_file, class_file->super_class);
-  char * super_name = super->ConstantUnion.utf8_info.bytes;
+  char * super_name = getNestedString(class_file, class_file->super_class);
 
   if (strcmp(super_name, "java/lang/Object") != 0) {
     read_file(strcat("exemplos/", strcat(super_name, ".class")));

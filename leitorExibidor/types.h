@@ -287,6 +287,16 @@ typedef struct ArrayList {
   Array * * array;
 } ArrayList;
 
+typedef struct String {
+  uint32_t size;
+  char * string;
+} String;
+
+typedef struct StringList {
+  uint32_t size;
+  String * * string;
+} StringList;
+
 /**
  * Status:
  * 0 - Success
