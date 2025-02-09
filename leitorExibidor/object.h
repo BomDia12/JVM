@@ -23,4 +23,8 @@ int putstatic(Frame * frame, Instruction instruction);
 ActiveField * get_static_field(ClassFile * class_file, char * field_name, char * field_descriptor);
 ActiveField * get_field(Object * object, char * field_name, char * field_descriptor);
 
+int instance_of(Frame * frame, Instruction instruction);
+int checkcast(Frame * frame, Instruction instruction);
+int athrow(Frame * frame, Instruction instruction);
+
 #endif

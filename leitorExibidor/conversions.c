@@ -1,3 +1,4 @@
+
 #include "conversions.h"
 
 int i2l(Frame * frame, Instruction Instruction) {
@@ -289,3 +290,5 @@ void double_to_ints(double d, uint32_t* hi, uint32_t* lo) {
     // Extrai os 32 bits menos significativos (parte baixa)
     *lo = (int)(u.u & 0xFFFFFFFF);  // Máscara para pegar os 32 bits baixos
 }
+
+

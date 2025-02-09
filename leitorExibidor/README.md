@@ -31,13 +31,7 @@ Exemplo:
 ```
 
 ## TODO:
- - wide
  - invokevirtual
- - athrow
- - checkcast
- - instanceof
- - monitorenter
- - monitorexit
  - tablelookup
  - lookupswitch
  - Melhorar o output

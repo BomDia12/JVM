@@ -430,3 +430,42 @@ const char * get_version(uint16_t major) {
 
   return versions[major - 45];
 }
+
+int instance_of(Frame * frame, Instruction instruction) {
+  uint16_t index = (((uint16_t) instruction.operands[0]) << 8) | instruction.operands[1];
+  char * class_name = getNestedString(frame->this_class, index);
+  Object * object = get_object(remove_from_stack(frame));
+  char * object_class_name = getNestedString(object->class, object->fields[0]->field->name_index);
+
+  if (strcmp(class_name, object_class_name) == 0) {
+    add_to_stack(frame, int_to_uint32(1));
+  } else {
+    add_to_stack(frame, int_to_uint32(0));
+  }
+
+  return 0;
+}
+
+int checkcast(Frame * frame, Instruction instruction) {
+  uint16_t index = (((uint16_t) instruction.operands[0]) << 8) | instruction.operands[1];
+  char * class_name = getNestedString(frame->this_class, index);
+  uint32_t ref = remove_from_stack(frame);
+  Object * object = get_object(ref);
+  if (object == NULL) {
+    add_to_stack(frame, ref);
+    return 0;
+  }
+  char * object_class_name = getNestedString(object->class, object->fields[0]->field->name_index);
+
+  if (strcmp(class_name, object_class_name) != 0) {
+    return -9;
+  } else {
+    add_to_stack(frame, ref);
+  }
+
+  return 0;
+}
+
+int athrow(Frame * frame, Instruction instruction) {
+  return -10;
+}

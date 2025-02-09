@@ -316,6 +316,8 @@ typedef struct StringList {
  * 0 - Success
  * -1 - Method not found
  * -2 - Code attribute not found
+ * -9 - check cast failed
+ * -10 - athrow
  */
 typedef struct MethodResponses {
   int status;
