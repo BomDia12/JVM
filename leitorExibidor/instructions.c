@@ -217,10 +217,10 @@ InstructionType * get_instruction_type(uint8_t opcode) {
     {0xc3, 0, "monitorexit"},
     {0xc4, 5, "wide"},
     {0xc5, 3, "multianewarray"}, //   TODO: Implement
-    {0xc6, 2, "ifnull"},
-    {0xc7, 2, "ifnonnull"},
-    {0xc8, 4, "goto_w"},
-    {0xc9, 4, "jsr_w"},
+    {0xc6, 2, "ifnull", ifnull},
+    {0xc7, 2, "ifnonnull", ifnonnull},
+    {0xc8, 4, "goto_w", goto_w},
+    {0xc9, 4, "jsr_w", jsr_w},
     {0xca, 0, "breakpoint"},
     // A partir daqui, é apenas para preenchimento, até o 0xfe
     {0xcb, 0, "filler1"},

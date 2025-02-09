@@ -38,11 +38,13 @@ int common_invoke(Frame * frame, Instruction instruction, char include_this) {
   }
 
   MethodResponses res = call_method(frame, frame->this_class, method, arguments);
-  if (res.status != 0) {
+  if (res.status < 0) {
     return res.status;
   }
 
-  add_to_stack(frame, res.value);
+  if (res.status == 0) {
+    add_to_stack(frame, res.value);
+  }
 
   return 0;
 }

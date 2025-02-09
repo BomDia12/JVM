@@ -21,5 +21,9 @@ int if_acmpne(Frame * frame, Instruction Instruction);
 int goto_(Frame * frame, Instruction Instruction);
 int jsr(Frame * frame, Instruction Instruction);
 int ret(Frame * frame, Instruction Instruction);
+int goto_w(Frame * frame, Instruction Instruction);
+int jsr_w(Frame * frame, Instruction Instruction);
+int ifnull(Frame * frame, Instruction Instruction);
+int ifnonnull(Frame * frame, Instruction Instruction);
 
 #endif

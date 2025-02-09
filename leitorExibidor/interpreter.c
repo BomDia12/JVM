@@ -81,7 +81,7 @@ MethodResponses call_method(Frame * current_frame, ClassFile * class_file, Metho
       } else if (result == 2) {
         res.value = remove_from_stack(call_frame);
       } else if (result == 3) {
-        res.value = remove_from_stack(call_frame);
+        res.status = 1;
       }
       break;
     }
