@@ -68,7 +68,16 @@ int invoke_static(Frame * frame, Instruction instruction) {
 }
 
 int invoke_virtual(Frame * frame, Instruction instruction) {
-  // TODO: Implement invoke virtual
-  add_to_stack(frame, 0);
+  uint16_t method_index = (((uint16_t) instruction.operands[0]) << 8) | instruction.operands[1];
+  Constant * methodref = getFromConstantPool(frame->this_class, method_index);
+  Constant * name_and_type = getFromConstantPool(frame->this_class, methodref->ConstantUnion.methodref_info.name_and_type_index);
+
+  char * method_name = getNestedString(frame->this_class, name_and_type->ConstantUnion.name_and_type_info.name_index);
+  char * method_descriptor = getNestedString(frame->this_class, name_and_type->ConstantUnion.name_and_type_info.descriptor_index);
+
+  Arguments * arguments = get_arguments(frame, 0, method_descriptor);
+
+  if (strcmp(method_name, "println") == 0) {
+  }
   return 0;
 }

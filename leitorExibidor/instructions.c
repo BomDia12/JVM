@@ -215,7 +215,7 @@ InstructionType * get_instruction_type(uint8_t opcode) {
     {0xc1, 2, "instanceof"},
     {0xc2, 0, "monitorenter"},
     {0xc3, 0, "monitorexit"},
-    {0xc4, 5, "wide"},
+    {0xc4, 0, "wide", wide},
     {0xc5, 3, "multianewarray", multinewarray},
     {0xc6, 2, "ifnull"},
     {0xc7, 2, "ifnonnull"},

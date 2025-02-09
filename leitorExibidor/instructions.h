@@ -12,6 +12,7 @@
 #include "conversions.h"
 #include "invoke.h"
 #include "object.h"
+#include "wide.h"
 
 InstructionType * get_instruction_type(uint8_t opcode);
 

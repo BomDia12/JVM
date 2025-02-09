@@ -199,6 +199,9 @@ void print_code(CodeAttribute code) {
     i++;
     Instruction instruction = read_instruction();
     print_instruction(instruction, i);
+    if (instruction.type->opcode == 0xc4) {
+      // TODO: Print wide
+    }
   }
   printf("\n");
   print_divider();
