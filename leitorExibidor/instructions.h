@@ -11,6 +11,7 @@
 #include "stores.h"
 #include "conversions.h"
 #include "invoke.h"
+#include "object.h"
 
 InstructionType * get_instruction_type(uint8_t opcode);
 

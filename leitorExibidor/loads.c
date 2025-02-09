@@ -1,5 +1,15 @@
 #include "loads.h"
 
+int aconst_null(Frame * frame, Instruction instruction) {
+  add_to_stack(frame, (uint32_t) NULL);
+  return 0;
+}
+
+int load_constant_m1(Frame * frame, Instruction instruction) {
+  add_to_stack(frame, int_to_uint32(-1));
+  return 0;
+}
+
 int load_constant_0(Frame * frame, Instruction instruction) {
   add_to_stack(frame, 0);
   return 0;
@@ -154,9 +164,14 @@ int ldc_w(Frame *frame, Instruction instruction) {
           uint16_t string_index = constant->ConstantUnion.string_info.string_index;
           Constant *string_constant = frame->this_class->constant_pool[string_index];
           if (string_constant->tag == 1) { 
-              // TODO: lidar com strings
-              char * str = string_constant->ConstantUnion.utf8_info.bytes;
-              add_to_stack(frame, (uint32_t) &str);
+              String * string = malloc(sizeof(String));
+              string->size = string_constant->ConstantUnion.utf8_info.length;
+              string->string = malloc(sizeof(char) * string->size);
+              for (int i = 0; i < string->size; i++) {
+                string->string[i] = string_constant->ConstantUnion.utf8_info.bytes[i];
+              }
+              uint32_t index = add_string(string);
+              add_to_stack(frame, index);
           }
           break;
       }
