@@ -1,7 +1,7 @@
 #include "invoke.h"
 
 Arguments * get_arguments(Frame * frame, char include_this, char * method_descriptor) {
-  uint16_t argument_amount = get_argument_amount(frame->this_method->descriptor_index);
+  uint16_t argument_amount = get_argument_amount(method_descriptor);
   if (include_this) {
     argument_amount++;
   }

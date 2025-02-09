@@ -2,6 +2,8 @@
 #define STRING_H
 
 #include "types.h"
+#include "instructions.h"
+#include <stdlib.h>
 
 StringList * get_string_list();
 String * get_string(uint32_t index);

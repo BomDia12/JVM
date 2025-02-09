@@ -16,7 +16,11 @@ String * get_string(uint32_t index) {
 uint32_t add_string(String * string) {
   StringList * string_list = get_string_list();
   string_list->size++;
-  string_list->string = realloc(string_list->string, sizeof(String *) * string_list->size);
+  if (string_list->string == NULL) {
+    string_list->string = malloc(sizeof(String *) * string_list->size);
+  } else {
+    string_list->string = realloc(string_list->string, sizeof(String *) * string_list->size);
+  }
   string_list->string[string_list->size - 1] = string;
   return string_list->size - 1;
 }
