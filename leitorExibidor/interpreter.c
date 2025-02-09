@@ -78,6 +78,8 @@ MethodResponses call_method(Frame * current_frame, ClassFile * class_file, Metho
       // deal with responses
       if (result == 1) {
         res.value = (uint32_t) NULL;
+      } else if (result == 2) {
+        res.value = remove_from_stack(call_frame);
       }
       break;
     }
@@ -92,4 +94,13 @@ MethodResponses call_method(Frame * current_frame, ClassFile * class_file, Metho
   free(call_frame);
 
   return res;
+}
+
+int lreturn(Frame * frame, Instruction instruction) {
+  uint32_t hi = remove_from_stack(frame);
+  uint32_t lo = remove_from_stack(frame);
+  add_to_stack(frame->next, lo);
+  add_to_stack(frame, hi);
+
+  return 2;
 }

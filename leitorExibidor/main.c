@@ -2,6 +2,7 @@
 #include "header.h"
 #include "output.h"
 #include "interpreter.h"
+#include "string.h"
 
 int main (int argc, char *argv[]) {
   
@@ -10,6 +11,7 @@ int main (int argc, char *argv[]) {
     printf("Usage: %s <file>\n", argv[0]);
     return 1;
   }
+  
 
   read_file(argv[1]);
 
@@ -30,6 +32,8 @@ int main (int argc, char *argv[]) {
 
   free_class_file(class_file);
   free_buffer();
+  free_array_list(get_array_list());
+  free_string_list(get_string_list());
   
   return res;
 }

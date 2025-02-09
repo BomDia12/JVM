@@ -14,6 +14,7 @@ typedef struct Attribute Attribute;
 typedef struct Stack Stack;
 typedef struct Instruction Instruction;
 typedef struct ClassFile ClassFile;
+typedef struct ActiveField ActiveField;
 
 typedef struct ExceptionTable {
   uint16_t start_pc;
@@ -218,6 +219,8 @@ struct ClassFile {
   uint16_t attributes_count;
   Attribute * * attributes;
   ClassFile * super_class_object;
+  uint16_t static_fields_count;
+  ActiveField * * static_fields;
 };
 
 // Bytecode types
@@ -243,10 +246,21 @@ struct Stack {
   Stack * next;
 };
 
+struct ActiveField {
+  Field * field;
+  uint32_t value;
+  uint32_t extra;
+};
+
 typedef struct Object {
   ClassFile * class;
-  uint32_t * fields;
+  ActiveField * * fields;
 } Object;
+
+typedef struct ObjectList {
+  uint32_t size;
+  Object * * object;
+} ObjectList;
 
 struct Frame {
   ClassFile * this_class;

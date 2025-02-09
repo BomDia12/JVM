@@ -53,6 +53,8 @@ ClassFile * read_class_file() {
     classFile->attributes[i] = read_attribute();
   }
 
+  setup_static_fields(classFile);
+
   return classFile;
 }
 
@@ -276,4 +278,20 @@ uint16_t get_argument_amount(char * method_identifier) {
     amount++;
   }
   return amount;
+}
+
+void setup_static_fields(ClassFile * class_file) {
+  for (int i = 0; i < class_file->fields_count; i++) {
+    if (class_file->fields[i]->access_flags & 0x8) {
+      class_file->static_fields_count++;
+      if (class_file->static_fields == NULL) {
+        class_file->static_fields = malloc(sizeof(ActiveField *) * class_file->static_fields_count);
+      } else {
+        class_file->static_fields = realloc(class_file->static_fields, sizeof(ActiveField *) * class_file->static_fields_count);
+      }
+      class_file->static_fields[class_file->static_fields_count - 1] = malloc(sizeof(ActiveField));
+      class_file->static_fields[class_file->static_fields_count - 1]->field = class_file->fields[i];
+      class_file->static_fields[class_file->static_fields_count - 1]->value = 0;
+    }
+  }
 }

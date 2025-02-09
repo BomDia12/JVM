@@ -29,4 +29,6 @@ char * getNestedString(ClassFile * class_file, uint16_t index);
 Method * get_method(ClassFile * class_file, char * method_name, char * method_descriptor);
 uint16_t get_argument_amount(char * method_identifier);
 
+void setup_static_fields(ClassFile * class_file);
+
 #endif
