@@ -94,63 +94,63 @@ int invoke_virtual(Frame *frame, Instruction instruction) {
 
     switch (type) {
       case 'I': {
-        uint32_t value = remove_from_stack(frame);
-        printf("%d\n", value);
+        int32_t value = uint32_to_int(remove_from_stack(frame));
+        printf("%d", value);
         break;
       }
       case 'J': { // Tipo long
-        uint32_t high = constant->ConstantUnion.long_info.high_bytes;
-        uint32_t low = constant->ConstantUnion.long_info.low_bytes;
-        printf("Long: High = %d, Low = %d\n", high, low);
+        uint64_t low = remove_from_stack(frame);
+        uint64_t high = remove_from_stack(frame);
+        uint64_t raw = low | (high << 32);
+        int64_t value = uint64_to_long(raw);
+        printf("%ld", value);
         break;
       }
       case 'F': {
-        int32_t raw = remove_from_stack(frame);
-        float value;
+        uint32_t raw = remove_from_stack(frame);
 
-        memcpy(&value, &raw, sizeof(float));
-
-        printf("%f\n", value);
+        printf("%f", uint32_to_float(raw));
         break;
       }
       case 'D': { // double
         double value;
-        uint32_t high = remove_from_stack(frame);
-        uint32_t low = remove_from_stack(frame);
-        uint32_t raw[2] = {low, high};
+        uint64_t low = remove_from_stack(frame);
+        uint64_t high = remove_from_stack(frame);
+        uint64_t raw = low | (high << 32);
 
-        memcpy(&value, raw, sizeof(double));
-
-        printf("%lf\n", value);
+        printf("%lf", uint64_to_double(raw));
         break;
       }
       case 'C': {
-          uint16_t value = remove_from_stack(frame);
-          printf("%c\n", (char)value);
-          break;
+        char value = remove_from_stack(frame);
+        printf("%c", value);
+        break;
       }
       case 'Z': {
-          uint32_t value = remove_from_stack(frame);
-          printf("%s\n", value ? "true" : "false");
-          break;
+        uint32_t value = remove_from_stack(frame);
+        printf("%s", value ? "true" : "false");
+        break;
       }
       case 'S': {
-          uint16_t value = remove_from_stack(frame);
-          printf("%d\n", (int16_t)value);
-          break;
+        uint16_t value = remove_from_stack(frame);
+        printf("%d", (int16_t)value);
+        break;
       }
       case 'B': { 
-          uint8_t value = remove_from_stack(frame);
-          printf("%d\n", (int8_t)value);
-          break;
+        uint8_t value = remove_from_stack(frame);
+        printf("%d", (int8_t)value);
+        break;
       }
       case 'L': { 
-          
-          break;
+        uint32_t ref = remove_from_stack(frame);
+        Object * object = get_object(ref);
+        String * string = get_string(object->fields[0]->value);
+        printf("%s", string->string);
+        break;
       }
       default:
-          printf("Tipo não suportado para println: %c\n", type);
-          break;
+        printf("Tipo não suportado para println: %s\n", method_descriptor);
+        break;
     }
 
     remove_from_stack(frame);
