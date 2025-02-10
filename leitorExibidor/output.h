@@ -18,6 +18,7 @@ void print_methods_access_flags_translation(uint16_t access_flags);
 void print_inner_classes_access_flags_translation(uint16_t access_flags);
 
 void print_divider();
+void print_tab(int times);
 void print_title(const char * string);
 
 void print_code(CodeAttribute code);
