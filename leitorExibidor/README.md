@@ -32,6 +32,4 @@ Exemplo:
 
 ## TODO:
  - invokevirtual
- - tablelookup
- - lookupswitch
  - Melhorar o output
