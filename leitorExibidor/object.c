@@ -41,7 +41,9 @@ void free_object_list(ObjectList * object_list) {
 int new_(Frame * frame, Instruction instruction) {
   uint16_t index = (((uint16_t) instruction.operands[0]) << 8) | instruction.operands[1];
   char * class_name = getNestedString(frame->this_class, index);
-  // TODO: Implement java classes
+  if (strcmp(class_name, "java/lang/String") == 0) {
+    return 0;
+  }
 
   ClassFile * class_file = get_class_file(class_name);
   if (class_file == NULL) {

@@ -19,8 +19,14 @@ int common_invoke(Frame * frame, Instruction instruction, char include_this) {
   uint16_t method_index = (((uint16_t) instruction.operands[0]) << 8) | instruction.operands[1];
   Constant * methodref = getFromConstantPool(frame->this_class, method_index);
   Constant * name_and_type = getFromConstantPool(frame->this_class, methodref->ConstantUnion.methodref_info.name_and_type_index);
+  char * class_name = getNestedString(frame->this_class, methodref->ConstantUnion.methodref_info.class_index);
 
   char * method_name = getNestedString(frame->this_class, name_and_type->ConstantUnion.name_and_type_info.name_index);
+  if (strcmp(method_name, "<init>") == 0) {
+    if (strcmp(class_name, "java/lang/Object") == 0 || strcmp(class_name, "java/lang/String") == 0) {
+      return 0;
+    }
+  }
   char * method_descriptor = getNestedString(frame->this_class, name_and_type->ConstantUnion.name_and_type_info.descriptor_index);
 
   Arguments * arguments = get_arguments(frame, include_this, method_descriptor);
@@ -30,7 +36,6 @@ int common_invoke(Frame * frame, Instruction instruction, char include_this) {
     Object * this_object = get_object(arguments->arguments[0]);
     class_file = this_object->class;
   } else {
-    char * class_name = getNestedString(frame->this_class, methodref->ConstantUnion.methodref_info.class_index);
     class_file = get_class_file(class_name);
   }
   

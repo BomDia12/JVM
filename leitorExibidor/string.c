@@ -44,24 +44,17 @@ int new_string(Frame * frame, Instruction instruction) {
   string->size = size;
   string->string = malloc(sizeof(char) * size);
   uint32_t index = add_string(string);
-  add_to_stack(frame, index);
 
-  return 0;
-}
-
-int anewstring(Frame * frame, Instruction instruction) {
-  uint32_t size = remove_from_stack(frame);
-  String * string = malloc(sizeof(String));
-  string->size = size;
-  string->string = malloc(sizeof(char) * size);
-  uint32_t index = add_string(string);
-  add_to_stack(frame, index);
   return 0;
 }
 
 int stringlength(Frame * frame, Instruction instruction) {
   uint32_t index = remove_from_stack(frame);
-  String * string = get_string(index);
-  add_to_stack(frame, string->size);
+  Object * object = get_object(index);
+  if (object == NULL) {
+    add_to_stack(frame, 0);
+    return 0;
+  }
+  String * string = get_string(object->fields[0]->value);
   return 0;
 }
