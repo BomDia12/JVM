@@ -44,6 +44,12 @@ void print_divider() {
   printf("================================================================================\n");
 }
 
+void print_tab(int times) {
+  for (int i = 0; i < times; i++) {
+    printf("  ");
+  }
+}
+
 void print_title(const char * string) {
   printf("\n");
   print_divider();
@@ -57,52 +63,79 @@ void print_constant_pool(Constant * constant, uint32_t index) {
   printf("Index: %d\n", index);
   switch (cp->tag) {
     case 1:
+      print_tab(1);
       printf("CONSTANT_Utf8_info\n");
+      print_tab(2);
       printf("Tamanho: %d\n", cp->ConstantUnion.utf8_info.length);
+      print_tab(2);
       printf("String: %s\n", cp->ConstantUnion.utf8_info.bytes);
       break;
     case 3:
+      print_tab(1);
       printf("CONSTANT_Integer_info\n");
+      print_tab(2);
       printf("Valor: %d\n", cp->ConstantUnion.integer_info.bytes);
       break;
     case 4:
+      print_tab(1);
       printf("CONSTANT_Float_info\n");
+      print_tab(2);
       printf("Valor: %f\n", (float)cp->ConstantUnion.float_info.bytes);
       break;
     case 5:
+      print_tab(1);
       printf("CONSTANT_Long_info\n");
+      print_tab(2);
       printf("Valor: %ld\n", (long)cp->ConstantUnion.long_info.high_bytes | cp->ConstantUnion.long_info.low_bytes);
       break;
     case 6:
+      print_tab(1);
       printf("CONSTANT_Double_info\n");
+      print_tab(2);
       printf("Valor: %lf\n", (double)((((long long) cp->ConstantUnion.double_info.high_bytes) << 32) | cp->ConstantUnion.double_info.low_bytes));
       break;
     case 7:
+      print_tab(1);
       printf("CONSTANT_Class_info\n");
+      print_tab(2);
       printf("Index: %d\n", cp->ConstantUnion.class_info.name_index);
       break;
     case 8:
+      print_tab(1);
       printf("CONSTANT_String_info\n");
+      print_tab(2);
       printf("referencia: %d\n", cp->ConstantUnion.string_info.string_index);
       break;
     case 9:
+      print_tab(1);
       printf("CONSTANT_Fieldref_info\n");
+      print_tab(2);
       printf("Index da classe: %d\n", cp->ConstantUnion.fieldref_info.class_index);
+      print_tab(2);
       printf("Index de nome e tipo: %d\n", cp->ConstantUnion.fieldref_info.name_and_type_index);
       break;
     case 10:
+      print_tab(1);
       printf("CONSTANT_Methodref_info\n");
+      print_tab(2);
       printf("Index da classe: %d\n", cp->ConstantUnion.methodref_info.class_index);
+      print_tab(2);
       printf("Index de nome e tipo: %d\n", cp->ConstantUnion.methodref_info.name_and_type_index);
       break;
     case 11:
+      print_tab(1);
       printf("CONSTANT_InterfaceMethodref_info\n");
+      print_tab(2);
       printf("Index da classe: %d\n", cp->ConstantUnion.interface_methodref_info.class_index);
+      print_tab(2);
       printf("Index de nome e tipo: %d\n", cp->ConstantUnion.interface_methodref_info.name_and_type_index);
       break;
     case 12:
+      print_tab(1);
       printf("CONSTANT_NameAndType_info\n");
+      print_tab(2);
       printf("Index de nome: %d\n", cp->ConstantUnion.name_and_type_info.name_index);
+      print_tab(2);
       printf("Index de tipo: %d\n", cp->ConstantUnion.name_and_type_info.descriptor_index);
       break;
     default:
@@ -117,10 +150,12 @@ void print_fields(Field * fields) {
   printf("Index de tipo: %d\n", fields->descriptor_index);
   printf("Número de atributos: %d\n", fields->attributes_count);
   if (fields->attributes_count > 0) {
-    print_title("Attributes");
+    print_tab(1);
+    print_title("Atributos");
     for (int i = 0; i < fields->attributes_count; i++) {
+      print_tab(2);
       printf("Atributo %d:\n", i);
-      print_attributes(fields->attributes[i]);
+      print_attributes(fields->attributes[i]); 
     }
   }
 }
@@ -132,8 +167,10 @@ void print_methods(Method * methods) {
   printf("Index de tipo: %d\n", methods->descriptor_index);
   printf("Numero de atributos: %d\n", methods->attributes_count);
   if (methods->attributes_count > 0) {
+    print_tab(1);
     print_title("Attributes");
     for (int i = 0; i < methods->attributes_count; i++) {
+      print_tab(2);
       printf("Atributo %d:\n", i);
       print_attributes(methods->attributes[i]);
     }
@@ -146,44 +183,65 @@ void print_methods(Method * methods) {
 void print_attributes(Attribute * attributes) {
   const char * type_names[5] = {"Não implementado","ConstantValue", "Code", "Exceptions", "InnerClasses"};
 
+  print_tab(3);
   printf("Index de nome: %d\n", attributes->attribute_name_index);
+  print_tab(3);
   printf("Tamanho: %d\n", attributes->attribute_length);
+  print_tab(3);
   printf("Tipo de atributo: %s\n", type_names[attributes->attribute_type]);
   
   // If it's a code attribute
   if (attributes->attribute_type == 2) {
+    print_tab(3);
     printf("Profundidade máxima da pilha de operandos: %d\n", attributes->attribute_union.code_attribute.max_stack);
+    print_tab(3);
     printf("Número de variáveis locais: %d\n", attributes->attribute_union.code_attribute.max_locals);
+    print_tab(3);
     printf("Número de bytes no array code: %d\n", attributes->attribute_union.code_attribute.code_length);
     
+    print_tab(3);
     printf("Código:\n");
+    print_tab(4);
     print_code(attributes->attribute_union.code_attribute);
-
+    
+    print_tab(3);
     printf("Número de tabelas de exceções: %d\n", attributes->attribute_union.code_attribute.exception_table_length);
+    print_tab(3);
     printf("Tabelas de exceções: %p\n", attributes->attribute_union.code_attribute.exception_table);
+    print_tab(3);
     printf("Número de atributos: %d\n", attributes->attribute_union.code_attribute.attributes_count);
   }
 
   // If it's a constant value attribute
   if (attributes->attribute_type == 1) {
+    print_tab(3);
     printf("Index da constante: %d\n", attributes->attribute_union.constantvalue_attribute.constantvalue_index);
   }
 
   // If it's an exception attribute
   if (attributes->attribute_type == 3) {
+    print_tab(3);
     printf("Numero de exceções: %d\n", attributes->attribute_union.exceptions_attribute.number_of_exceptions);
+    print_tab(3);
     printf("Índice da tabela de exceções: %p\n", attributes->attribute_union.exceptions_attribute.exception_index_table);
   }
 
   // If it's an inner classes attribute
   if (attributes->attribute_type == 4) {
+    print_tab(3);
     printf("Numero de classes: %d\n", attributes->attribute_union.innerclasses_attribute.number_of_classes);
+    print_tab(3);
     printf("Classes:\n");
     for (int i = 0; i < attributes->attribute_union.innerclasses_attribute.number_of_classes; i++) {
+      print_tab(4);
       printf("Inner class info index: %d\n", attributes->attribute_union.innerclasses_attribute.classes[i].inner_class_info_index);
+      print_tab(4);
       printf("Outer class info index: %d\n", attributes->attribute_union.innerclasses_attribute.classes[i].outer_class_info_index);
+      print_tab(4);
       printf("Inner name index: %d\n", attributes->attribute_union.innerclasses_attribute.classes[i].inner_name_index);
+      print_tab(4);
       printf("Inner class access flags: %d\n", attributes->attribute_union.innerclasses_attribute.classes[i].inner_class_access_flags);
+      print_tab(4);
       print_inner_classes_access_flags_translation(attributes->attribute_union.innerclasses_attribute.classes[i].inner_class_access_flags);
     }
   }
@@ -371,15 +429,19 @@ void print_methods_access_flags_translation(uint16_t access_flags) {
 void print_inner_classes_access_flags_translation(uint16_t access_flags) {
   switch (access_flags & 0x000f) {
     case 0x0001:
+      print_tab(4);
       printf("ACC_PUBLIC\n");
       break;
     case 0x0002:
+      print_tab(4);
       printf("ACC_PRIVATE\n");
       break;
     case 0x0004:
+      print_tab(4);
       printf("ACC_PROTECTED\n");
       break;
     case 0x0008:
+      print_tab(4);
       printf("ACC_STATIC\n");
       break;
     default:
@@ -388,6 +450,7 @@ void print_inner_classes_access_flags_translation(uint16_t access_flags) {
 
   switch (access_flags & 0x00f0) {
     case 0x0010:
+      print_tab(4);
       printf("ACC_FINAL\n");
       break;
     default:  
@@ -396,9 +459,11 @@ void print_inner_classes_access_flags_translation(uint16_t access_flags) {
 
   switch (access_flags & 0x0f00) {
     case 0x0200:
+      print_tab(4);
       printf("ACC_INTERFACE\n");
       break;
     case 0x0400:
+      print_tab(4);
       printf("ACC_ABSTRACT\n");
       break;
     default:
