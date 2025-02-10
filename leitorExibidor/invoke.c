@@ -81,17 +81,83 @@ int invoke_static(Frame * frame, Instruction instruction) {
   return res;
 }
 
-int invoke_virtual(Frame * frame, Instruction instruction) {
+int invoke_virtual(Frame *frame, Instruction instruction) {
   uint16_t method_index = (((uint16_t) instruction.operands[0]) << 8) | instruction.operands[1];
-  Constant * methodref = getFromConstantPool(frame->this_class, method_index);
-  Constant * name_and_type = getFromConstantPool(frame->this_class, methodref->ConstantUnion.methodref_info.name_and_type_index);
 
-  char * method_name = getNestedString(frame->this_class, name_and_type->ConstantUnion.name_and_type_info.name_index);
-  char * method_descriptor = getNestedString(frame->this_class, name_and_type->ConstantUnion.name_and_type_info.descriptor_index);
-
-  Arguments * arguments = get_arguments(frame, 0, method_descriptor);
+  Constant *methodref = getFromConstantPool(frame->this_class, method_index);
+  Constant *name_and_type = getFromConstantPool(frame->this_class, methodref->ConstantUnion.methodref_info.name_and_type_index);
+  char *method_name = getNestedString(frame->this_class, name_and_type->ConstantUnion.name_and_type_info.name_index);
+  char *method_descriptor = getNestedString(frame->this_class, name_and_type->ConstantUnion.name_and_type_info.descriptor_index);
 
   if (strcmp(method_name, "println") == 0) {
+    char type = method_descriptor[1];
+
+    switch (type) {
+      case 'I': {
+        uint32_t value = remove_from_stack(frame);
+        printf("%d\n", value);
+        break;
+      }
+      case 'J': { // Tipo long
+        uint32_t high = constant->ConstantUnion.long_info.high_bytes;
+        uint32_t low = constant->ConstantUnion.long_info.low_bytes;
+        printf("Long: High = %d, Low = %d\n", high, low);
+        break;
+      }
+      case 'F': {
+        int32_t raw = remove_from_stack(frame);
+        float value;
+
+        memcpy(&value, &raw, sizeof(float));
+
+        printf("%f\n", value);
+        break;
+      }
+      case 'D': { // double
+        double value;
+        uint32_t high = remove_from_stack(frame);
+        uint32_t low = remove_from_stack(frame);
+        uint32_t raw[2] = {low, high};
+
+        memcpy(&value, raw, sizeof(double));
+
+        printf("%lf\n", value);
+        break;
+      }
+      case 'C': {
+          uint16_t value = remove_from_stack(frame);
+          printf("%c\n", (char)value);
+          break;
+      }
+      case 'Z': {
+          uint32_t value = remove_from_stack(frame);
+          printf("%s\n", value ? "true" : "false");
+          break;
+      }
+      case 'S': {
+          uint16_t value = remove_from_stack(frame);
+          printf("%d\n", (int16_t)value);
+          break;
+      }
+      case 'B': { 
+          uint8_t value = remove_from_stack(frame);
+          printf("%d\n", (int8_t)value);
+          break;
+      }
+      case 'L': { 
+          
+          break;
+      }
+      default:
+          printf("Tipo não suportado para println: %c\n", type);
+          break;
+    }
+
+    remove_from_stack(frame);
+    return 0;
   }
-  return 0;
+
+  fprintf(stderr, "Método %s não suportado no invoke_virtual simplificado.\n", method_name);
+  return -1;
 }
+
