@@ -76,6 +76,10 @@ MethodResponses call_method(Frame * current_frame, ClassFile * class_file, Metho
       // deal with responses
       if (result == 1) {
         res.value = (uint32_t) NULL;
+      } else if (result == 2) {
+        res.value = remove_from_stack(call_frame);
+      } else if (result == 3) {
+        res.status = 1;
       }
       break;
     }
