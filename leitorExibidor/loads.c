@@ -134,50 +134,58 @@ int ldc_w(Frame *frame, Instruction instruction) {
   Constant *constant = frame->this_class->constant_pool[index];
 
   switch (constant->tag) {
-      case 3: {  
-          int32_t value = constant->ConstantUnion.integer_info.bytes;
-          add_to_stack(frame, value);
-          break;
-      }
-      case 4: { 
-          uint32_t value = constant->ConstantUnion.float_info.bytes;
-          add_to_stack(frame, value);
-          break;
-      }
-      case 5: {
-        uint32_t high = constant->ConstantUnion.long_info.high_bytes;
-        uint32_t low = constant->ConstantUnion.long_info.low_bytes;
+    case 3: {  
+      int32_t value = constant->ConstantUnion.integer_info.bytes;
+      add_to_stack(frame, value);
+      break;
+    }
+    case 4: { 
+      uint32_t value = constant->ConstantUnion.float_info.bytes;
+      add_to_stack(frame, value);
+      break;
+    }
+    case 5: {
+      uint32_t high = constant->ConstantUnion.long_info.high_bytes;
+      uint32_t low = constant->ConstantUnion.long_info.low_bytes;
 
-        add_to_stack(frame, high);
-        add_to_stack(frame, low);
-        break;
-      }
-      case 6: { 
-        uint32_t high = constant->ConstantUnion.double_info.high_bytes;
-        uint32_t low = constant->ConstantUnion.double_info.low_bytes;
+      add_to_stack(frame, high);
+      add_to_stack(frame, low);
+      break;
+    }
+    case 6: { 
+      uint32_t high = constant->ConstantUnion.double_info.high_bytes;
+      uint32_t low = constant->ConstantUnion.double_info.low_bytes;
 
-        add_to_stack(frame, high);
-        add_to_stack(frame, low);
-        break;
+      add_to_stack(frame, high);
+      add_to_stack(frame, low);
+      break;
+    }
+    case 8: {
+      uint16_t string_index = constant->ConstantUnion.string_info.string_index;
+      Constant *string_constant = frame->this_class->constant_pool[string_index];
+      if (string_constant->tag == 1) { 
+        String * string = malloc(sizeof(String));
+        string->size = string_constant->ConstantUnion.utf8_info.length;
+        string->string = malloc(sizeof(char) * string->size);
+        for (int i = 0; i < string->size; i++) {
+          string->string[i] = string_constant->ConstantUnion.utf8_info.bytes[i];
+        }
+        uint32_t index = add_string(string);
+        Object * object = malloc(sizeof(Object));
+        object->class = get_string_class_file();
+        object->fields = malloc(sizeof(ActiveField *) * 1);
+        object->fields[0] = malloc(sizeof(ActiveField));
+        object->fields[0]->field = object->class->fields[0];
+        object->fields[0]->value = index;
+
+        uint32_t ref = add_object(object);
+        add_to_stack(frame, ref);
       }
-      case 8: {
-          uint16_t string_index = constant->ConstantUnion.string_info.string_index;
-          Constant *string_constant = frame->this_class->constant_pool[string_index];
-          if (string_constant->tag == 1) { 
-              String * string = malloc(sizeof(String));
-              string->size = string_constant->ConstantUnion.utf8_info.length;
-              string->string = malloc(sizeof(char) * string->size);
-              for (int i = 0; i < string->size; i++) {
-                string->string[i] = string_constant->ConstantUnion.utf8_info.bytes[i];
-              }
-              uint32_t index = add_string(string);
-              add_to_stack(frame, index);
-          }
-          break;
-      }
-      default:
-          printf("Tipo de constante não tratado: %d\n", constant->tag);
-          break;
+      break;
+    }
+    default:
+      printf("Tipo de constante não tratado: %d\n", constant->tag);
+      break;
   }
   return 0;
 }
@@ -189,23 +197,23 @@ int ldc2_w(Frame *frame, Instruction instruction) {
   Constant *constant = frame->this_class->constant_pool[index];
 
   switch (constant->tag) {
-      case 5: {
-        uint32_t high = constant->ConstantUnion.long_info.high_bytes;
-        uint32_t low = constant->ConstantUnion.long_info.low_bytes;
-        add_to_stack(frame, high);
-        add_to_stack(frame, low);  
-        break;
-      }
-      case 6: {
-        uint32_t high = constant->ConstantUnion.double_info.high_bytes;
-        uint32_t low = constant->ConstantUnion.double_info.low_bytes;
-        add_to_stack(frame, high);
-        add_to_stack(frame, low);
-        break;
-      }
-      default:
-        printf("Tipo de constante não tratado para ldc2_w: %d\n", constant->tag);
-        break;
+    case 5: {
+      uint32_t high = constant->ConstantUnion.long_info.high_bytes;
+      uint32_t low = constant->ConstantUnion.long_info.low_bytes;
+      add_to_stack(frame, high);
+      add_to_stack(frame, low);  
+      break;
+    }
+    case 6: {
+      uint32_t high = constant->ConstantUnion.double_info.high_bytes;
+      uint32_t low = constant->ConstantUnion.double_info.low_bytes;
+      add_to_stack(frame, high);
+      add_to_stack(frame, low);
+      break;
+    }
+    default:
+      printf("Tipo de constante não tratado para ldc2_w: %d\n", constant->tag);
+      break;
   }
   return 0;
 }

@@ -85,6 +85,10 @@ int getstatic(Frame * frame, Instruction instruction) {
   uint16_t index = (((uint16_t) instruction.operands[0]) << 8) | instruction.operands[1];
   Constant * fieldref = getFromConstantPool(frame->this_class, index);
   char * class_name = getNestedString(frame->this_class, fieldref->ConstantUnion.fieldref_info.class_index);
+  if (strcmp(class_name, "java/lang/System") == 0 || strcmp(class_name, "java/lang/String") == 0) {
+    return 0;
+  }
+
   ClassFile * class_file = get_class_file(class_name);
 
   if (class_file == NULL) {
