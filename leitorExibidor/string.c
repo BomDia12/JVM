@@ -69,7 +69,7 @@ int stringlength(Frame * frame, Instruction instruction) {
 }
 
 ClassFile * get_string_class_file() {
-  const Constant class_name = {
+  static Constant class_name = {
     .tag = 1,
     .ConstantUnion = {
       .utf8_info = {
@@ -78,7 +78,7 @@ ClassFile * get_string_class_file() {
       }
     }
   };
-  const Constant class_index = {
+  static Constant class_index = {
     .tag = 7,
     .ConstantUnion = {
       .class_info = {
@@ -86,7 +86,7 @@ ClassFile * get_string_class_file() {
       }
     }
   };
-  const Constant field_name = {
+  static Constant field_name = {
     .tag = 1,
     .ConstantUnion = {
       .utf8_info = {
@@ -96,21 +96,21 @@ ClassFile * get_string_class_file() {
     }
   };
 
-  const Constant pool [] = {
-    class_index,
-    class_name,
-    field_name,
+  static Constant * pool [] = {
+    &class_index,
+    &class_name,
+    &field_name,
   };
 
-  const Field field = {
+  static Field field = {
     .access_flags = 0x0000,
     .name_index = 2,
     .descriptor_index = 0,
     .attributes_count = 0,
     .attributes = NULL,
   };
-  const Field fields [] = {field};
-  const ClassFile class_file = {
+  static Field * fields [] = {&field};
+  static ClassFile class_file = {
     .magic = 0xCAFEBABE,
     .minor_version = 0,
     .major_version = 0,

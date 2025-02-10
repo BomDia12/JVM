@@ -334,4 +334,9 @@ typedef struct ArrayDimensions {
   uint32_t * sizes;
 } ArrayDimensions;
 
+typedef struct TableSwitch {
+  uint32_t size;
+  int32_t * offsets;
+} TableSwitch;
+
 #endif
