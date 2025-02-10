@@ -3,8 +3,12 @@
 
 #include "types.h"
 #include "instructions.h"
+#include "conversions.h"
+#include "string.h"
 
 // Funções para carregar constantes
+int aconst_null(Frame * frame, Instruction instruction);
+int load_constant_m1(Frame * frame, Instruction instruction);
 int load_constant_0(Frame *frame, Instruction instruction);
 int load_constant_1(Frame *frame, Instruction instruction);
 int load_constant_2(Frame *frame, Instruction instruction);

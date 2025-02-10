@@ -2,7 +2,7 @@
 
 ClassFile * read_class_file() {
   ClassFile * classFile = malloc(sizeof(ClassFile));
-  pushToClassFileBuffer(classFile);
+  pushToClassFileList(classFile);
 
   classFile->magic = read_u32();
   if (classFile->magic != 0xCAFEBABE) {
@@ -52,6 +52,8 @@ ClassFile * read_class_file() {
   for (int i = 0; i < classFile->attributes_count; i++) {
     classFile->attributes[i] = read_attribute();
   }
+
+  setup_static_fields(classFile);
 
   return classFile;
 }
@@ -205,23 +207,23 @@ void free_method(Method *method) {
   free(method);
 }
 
-ClassFileBuffer * get_current_class_file() {
-  static ClassFileBuffer class_file = {
+ClassFileList * get_class_file_list() {
+  static ClassFileList class_file = {
     .buffer = NULL,
     .size = 0
   };
   return &class_file;
 }
 
-void pushToClassFileBuffer(ClassFile * class_file) {
-  ClassFileBuffer * buffer = get_current_class_file();
-  buffer->size++;
-  if (buffer->buffer == NULL) {
-    buffer->buffer = malloc(sizeof(ClassFile *) * buffer->size);
+void pushToClassFileList(ClassFile * class_file) {
+  ClassFileList * class_file_list = get_class_file_list();
+  class_file_list->size++;
+  if (class_file_list->buffer == NULL) {
+    class_file_list->buffer = malloc(sizeof(ClassFile *) * class_file_list->size);
   } else {
-    buffer->buffer = realloc(buffer->buffer, sizeof(ClassFile *) * buffer->size);
+    class_file_list->buffer = realloc(class_file_list->buffer, sizeof(ClassFile *) * class_file_list->size);
   }
-  buffer->buffer[buffer->size - 1] = class_file;
+  class_file_list->buffer[class_file_list->size - 1] = class_file;
 }
 
 Constant * getFromConstantPool(ClassFile * class_file, uint16_t index) {
@@ -276,4 +278,20 @@ uint16_t get_argument_amount(char * method_identifier) {
     amount++;
   }
   return amount;
+}
+
+void setup_static_fields(ClassFile * class_file) {
+  for (int i = 0; i < class_file->fields_count; i++) {
+    if (class_file->fields[i]->access_flags & 0x8) {
+      class_file->static_fields_count++;
+      if (class_file->static_fields == NULL) {
+        class_file->static_fields = malloc(sizeof(ActiveField *) * class_file->static_fields_count);
+      } else {
+        class_file->static_fields = realloc(class_file->static_fields, sizeof(ActiveField *) * class_file->static_fields_count);
+      }
+      class_file->static_fields[class_file->static_fields_count - 1] = malloc(sizeof(ActiveField));
+      class_file->static_fields[class_file->static_fields_count - 1]->field = class_file->fields[i];
+      class_file->static_fields[class_file->static_fields_count - 1]->value = 0;
+    }
+  }
 }

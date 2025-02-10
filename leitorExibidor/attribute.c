@@ -4,7 +4,7 @@ Attribute * read_attribute() {
   Attribute * attribute = malloc(sizeof(Attribute));
   attribute->attribute_name_index = read_u16();
   attribute->attribute_length = read_u32();
-  ClassFileBuffer * class_file = get_current_class_file();
+  ClassFileList * class_file = get_class_file_list();
 
   Constant * constant = class_file->buffer[class_file->size - 1]->constant_pool[attribute->attribute_name_index - 1];
 

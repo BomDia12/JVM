@@ -14,6 +14,7 @@ typedef struct Attribute Attribute;
 typedef struct Stack Stack;
 typedef struct Instruction Instruction;
 typedef struct ClassFile ClassFile;
+typedef struct ActiveField ActiveField;
 
 typedef struct ExceptionTable {
   uint16_t start_pc;
@@ -218,6 +219,8 @@ struct ClassFile {
   uint16_t attributes_count;
   Attribute * * attributes;
   ClassFile * super_class_object;
+  uint16_t static_fields_count;
+  ActiveField * * static_fields;
 };
 
 // Bytecode types
@@ -233,20 +236,31 @@ struct Instruction {
   uint8_t * operands;
 };
 
-typedef struct ClassFileBuffer {
+typedef struct ClassFileList {
   ClassFile * * buffer;
   uint32_t size;
-} ClassFileBuffer;
+} ClassFileList;
 
 struct Stack {
   uint32_t self;
   Stack * next;
 };
 
+struct ActiveField {
+  Field * field;
+  uint32_t value;
+  uint32_t extra;
+};
+
 typedef struct Object {
   ClassFile * class;
-  uint32_t * fields;
+  ActiveField * * fields;
 } Object;
+
+typedef struct ObjectList {
+  uint32_t size;
+  Object * * object;
+} ObjectList;
 
 struct Frame {
   ClassFile * this_class;
@@ -302,6 +316,8 @@ typedef struct StringList {
  * 0 - Success
  * -1 - Method not found
  * -2 - Code attribute not found
+ * -9 - check cast failed
+ * -10 - athrow
  */
 typedef struct MethodResponses {
   int status;
@@ -312,5 +328,15 @@ typedef struct Arguments {
   uint32_t * arguments;
   uint32_t size;
 } Arguments;
+
+typedef struct ArrayDimensions {
+  uint32_t dimensions;
+  uint32_t * sizes;
+} ArrayDimensions;
+
+typedef struct TableSwitch {
+  uint32_t size;
+  int32_t * offsets;
+} TableSwitch;
 
 #endif

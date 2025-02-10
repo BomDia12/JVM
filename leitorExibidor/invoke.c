@@ -19,41 +19,55 @@ int common_invoke(Frame * frame, Instruction instruction, char include_this) {
   uint16_t method_index = (((uint16_t) instruction.operands[0]) << 8) | instruction.operands[1];
   Constant * methodref = getFromConstantPool(frame->this_class, method_index);
   Constant * name_and_type = getFromConstantPool(frame->this_class, methodref->ConstantUnion.methodref_info.name_and_type_index);
+  char * class_name = getNestedString(frame->this_class, methodref->ConstantUnion.methodref_info.class_index);
 
   char * method_name = getNestedString(frame->this_class, name_and_type->ConstantUnion.name_and_type_info.name_index);
+  if (strcmp(method_name, "<init>") == 0) {
+    if (strcmp(class_name, "java/lang/Object") == 0 || strcmp(class_name, "java/lang/String") == 0) {
+      return 0;
+    }
+  }
   char * method_descriptor = getNestedString(frame->this_class, name_and_type->ConstantUnion.name_and_type_info.descriptor_index);
 
   Arguments * arguments = get_arguments(frame, include_this, method_descriptor);
 
-  char * class_name = getNestedString(frame->this_class, methodref->ConstantUnion.methodref_info.class_index);
-  char * current_class_name = getNestedString(frame->this_class, frame->this_class->this_class);
-  if (strcmp(class_name, current_class_name) != 0) {
-    // TODO: Implement get from other class
+  ClassFile * class_file;
+  if (include_this) {
+    Object * this_object = get_object(arguments->arguments[0]);
+    class_file = this_object->class;
+  } else {
+    class_file = get_class_file(class_name);
+  }
+  
+  if (class_file == NULL) {
     return -1;
   }
 
-  Method * method = get_method(frame->this_class, method_name, method_descriptor);
+  Method * method = get_method(class_file, method_name, method_descriptor);
   if (method == NULL) {
     return -1;
   }
 
-  MethodResponses res = call_method(frame, frame->this_class, method, arguments);
-  if (res.status != 0) {
+  MethodResponses res = call_method(frame, class_file, method, arguments);
+  if (res.status < 0) {
     return res.status;
   }
 
-  add_to_stack(frame, res.value);
+  if (res.status == 0) {
+    add_to_stack(frame, res.value);
+  }
+
 
   return 0;
 }
 
 int invoke_dynamic(Frame * frame, Instruction instruction) {
-  int res = common_invoke(frame, instruction, 1);
+  int res = common_invoke(frame, instruction, 0);
   return res;
 }
 
 int invoke_interface(Frame * frame, Instruction instruction) {
-  int res = common_invoke(frame, instruction, 0);
+  int res = common_invoke(frame, instruction, 1);
   return res;
 }
 
