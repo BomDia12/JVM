@@ -1,4 +1,4 @@
-all: main.c reader.o header.o bytecode.o attribute.o output.o instructions.o arithmetic.o conversions.o array.o interpreter.o stores.o loads.o stackops.o invoke.o string.o
+all: main.c reader.o header.o bytecode.o attribute.o output.o instructions.o arithmetic.o conversions.o array.o interpreter.o stores.o loads.o stackops.o invoke.o string.o object.o wide.o
 	gcc -m32 ./*.o ./main.c -o main.exe -lm
 
 reader.o: reader.c reader.h types.h
@@ -45,6 +45,12 @@ stackops.o: stackops.c stackops.h types.h instructions.h
 
 string.o: string.c string.h types.h instructions.h
 	gcc -m32 -c string.c -o string.o
+
+object.o: object.c object.h types.h instructions.h
+	gcc -m32 -c object.c -o object.o
+
+wide.o: wide.c wide.h types.h instructions.h conversions.h
+	gcc -m32 -c wide.c -o wide.o
 
 clean:
 	rm -rf *.exe ./**/*.o *.o out.txt

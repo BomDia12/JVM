@@ -37,7 +37,11 @@ uint32_t add_array(Array * array) {
 int new_array(Frame * frame, Instruction instruction) {
   uint32_t size = remove_from_stack(frame);
   Array * array = malloc(sizeof(Array));
-  array->size = size;
+  if (instruction.operands[0] == 7 || instruction.operands[0] == 11) {
+    array->size = size * 2;
+  } else {
+    array->size = size;
+  }
   array->array = malloc(sizeof(ArrayTypes) * size);
   uint32_t index = add_array(array);
   add_to_stack(frame, index);
@@ -53,6 +57,39 @@ int anewarray(Frame * frame, Instruction instruction) {
   uint32_t index = add_array(array);
   add_to_stack(frame, index);
   return 0;
+}
+
+int multinewarray(Frame * frame, Instruction instruction) {
+  uint8_t dimensions = instruction.operands[2];
+  ArrayDimensions array_dimensions = {
+    .dimensions = dimensions,
+    .sizes = malloc(sizeof(uint32_t) * dimensions)
+  };
+  for (int i = 0; i >= dimensions; i++) {
+    array_dimensions.sizes[i] = remove_from_stack(frame);
+  }
+
+  uint32_t index = recursive_new_array(dimensions, &array_dimensions);
+  add_to_stack(frame, index);
+
+  return 0;
+}
+
+uint32_t recursive_new_array(uint8_t dimensions, ArrayDimensions * array_dimensions) {
+  uint32_t size = array_dimensions->sizes[dimensions - 1];
+
+  Array * array = malloc(sizeof(Array));
+  array->size = size;
+  array->array = malloc(sizeof(ArrayTypes) * size);
+  uint32_t index = add_array(array);
+
+  if (dimensions > 1) {
+    for (int i = 0; i < size; i++) {
+      array->array[i].reference = recursive_new_array(dimensions - 1, array_dimensions);
+    }
+  }
+
+  return index;
 }
 
 int arraylength(Frame * frame, Instruction instruction) {

@@ -8,11 +8,9 @@ int run_class_file(ClassFile * class_file) {
     read_file(strcat("exemplos/", strcat(super_name, ".class")));
     ClassFile * super_class_file = read_class_file();
     class_file->super_class_object = super_class_file;
-    pushToClassFileBuffer(super_class_file);
+    pushToClassFileList(super_class_file);
   }
 
-  // TODO: Load interfaces
-  // TODO: Load static fields
   Frame firstFrame = {
     .this_class = class_file,
     .this_method = NULL,
@@ -96,4 +94,26 @@ MethodResponses call_method(Frame * current_frame, ClassFile * class_file, Metho
   free(call_frame);
 
   return res;
+}
+
+ClassFile * get_class_file(char * class_name) {
+  ClassFileList * class_file_list = get_class_file_list();
+  for (uint16_t i = 0; i < class_file_list->size; i++) {
+    ClassFile * class_file = class_file_list->buffer[i];
+    char * class_file_name = getNestedString(class_file, class_file->this_class);
+    if (strcmp(class_file_name, class_name) == 0) {
+      return class_file;
+    }
+  }
+
+  return load_class_file(class_name);
+}
+
+ClassFile * load_class_file(char * class_name) {
+  char * class_file_path = strcat("exemplos/", strcat(class_name, ".class"));
+  read_file(class_file_path);
+  ClassFile * class_file = read_class_file();
+  pushToClassFileList(class_file);
+  
+  return class_file;
 }

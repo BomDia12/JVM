@@ -31,7 +31,7 @@ Exemplo:
 ```
 
 ## TODO:
- - Strings
- - Objetos
- - multianewarray
  - invokevirtual
+ - tablelookup
+ - lookupswitch
+ - Melhorar o output

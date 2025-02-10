@@ -15,8 +15,8 @@ Constant * read_constant();
 Field * read_field();
 Method * read_method();
 
-ClassFileBuffer * get_current_class_file();
-void pushToClassFileBuffer(ClassFile * class_file);
+ClassFileList * get_class_file_list();
+void pushToClassFileList(ClassFile * class_file);
 
 void free_class_file(ClassFile * class_file);
 void free_constant(Constant * constant);
@@ -28,5 +28,7 @@ char * getNestedString(ClassFile * class_file, uint16_t index);
 
 Method * get_method(ClassFile * class_file, char * method_name, char * method_descriptor);
 uint16_t get_argument_amount(char * method_identifier);
+
+void setup_static_fields(ClassFile * class_file);
 
 #endif
