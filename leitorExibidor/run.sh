@@ -1,4 +1,4 @@
 #!/bin/bash
 make
-./main.exe ./exemplos/lookupswitch.class
+./main.exe ./exemplos/tableswitch.class
 make clean

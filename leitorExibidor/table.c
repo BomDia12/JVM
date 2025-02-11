@@ -22,9 +22,9 @@ int tableswitch(Frame * frame, Instruction instruction) {
   }
 
   if (index >= low && index <= high) {
-    frame->pc.position = start + table_switch.offsets[index - low] - 1;
+    frame->pc.position = start + table_switch.offsets[index - low];
   } else {
-    frame->pc.position = start + default_offset - 1;
+    frame->pc.position = start + default_offset;
   }
 
   return 0;
