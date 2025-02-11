@@ -35,7 +35,6 @@ void free_string_list(StringList * string_list) {
     free_string(string_list->string[i]);
   }
   free(string_list->string);
-  free(string_list);
 }
 
 int new_string(Frame * frame, Instruction instruction) {

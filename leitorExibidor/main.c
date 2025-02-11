@@ -17,9 +17,10 @@ int main (int argc, char *argv[]) {
 
   ClassFile * class_file = read_class_file();
   pushToClassFileList(class_file);
+  printf("Class file read\n");
 
-  if (argc > 3) {
-    if (strcmp(argv[3], "-show") == 0) {
+  if (argc > 2) {
+    if (strcmp(argv[2], "-show") == 0) {
       print_class_file(class_file);
 
       free_class_file(class_file);
@@ -31,9 +32,9 @@ int main (int argc, char *argv[]) {
   int res = run_class_file(class_file);
 
   free_class_file(class_file);
-  free_buffer();
   free_array_list(get_array_list());
   free_string_list(get_string_list());
+  free_object_list(get_object_list());
   
   return res;
 }

@@ -260,11 +260,13 @@ uint16_t get_argument_amount(char * method_identifier) {
     }
     if (method_identifier[i] == '(') {
       amount = 0;
+      continue;
     }
     if (method_identifier[i] == 'L') {
       while (method_identifier[i] != ';') {
         i++;
       }
+      continue;
     }
     if (method_identifier[i] == '[') {
       while(method_identifier[i] == '[') {
@@ -281,6 +283,8 @@ uint16_t get_argument_amount(char * method_identifier) {
 }
 
 void setup_static_fields(ClassFile * class_file) {
+  class_file->static_fields_count = 0;
+  class_file->static_fields = NULL;
   for (int i = 0; i < class_file->fields_count; i++) {
     if (class_file->fields[i]->access_flags & 0x8) {
       class_file->static_fields_count++;

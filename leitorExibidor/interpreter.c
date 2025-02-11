@@ -11,16 +11,8 @@ int run_class_file(ClassFile * class_file) {
     pushToClassFileList(super_class_file);
   }
 
-  Frame firstFrame = {
-    .this_class = class_file,
-    .this_method = NULL,
-    .stack_top = NULL,
-    .stack_size = 0,
-    .next = NULL,
-  };
-
-  int res = call_method(&firstFrame, class_file, get_method(class_file, "main", "([Ljava/lang/String;)V"), NULL).status;
-  if (res != 0) {
+  int res = call_method(NULL, class_file, get_method(class_file, "main", "([Ljava/lang/String;)V"), NULL).status;
+  if (res < 0) {
     printf("Erro ao executar o método main\n");
     return -1;
   }
@@ -33,13 +25,9 @@ MethodResponses call_method(Frame * current_frame, ClassFile * class_file, Metho
     .status = 0,
     .value = 0,
   };
-  Frame * call_frame;
-  if (current_frame->next != NULL) {
-    call_frame = malloc(sizeof(Frame));
-    call_frame->next = current_frame;
-  } else {
-    call_frame = current_frame;
-  }
+
+  Frame * call_frame = malloc(sizeof(Frame));
+  call_frame->next = current_frame;
 
   Attribute * code_attribute;
   for (int i = 0; i < method->attributes_count; i++) {
@@ -69,14 +57,15 @@ MethodResponses call_method(Frame * current_frame, ClassFile * class_file, Metho
 
   call_frame->pc.position = 0;
   call_frame->pc.buffer = code_attribute->attribute_union.code_attribute.code;
-  for (; call_frame->pc.position < code_attribute->attribute_union.code_attribute.code_length; call_frame->pc.position++) {
+  for (; call_frame->pc.position < code_attribute->attribute_union.code_attribute.code_length; call_frame->pc.position) {
+    // printf("Instruction: %d\n", call_frame->pc.position);
     Instruction instruction = read_instruction_buffer(&call_frame->pc);
     int result = instruction.type->opcode_function(call_frame, instruction);
     if (result != 0) {
       // deal with responses
       if (result == 1) {
         res.value = (uint32_t) NULL;
-      } else if (result == 2) {
+      } else if (result == 2 && call_frame != NULL) {
         res.value = remove_from_stack(call_frame);
       } else if (result == 3) {
         res.status = 1;
@@ -86,12 +75,16 @@ MethodResponses call_method(Frame * current_frame, ClassFile * class_file, Metho
   }
 
   while (call_frame->stack_top != NULL) {
+    if (call_frame->stack_top->next == NULL) {
+      free(call_frame->stack_top);
+      call_frame->stack_top = NULL;
+      break;
+    }
     Stack * stack = call_frame->stack_top->next;
     free(call_frame->stack_top);
     call_frame->stack_top = stack;
   }
   free(call_frame->local_variables);
-  free(call_frame);
 
   return res;
 }
@@ -110,10 +103,11 @@ ClassFile * get_class_file(char * class_name) {
 }
 
 ClassFile * load_class_file(char * class_name) {
-  char * class_file_path = strcat("exemplos/", strcat(class_name, ".class"));
+  char class_file_path[100] = "./exemplos/";
+  strcat(class_file_path, class_name);
+  strcat(class_file_path, ".class");
   read_file(class_file_path);
   ClassFile * class_file = read_class_file();
   pushToClassFileList(class_file);
-  
   return class_file;
 }

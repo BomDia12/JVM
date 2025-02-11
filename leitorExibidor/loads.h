@@ -5,6 +5,7 @@
 #include "instructions.h"
 #include "conversions.h"
 #include "string.h"
+#include "header.h" 
 
 // Funções para carregar constantes
 int aconst_null(Frame * frame, Instruction instruction);

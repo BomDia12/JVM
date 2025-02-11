@@ -57,7 +57,6 @@ int common_invoke(Frame * frame, Instruction instruction, char include_this) {
     add_to_stack(frame, res.value);
   }
 
-
   return 0;
 }
 
@@ -89,7 +88,7 @@ int invoke_virtual(Frame *frame, Instruction instruction) {
   char *method_name = getNestedString(frame->this_class, name_and_type->ConstantUnion.name_and_type_info.name_index);
   char *method_descriptor = getNestedString(frame->this_class, name_and_type->ConstantUnion.name_and_type_info.descriptor_index);
 
-  if (strcmp(method_name, "println") == 0) {
+  if (strcmp(method_name, "println") == 0 || strcmp(method_name, "print") == 0) {
     char type = method_descriptor[1];
 
     switch (type) {
@@ -103,7 +102,7 @@ int invoke_virtual(Frame *frame, Instruction instruction) {
         uint64_t high = remove_from_stack(frame);
         uint64_t raw = low | (high << 32);
         int64_t value = uint64_to_long(raw);
-        printf("%ld", value);
+        printf("%lld", value);
         break;
       }
       case 'F': {
@@ -141,7 +140,7 @@ int invoke_virtual(Frame *frame, Instruction instruction) {
         printf("%d", (int8_t)value);
         break;
       }
-      case 'L': { 
+      case 'L': {
         uint32_t ref = remove_from_stack(frame);
         Object * object = get_object(ref);
         String * string = get_string(object->fields[0]->value);
@@ -153,7 +152,10 @@ int invoke_virtual(Frame *frame, Instruction instruction) {
         break;
     }
 
-    remove_from_stack(frame);
+    if (strcmp(method_name, "println") == 0) {
+      printf("\n");
+    }
+
     return 0;
   }
 

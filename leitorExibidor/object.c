@@ -8,6 +8,8 @@ ObjectList * get_object_list() {
 Object * get_object(uint32_t index) {
   ObjectList * object_list = get_object_list();
   if (index >= object_list->size) {
+    printf("Index out of bounds\n");
+    printf("Size: %d\n", object_list->size);
     return NULL;
   }
   return object_list->object[index];
@@ -35,7 +37,6 @@ void free_object_list(ObjectList * object_list) {
     free_object(object_list->object[i]);
   }
   free(object_list->object);
-  free(object_list);
 }
 
 int new_(Frame * frame, Instruction instruction) {

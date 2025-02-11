@@ -190,7 +190,7 @@ InstructionType * get_instruction_type(uint8_t opcode) {
     {0xa8, 2, "jsr", jsr},
     {0xa9, 1, "ret", ret},
     {0xaa, 0, "tableswitch", tableswitch},
-    {0xab, 8, "lookupswitch", lookupswitch},
+    {0xab, 0, "lookupswitch", lookupswitch},
     {0xac, 0, "ireturn", ireturn},
     {0xad, 0, "lreturn", lreturn},
     {0xae, 0, "freturn", freturn},

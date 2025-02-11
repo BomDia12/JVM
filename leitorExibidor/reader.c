@@ -14,7 +14,7 @@ void read_file(char * filename) {
   Buffer * buffer = get_buffer();
 
   if (buffer->buffer != NULL) {
-    free(buffer);
+    free(buffer->buffer);
   }
 
   FILE * file = fopen(filename, "rb");

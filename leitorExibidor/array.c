@@ -14,16 +14,21 @@ Array * get_array(uint32_t index) {
 }
 
 void free_array(Array * array) {
-  free(array->array);
-  free(array);
+  if (array->array != NULL) {
+    free(array->array);
+  }
+  if (array != NULL) {
+    free(array);
+  }
 }
 
 void free_array_list(ArrayList * array_list) {
   for (uint32_t i = 0; i < array_list->size; i++) {
     free_array(array_list->array[i]);
   }
-  free(array_list->array);
-  free(array_list);
+  if (array_list->array != NULL) {
+    free(array_list->array);
+  }
 }
 
 uint32_t add_array(Array * array) {

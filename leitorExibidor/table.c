@@ -1,7 +1,7 @@
 #include "table.h"
 
 int tableswitch(Frame * frame, Instruction instruction) {
-  const uint32_t start = frame->pc.position;
+  const uint32_t start = frame->pc.position - 1;
   const uint8_t padding = 3 - (start % 4);
   for (int i = 0; i < padding; i++) {
     read_u8_buffer(&frame->pc);
@@ -31,28 +31,28 @@ int tableswitch(Frame * frame, Instruction instruction) {
 }
 
 int lookupswitch(Frame * frame, Instruction instruction) {
-  const uint32_t start = frame->pc.position;
+  const uint32_t start = frame->pc.position - 1;
   const uint8_t padding = 3 - (start % 4);
   for (int i = 0; i < padding; i++) {
     read_u8_buffer(&frame->pc);
   }
 
   int32_t default_offset = uint32_to_int(read_u32_buffer(&frame->pc));
-  int32_t npairs = uint32_to_int(read_u32_buffer(&frame->pc));
+  uint32_t npairs = read_u32_buffer(&frame->pc);
   int32_t key = uint32_to_int(remove_from_stack(frame));
 
   for (int i = 0; i < npairs; i++) {
     int32_t match = uint32_to_int(read_u32_buffer(&frame->pc));
     int32_t offset = uint32_to_int(read_u32_buffer(&frame->pc));
     if (match == key) {
-      frame->pc.position = start + offset - 1;
+      frame->pc.position = start + offset;
       return 0;
     }
     if (match > key) {
       break;
     }
   }
-  frame->pc.position = start + default_offset - 1;
+  frame->pc.position = start + default_offset;
 
   return 0;
 }

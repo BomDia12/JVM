@@ -102,28 +102,50 @@ int dconst_1(Frame *frame, Instruction instruction) {
 
 int ldc(Frame *frame, Instruction instruction) {
   uint8_t index = instruction.operands[0];
-  Constant *constant = frame->this_class->constant_pool[index];
+  Constant * constant = getFromConstantPool(frame->this_class, index);
   
   switch (constant->tag) {
     case 3:
-        add_to_stack(frame, constant->ConstantUnion.integer_info.bytes);
-        break;
+      add_to_stack(frame, constant->ConstantUnion.integer_info.bytes);
+      break;
     case 8: 
-        add_to_stack(frame, constant->ConstantUnion.string_info.string_index);
-        break;
+      uint16_t string_index = constant->ConstantUnion.string_info.string_index;
+      Constant *string_constant = getFromConstantPool(frame->this_class, string_index);
+      if (string_constant->tag == 1) { 
+        String * string = malloc(sizeof(String));
+        string->size = string_constant->ConstantUnion.utf8_info.length + 1;
+        string->string = malloc(sizeof(char) * string->size);
+        for (int i = 0; i < string->size - 1; i++) {
+          string->string[i] = string_constant->ConstantUnion.utf8_info.bytes[i];
+        }
+        string->string[string->size - 1] = '\0';
+        uint32_t index = add_string(string);
+        Object * object = malloc(sizeof(Object));
+        object->class = get_string_class_file();
+        object->fields = malloc(sizeof(ActiveField *) * 1);
+        object->fields[0] = malloc(sizeof(ActiveField));
+        object->fields[0]->field = object->class->fields[0];
+        object->fields[0]->value = index;
+
+        uint32_t ref = add_object(object);
+        add_to_stack(frame, ref);
+      } else {
+        add_to_stack(frame, string_index);
+      }
+      break;
     case 4: 
-        add_to_stack(frame, constant->ConstantUnion.float_info.bytes);
-        break;
+      add_to_stack(frame, constant->ConstantUnion.float_info.bytes);
+      break;
     case 5:
-        add_to_stack(frame, constant->ConstantUnion.long_info.low_bytes);
-        add_to_stack(frame, constant->ConstantUnion.long_info.high_bytes);
-        break;
+      add_to_stack(frame, constant->ConstantUnion.long_info.low_bytes);
+      add_to_stack(frame, constant->ConstantUnion.long_info.high_bytes);
+      break;
     case 6: 
-        add_to_stack(frame, constant->ConstantUnion.double_info.low_bytes);
-        add_to_stack(frame, constant->ConstantUnion.double_info.high_bytes);
-        break;
+      add_to_stack(frame, constant->ConstantUnion.double_info.low_bytes);
+      add_to_stack(frame, constant->ConstantUnion.double_info.high_bytes);
+      break;
     default:
-        break;
+      break;
   }
   return 0;
 }

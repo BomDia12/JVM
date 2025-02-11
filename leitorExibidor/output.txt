@@ -1,0 +1,394 @@
+Class file read
+assinatura: 0xcafebabe
+Versão: 46.0
+número de entradas no pool de constantes: 38
+flags de acesso: 32
+ACC_SUPER
+índice da classe: 8
+índice da super classe: 9
+número de superinterfaces diretas: 0
+número de fields: 0
+número de methods: 3
+número de attributes: 1
+
+================================================================================
+
+Pool de constantes:
+
+================================================================================
+
+  Index: 1
+    Methodref_info
+      Index da classe: 9
+      Index de nome e tipo: 20
+  Index: 2
+    Fieldref_info
+      Index da classe: 21
+      Index de nome e tipo: 22
+  Index: 3
+    String_info
+      referencia: 23
+  Index: 4
+    Methodref_info
+      Index da classe: 24
+      Index de nome e tipo: 25
+  Index: 5
+    Methodref_info
+      Index da classe: 8
+      Index de nome e tipo: 26
+  Index: 6
+    Methodref_info
+      Index da classe: 24
+      Index de nome e tipo: 27
+  Index: 7
+    String_info
+      referencia: 28
+  Index: 8
+    Class_info
+      Index: 29
+  Index: 9
+    Class_info
+      Index: 30
+  Index: 10
+    Utf8_info
+      Tamanho: 6
+      String: <init>
+  Index: 11
+    Utf8_info
+      Tamanho: 3
+      String: ()V
+  Index: 12
+    Utf8_info
+      Tamanho: 4
+      String: Code
+  Index: 13
+    Utf8_info
+      Tamanho: 15
+      String: LineNumberTable
+  Index: 14
+    Utf8_info
+      Tamanho: 4
+      String: main
+  Index: 15
+    Utf8_info
+      Tamanho: 22
+      String: ([Ljava/lang/String;)V
+  Index: 16
+    Utf8_info
+      Tamanho: 3
+      String: fib
+  Index: 17
+    Utf8_info
+      Tamanho: 4
+      String: (I)I
+  Index: 18
+    Utf8_info
+      Tamanho: 10
+      String: SourceFile
+  Index: 19
+    Utf8_info
+      Tamanho: 17
+      String: FibonacciRec.java
+  Index: 20
+    NameAndType_info
+      Index de nome: 10
+      Index de tipo: 11
+  Index: 21
+    Class_info
+      Index: 31
+  Index: 22
+    NameAndType_info
+      Index de nome: 32
+      Index de tipo: 33
+  Index: 23
+    Utf8_info
+      Tamanho: 20
+      String: Serie De Fibonacci: 
+  Index: 24
+    Class_info
+      Index: 34
+  Index: 25
+    NameAndType_info
+      Index de nome: 35
+      Index de tipo: 36
+  Index: 26
+    NameAndType_info
+      Index de nome: 16
+      Index de tipo: 17
+  Index: 27
+    NameAndType_info
+      Index de nome: 35
+      Index de tipo: 37
+  Index: 28
+    Utf8_info
+      Tamanho: 1
+      String:  
+  Index: 29
+    Utf8_info
+      Tamanho: 12
+      String: FibonacciRec
+  Index: 30
+    Utf8_info
+      Tamanho: 16
+      String: java/lang/Object
+  Index: 31
+    Utf8_info
+      Tamanho: 16
+      String: java/lang/System
+  Index: 32
+    Utf8_info
+      Tamanho: 3
+      String: out
+  Index: 33
+    Utf8_info
+      Tamanho: 21
+      String: Ljava/io/PrintStream;
+  Index: 34
+    Utf8_info
+      Tamanho: 19
+      String: java/io/PrintStream
+  Index: 35
+    Utf8_info
+      Tamanho: 5
+      String: print
+  Index: 36
+    Utf8_info
+      Tamanho: 21
+      String: (Ljava/lang/String;)V
+  Index: 37
+    Utf8_info
+      Tamanho: 4
+      String: (I)V
+
+================================================================================
+
+Fields
+
+================================================================================
+
+
+================================================================================
+
+Methods
+
+================================================================================
+
+Método 0:
+  Index: 0
+  Flags de acesso: 0
+  Index de nome: 10
+  Index de tipo: 11
+  Numero de atributos: 1
+    
+================================================================================
+
+Attributes
+
+================================================================================
+
+      Atributo 0:
+        Index: 0
+        Index de nome: 12
+        Tamanho: 29
+        Tipo de atributo: Code
+        Profundidade máxima da pilha de operandos: 1
+        Número de variáveis locais: 1
+        Número de bytes no array code: 5
+        Código:
+          
+================================================================================
+
+Seção de código
+
+================================================================================
+
+Opcode: 42
+Mnemônico: aload_0
+Opcode: 183
+Mnemônico: invokespecial
+Operandos: 0 1 
+Opcode: 177
+Mnemônico: return
+
+================================================================================
+
+        Número de tabelas de exceções: 0
+        Tabelas de exceções: 0x60b658b0
+        Número de atributos: 1
+
+================================================================================
+
+Método 1:
+  Index: 1
+  Flags de acesso: 9
+  Index de nome: 14
+  Index de tipo: 15
+  Numero de atributos: 1
+    
+================================================================================
+
+Attributes
+
+================================================================================
+
+      Atributo 0:
+        Index: 0
+        Index de nome: 12
+        Tamanho: 91
+        Tipo de atributo: Code
+        Profundidade máxima da pilha de operandos: 2
+        Número de variáveis locais: 3
+        Número de bytes no array code: 43
+        Código:
+          
+================================================================================
+
+Seção de código
+
+================================================================================
+
+Opcode: 16
+Mnemônico: bipush
+Operandos: 20 
+Opcode: 60
+Mnemônico: istore_1
+Opcode: 178
+Mnemônico: getstatic
+Operandos: 0 2 
+Opcode: 18
+Mnemônico: ldc
+Operandos: 3 
+Opcode: 182
+Mnemônico: invokevirtual
+Operandos: 0 4 
+Opcode: 4
+Mnemônico: iconst_1
+Opcode: 61
+Mnemônico: istore_2
+Opcode: 28
+Mnemônico: iload_2
+Opcode: 27
+Mnemônico: iload_1
+Opcode: 162
+Mnemônico: if_icmpge
+Operandos: 0 27 
+Opcode: 178
+Mnemônico: getstatic
+Operandos: 0 2 
+Opcode: 28
+Mnemônico: iload_2
+Opcode: 184
+Mnemônico: invokestatic
+Operandos: 0 5 
+Opcode: 182
+Mnemônico: invokevirtual
+Operandos: 0 6 
+Opcode: 178
+Mnemônico: getstatic
+Operandos: 0 2 
+Opcode: 18
+Mnemônico: ldc
+Operandos: 7 
+Opcode: 182
+Mnemônico: invokevirtual
+Operandos: 0 4 
+Opcode: 132
+Mnemônico: iinc
+Operandos: 2 1 
+Opcode: 167
+Mnemônico: goto
+Operandos: 255 230 
+Opcode: 177
+Mnemônico: return
+
+================================================================================
+
+        Número de tabelas de exceções: 0
+        Tabelas de exceções: 0x60b65980
+        Número de atributos: 1
+
+================================================================================
+
+Método 2:
+  Index: 2
+  Flags de acesso: 9
+  Index de nome: 16
+  Index de tipo: 17
+  Numero de atributos: 1
+    
+================================================================================
+
+Attributes
+
+================================================================================
+
+      Atributo 0:
+        Index: 0
+        Index de nome: 12
+        Tamanho: 53
+        Tipo de atributo: Code
+        Profundidade máxima da pilha de operandos: 3
+        Número de variáveis locais: 1
+        Número de bytes no array code: 21
+        Código:
+          
+================================================================================
+
+Seção de código
+
+================================================================================
+
+Opcode: 26
+Mnemônico: iload_0
+Opcode: 5
+Mnemônico: iconst_2
+Opcode: 163
+Mnemônico: if_icmpgt
+Operandos: 0 5 
+Opcode: 4
+Mnemônico: iconst_1
+Opcode: 172
+Mnemônico: ireturn
+Opcode: 26
+Mnemônico: iload_0
+Opcode: 4
+Mnemônico: iconst_1
+Opcode: 100
+Mnemônico: isub
+Opcode: 184
+Mnemônico: invokestatic
+Operandos: 0 5 
+Opcode: 26
+Mnemônico: iload_0
+Opcode: 5
+Mnemônico: iconst_2
+Opcode: 100
+Mnemônico: isub
+Opcode: 184
+Mnemônico: invokestatic
+Operandos: 0 5 
+Opcode: 96
+Mnemônico: iadd
+Opcode: 172
+Mnemônico: ireturn
+
+================================================================================
+
+        Número de tabelas de exceções: 0
+        Tabelas de exceções: 0x60b65a40
+        Número de atributos: 1
+
+================================================================================
+
+
+================================================================================
+
+Atributos de classe
+
+================================================================================
+
+Atributo 0:
+        Index: 0
+        Index de nome: 18
+        Tamanho: 2
+        Tipo de atributo: Não implementado

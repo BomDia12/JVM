@@ -9,9 +9,9 @@
     
 void print_class_file(ClassFile * class_file);
 void print_constant_pool(Constant * constant_pool, uint32_t index);
-void print_fields(Field * fields);
-void print_methods(Method * methods);
-void print_attributes(Attribute * attributes);
+void print_fields(Field * fields, uint32_t index);
+void print_methods(Method * methods, uint32_t index);
+void print_attributes(Attribute * attributes, uint32_t index);
 void print_classfile_access_flags_translation(uint16_t access_flags);
 void print_fields_access_flags_translation(uint16_t access_flags);
 void print_methods_access_flags_translation(uint16_t access_flags);
