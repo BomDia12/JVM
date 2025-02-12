@@ -1,4 +1,4 @@
 #!/bin/bash
 make
-./main.exe ./exemplos/Belote.class
+./main.exe ./exemplos/multi.class
 make clean

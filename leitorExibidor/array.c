@@ -68,15 +68,22 @@ int anewarray(Frame * frame, Instruction instruction) {
 
 int multinewarray(Frame * frame, Instruction instruction) {
   uint8_t dimensions = instruction.operands[2];
-  ArrayDimensions array_dimensions = {
-    .dimensions = dimensions,
-    .sizes = malloc(sizeof(uint32_t) * dimensions)
-  };
-  for (int i = 0; i >= dimensions; i++) {
-    array_dimensions.sizes[i] = remove_from_stack(frame);
-  }
+  uint32_t size_2 = remove_from_stack(frame);
+  uint32_t size_1 = remove_from_stack(frame);
 
-  uint32_t index = recursive_new_array(dimensions, &array_dimensions);
+  Array * array = malloc(sizeof(Array));
+  array->size = size_1;
+  array->array = malloc(sizeof(ArrayTypes) * size_1);
+
+  for (int i = 0; i < size_1; i++) {
+    Array * inner_array = malloc(sizeof(Array));
+    inner_array->size = size_2;
+    inner_array->array = malloc(sizeof(ArrayTypes) * size_2);
+    uint32_t inner = add_array(inner_array);
+    array->array[i].reference = inner;
+  }
+  uint32_t index = add_array(array);
+
   add_to_stack(frame, index);
 
   return 0;
@@ -151,6 +158,7 @@ int daload(Frame * frame, Instruction instruction) {
 int aaload(Frame * frame, Instruction instruction) {
   uint32_t index = remove_from_stack(frame);
   uint32_t arrayref = remove_from_stack(frame);
+  printf("Array: %d\n", arrayref);
   Array * array = get_array(arrayref);
   uint32_t value = array->array[index].reference;
   add_to_stack(frame, value);

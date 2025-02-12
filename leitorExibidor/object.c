@@ -21,7 +21,6 @@ uint32_t add_object(Object * object) {
   if (object_list->object == NULL) {
     object_list->object = malloc(sizeof(Object *) * object_list->size);
   } else {
-    // printf("Realocando\n");
     object_list->object = realloc(object_list->object, sizeof(Object *) * object_list->size);
   }
   object_list->object[object_list->size - 1] = object;
