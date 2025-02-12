@@ -189,6 +189,6 @@ int astore_2(Frame *frame, Instruction instruction) {
 
 int astore_3(Frame *frame, Instruction instruction) {
     uint32_t value = remove_from_stack(frame);
-    frame->local_variables[2] = value;
+    frame->local_variables[3] = value;
     return 0;
 }

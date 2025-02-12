@@ -24,7 +24,9 @@ void free_array(Array * array) {
 
 void free_array_list(ArrayList * array_list) {
   for (uint32_t i = 0; i < array_list->size; i++) {
-    free_array(array_list->array[i]);
+    if (array_list->array[i] != NULL) {
+      free_array(array_list->array[i]);
+    }
   }
   if (array_list->array != NULL) {
     free(array_list->array);
@@ -196,8 +198,8 @@ int iastore(Frame * frame, Instruction instruction) {
 }
 
 int lastore(Frame * frame, Instruction instruction) {
-  uint64_t value_hi = remove_from_stack(frame);
   uint64_t value_low = remove_from_stack(frame);
+  uint64_t value_hi = remove_from_stack(frame);
   uint64_t value = value_hi << 32 | value_low;
   uint32_t index = remove_from_stack(frame);
   uint32_t arrayref = remove_from_stack(frame);
@@ -218,8 +220,8 @@ int fastore(Frame * frame, Instruction instruction) {
 }
 
 int dastore(Frame * frame, Instruction instruction) {
-  uint64_t value_hi = remove_from_stack(frame);
   uint64_t value_low = remove_from_stack(frame);
+  uint64_t value_hi = remove_from_stack(frame);
   double value = uint64_to_double(value_hi << 32 | value_low);
   uint32_t index = remove_from_stack(frame);
   uint32_t arrayref = remove_from_stack(frame);

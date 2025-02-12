@@ -73,7 +73,7 @@ int fconst_1(Frame *frame, Instruction instruction) {
 }
 
 int fconst_2(Frame *frame, Instruction instruction) {
-  float value = 1.0;
+  float value = 2.0;
 
   add_to_stack(frame, float_to_uint32(value));
 
@@ -153,7 +153,7 @@ int ldc(Frame *frame, Instruction instruction) {
 int ldc_w(Frame *frame, Instruction instruction) {
   uint16_t index = (instruction.operands[0] << 8) | instruction.operands[1];
 
-  Constant *constant = frame->this_class->constant_pool[index];
+  Constant *constant = getFromConstantPool(frame->this_class, index);
 
   switch (constant->tag) {
     case 3: {  
@@ -216,7 +216,7 @@ int ldc_w(Frame *frame, Instruction instruction) {
 int ldc2_w(Frame *frame, Instruction instruction) {
   uint16_t index = (instruction.operands[0] << 8) | instruction.operands[1];
 
-  Constant *constant = frame->this_class->constant_pool[index];
+  Constant *constant = getFromConstantPool(frame->this_class, index);
 
   switch (constant->tag) {
     case 5: {

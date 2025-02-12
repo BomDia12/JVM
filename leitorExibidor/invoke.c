@@ -2,6 +2,7 @@
 
 Arguments * get_arguments(Frame * frame, char include_this, char * method_descriptor) {
   uint16_t argument_amount = get_argument_amount(method_descriptor);
+  // printf("Argument amount: %d\n", argument_amount);
   if (include_this) {
     argument_amount++;
   }
@@ -29,6 +30,7 @@ int common_invoke(Frame * frame, Instruction instruction, char include_this) {
   }
   char * method_descriptor = getNestedString(frame->this_class, name_and_type->ConstantUnion.name_and_type_info.descriptor_index);
 
+  // printf("Bom dia\n");
   Arguments * arguments = get_arguments(frame, include_this, method_descriptor);
 
   ClassFile * class_file;
@@ -40,11 +42,14 @@ int common_invoke(Frame * frame, Instruction instruction, char include_this) {
   }
   
   if (class_file == NULL) {
+    printf("Class file not found\n");
     return -1;
   }
 
+  // printf("Method: %s %s: %s\n", class_name, method_name, method_descriptor);
   Method * method = get_method(class_file, method_name, method_descriptor);
   if (method == NULL) {
+    printf("Method not found\n");
     return -1;
   }
 
@@ -84,6 +89,10 @@ int invoke_virtual(Frame *frame, Instruction instruction) {
   uint16_t method_index = (((uint16_t) instruction.operands[0]) << 8) | instruction.operands[1];
 
   Constant *methodref = getFromConstantPool(frame->this_class, method_index);
+  char * class_name = getNestedString(frame->this_class, methodref->ConstantUnion.methodref_info.class_index);
+  if (strcmp(class_name, "java/lang/System") != 0 && strcmp(class_name, "java/lang/String") != 0 && strcmp(class_name, "java/io/PrintStream") != 0) {
+    return common_invoke(frame, instruction, 1);
+  }
   Constant *name_and_type = getFromConstantPool(frame->this_class, methodref->ConstantUnion.methodref_info.name_and_type_index);
   char *method_name = getNestedString(frame->this_class, name_and_type->ConstantUnion.name_and_type_info.name_index);
   char *method_descriptor = getNestedString(frame->this_class, name_and_type->ConstantUnion.name_and_type_info.descriptor_index);
@@ -117,7 +126,7 @@ int invoke_virtual(Frame *frame, Instruction instruction) {
         uint64_t high = remove_from_stack(frame);
         uint64_t raw = low | (high << 32);
 
-        printf("%lf", uint64_to_double(raw));
+        printf("%.15f", uint64_to_double(raw));
         break;
       }
       case 'C': {
@@ -132,12 +141,12 @@ int invoke_virtual(Frame *frame, Instruction instruction) {
       }
       case 'S': {
         uint16_t value = remove_from_stack(frame);
-        printf("%d", (int16_t)value);
+        printf("%d", uint16_to_short(value));
         break;
       }
       case 'B': { 
         uint8_t value = remove_from_stack(frame);
-        printf("%d", (int8_t)value);
+        printf("%d", uint8_to_byte(value));
         break;
       }
       case 'L': {
@@ -147,9 +156,12 @@ int invoke_virtual(Frame *frame, Instruction instruction) {
         printf("%s", string->string);
         break;
       }
-      default:
+      case ')':
+        break;
+      default: {
         printf("Tipo não suportado para println: %s\n", method_descriptor);
         break;
+      }
     }
 
     if (strcmp(method_name, "println") == 0) {

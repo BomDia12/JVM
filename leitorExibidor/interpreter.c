@@ -11,7 +11,13 @@ int run_class_file(ClassFile * class_file) {
     pushToClassFileList(super_class_file);
   }
 
-  int res = call_method(NULL, class_file, get_method(class_file, "main", "([Ljava/lang/String;)V"), NULL).status;
+  Method * main_method = get_method(class_file, "main", "([Ljava/lang/String;)V");
+  if (main_method == NULL) {
+    printf("main method not found\n");
+    return -1;
+  }
+
+  int res = call_method(NULL, class_file, main_method, NULL).status;
   if (res < 0) {
     printf("Erro ao executar o método main\n");
     return -1;

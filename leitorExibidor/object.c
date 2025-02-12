@@ -8,7 +8,7 @@ ObjectList * get_object_list() {
 Object * get_object(uint32_t index) {
   ObjectList * object_list = get_object_list();
   if (index >= object_list->size) {
-    printf("Index out of bounds\n");
+    printf("Index %d out of bounds\n", index);
     printf("Size: %d\n", object_list->size);
     return NULL;
   }
@@ -21,6 +21,7 @@ uint32_t add_object(Object * object) {
   if (object_list->object == NULL) {
     object_list->object = malloc(sizeof(Object *) * object_list->size);
   } else {
+    // printf("Realocando\n");
     object_list->object = realloc(object_list->object, sizeof(Object *) * object_list->size);
   }
   object_list->object[object_list->size - 1] = object;
@@ -151,6 +152,7 @@ ActiveField * get_field(Object * object, char * field_name, char * field_descrip
     }
   }
 
+  printf("Field not found\n");
   return NULL;
 }
 

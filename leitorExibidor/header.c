@@ -22,6 +22,9 @@ ClassFile * read_class_file() {
 
     if (constant->tag == 5 || constant->tag == 6) {
       i++;
+      Constant * constant = malloc(sizeof(Constant));
+      constant->tag = 0;
+      classFile->constant_pool[i] = constant;
     }
   }
 
@@ -159,9 +162,10 @@ void free_class_file(ClassFile *class_file) {
   if (!class_file) return;
 
   for (int i = 0; i < (class_file->constant_pool_count - 1); i++) {
-    free_constant(class_file->constant_pool[i]);
+    if (class_file->constant_pool[i] != NULL) {
+      free_constant(class_file->constant_pool[i]);
+    }
   }
-
 
   for (int i = 0; i < class_file->fields_count; i++) {
     free_field(class_file->fields[i]);
@@ -187,6 +191,9 @@ void free_constant(Constant * constant) {
     free(constant->ConstantUnion.utf8_info.bytes);
   }
 
+  if (constant == NULL) {
+    return;
+  }
   free(constant);
 }
 
@@ -266,12 +273,10 @@ uint16_t get_argument_amount(char * method_identifier) {
       while (method_identifier[i] != ';') {
         i++;
       }
+      amount++;
       continue;
     }
     if (method_identifier[i] == '[') {
-      while(method_identifier[i] == '[') {
-        i++;
-      }
       continue;
     }
     if (method_identifier[i] == 'J' || method_identifier[i] == 'D') {
