@@ -46,6 +46,10 @@ int new_(Frame * frame, Instruction instruction) {
     return 0;
   }
 
+  if (strcmp(class_name, "java/lang/StringBuffer") == 0) {
+    return new_string_buffer(frame, instruction);
+  }
+
   ClassFile * class_file = get_class_file(class_name);
   if (class_file == NULL) {
     return -3;

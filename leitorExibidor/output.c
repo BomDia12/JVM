@@ -270,6 +270,7 @@ void print_code(CodeAttribute code) {
   int i = 0;
   while (code_buffer->position < code.code_length) {
     i++;
+    printf("Instrução: %d\n", i);
     Instruction instruction = read_instruction();
     print_instruction(instruction, i);
     if (instruction.type->opcode == 0xc4) {
@@ -282,7 +283,6 @@ void print_code(CodeAttribute code) {
 };
 
 void print_instruction(Instruction instruction, int i) {
-  printf("Opcode: %d\n", instruction.type->opcode);
   printf("Mnemônico: %s\n", instruction.type->mnemonic);
   if (instruction.type->operand_count > 0) {
     printf("Operandos: ");

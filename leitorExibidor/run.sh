@@ -1,4 +1,4 @@
 #!/bin/bash
 make
-./main.exe ./exemplos/multi.class
+./main.exe ./exemplos/method_test.class
 make clean

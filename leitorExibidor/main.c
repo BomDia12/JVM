@@ -17,7 +17,6 @@ int main (int argc, char *argv[]) {
 
   ClassFile * class_file = read_class_file();
   pushToClassFileList(class_file);
-  printf("Class file read\n");
 
   if (argc > 2) {
     if (strcmp(argv[2], "-show") == 0) {

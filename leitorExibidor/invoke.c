@@ -24,7 +24,7 @@ int common_invoke(Frame * frame, Instruction instruction, char include_this) {
 
   char * method_name = getNestedString(frame->this_class, name_and_type->ConstantUnion.name_and_type_info.name_index);
   if (strcmp(method_name, "<init>") == 0) {
-    if (strcmp(class_name, "java/lang/Object") == 0 || strcmp(class_name, "java/lang/String") == 0) {
+    if (strcmp(class_name, "java/lang/Object") == 0 || strcmp(class_name, "java/lang/String") == 0 || strcmp(class_name, "java/lang/StringBuffer") == 0) {
       return 0;
     }
   }
@@ -46,10 +46,10 @@ int common_invoke(Frame * frame, Instruction instruction, char include_this) {
     return -1;
   }
 
-  // printf("Method: %s %s: %s\n", class_name, method_name, method_descriptor);
   Method * method = get_method(class_file, method_name, method_descriptor);
   if (method == NULL) {
     printf("Method not found\n");
+    printf("Method: %s %s: %s\n", class_name, method_name, method_descriptor);
     return -1;
   }
 
@@ -90,12 +90,22 @@ int invoke_virtual(Frame *frame, Instruction instruction) {
 
   Constant *methodref = getFromConstantPool(frame->this_class, method_index);
   char * class_name = getNestedString(frame->this_class, methodref->ConstantUnion.methodref_info.class_index);
-  if (strcmp(class_name, "java/lang/System") != 0 && strcmp(class_name, "java/lang/String") != 0 && strcmp(class_name, "java/io/PrintStream") != 0) {
+  if (strcmp(class_name, "java/lang/System") != 0 && strcmp(class_name, "java/lang/String") != 0 && strcmp(class_name, "java/io/PrintStream") != 0 && strcmp(class_name, "java/lang/StringBuffer") != 0) {
     return common_invoke(frame, instruction, 1);
   }
   Constant *name_and_type = getFromConstantPool(frame->this_class, methodref->ConstantUnion.methodref_info.name_and_type_index);
   char *method_name = getNestedString(frame->this_class, name_and_type->ConstantUnion.name_and_type_info.name_index);
   char *method_descriptor = getNestedString(frame->this_class, name_and_type->ConstantUnion.name_and_type_info.descriptor_index);
+  if (strcmp(class_name, "java/lang/StringBuffer") == 0) {
+    if (strcmp(method_name, "append") == 0) {
+      return append(frame, instruction);
+    }
+    if (strcmp(method_name, "toString") == 0) {
+      return toString(frame, instruction);
+    }
+    printf("método do string buffer não implementado\n");
+    return -1;
+  }
 
   if (strcmp(method_name, "println") == 0 || strcmp(method_name, "print") == 0) {
     char type = method_descriptor[1];

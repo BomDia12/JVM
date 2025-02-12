@@ -4,6 +4,7 @@
 #include "types.h"
 #include "interpreter.h"
 #include "instructions.h"
+#include "stringBuffer.h"
 
 int invoke_dynamic(Frame * frame, Instruction instruction);
 int invoke_interface(Frame * frame, Instruction instruction);

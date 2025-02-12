@@ -339,4 +339,14 @@ typedef struct TableSwitch {
   int32_t * offsets;
 } TableSwitch;
 
+typedef struct StringBuffer {
+  char * string;
+  uint32_t curr_size;
+} StringBuffer;
+
+typedef struct StringBufferList {
+  StringBuffer * * buffer;
+  uint32_t size;
+} StringBufferList;
+
 #endif
