@@ -158,7 +158,6 @@ int daload(Frame * frame, Instruction instruction) {
 int aaload(Frame * frame, Instruction instruction) {
   uint32_t index = remove_from_stack(frame);
   uint32_t arrayref = remove_from_stack(frame);
-  printf("Array: %d\n", arrayref);
   Array * array = get_array(arrayref);
   uint32_t value = array->array[index].reference;
   add_to_stack(frame, value);

@@ -154,7 +154,7 @@ int invoke_virtual(Frame *frame, Instruction instruction) {
         printf("%d", uint16_to_short(value));
         break;
       }
-      case 'B': { 
+      case 'B': {
         uint8_t value = remove_from_stack(frame);
         printf("%d", uint8_to_byte(value));
         break;
